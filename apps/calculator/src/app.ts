@@ -298,6 +298,9 @@ function initCalculator(): void {
       const buttonsHtml = metric.options
         .map((opt) => {
           const isSelected = currentVal === opt.value;
+          const indicatorHtml = isSelected
+            ? `<span class="seg-indicator is-selected" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>`
+            : `<span class="seg-indicator is-empty" aria-hidden="true"><span class="seg-circle"></span></span>`;
           return `
             <button
               type="button"
@@ -309,8 +312,8 @@ function initCalculator(): void {
               title="${escapeHtml(opt.description)}"
               ${isDisabled ? 'disabled' : ''}
             >
-              <span>${escapeHtml(opt.label)}</span>
-              <span class="seg-check" aria-hidden="true">${isSelected ? '[x]' : '[ ]'}</span>
+              <span class="seg-label">${escapeHtml(opt.label)}</span>
+              ${indicatorHtml}
             </button>
           `;
         })
@@ -436,14 +439,6 @@ function initCalculator(): void {
               <h2>${escapeHtml(activeGroup.label)} Metrics</h2>
               <p>${escapeHtml(activeGroup.description)}</p>
             </div>
-            <button
-              type="button"
-              class="btn"
-              id="reset-group-btn"
-              ${isControlsDisabled ? 'disabled' : ''}
-            >
-              Reset ${escapeHtml(activeGroup.label)}
-            </button>
           </div>
           ${subGroupsHtml}
         </div>
@@ -908,9 +903,7 @@ function initCalculator(): void {
       }
     });
 
-    const resetGroupBtn = document.getElementById('reset-group-btn');
     const scoreResetGroupBtn = document.getElementById('score-reset-group-btn');
-    resetGroupBtn?.addEventListener('click', handleResetGroup);
     scoreResetGroupBtn?.addEventListener('click', handleResetGroup);
 
     const resetAllBtn = document.getElementById('reset-all-btn');
@@ -1056,6 +1049,65 @@ function initCalculator(): void {
   }
 
   renderAll();
+  initThemeToggle();
+}
+
+function initThemeToggle(): void {
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (!toggleBtn) return;
+
+  function getTheme(): string {
+    try {
+      return localStorage.getItem('theme') || 'auto';
+    } catch (_) {
+      return 'auto';
+    }
+  }
+
+  function applyTheme(theme: string): void {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    try {
+      if (theme === 'auto') {
+        localStorage.removeItem('theme');
+        localStorage.removeItem('starlight-theme');
+      } else {
+        localStorage.setItem('theme', theme);
+        localStorage.setItem('starlight-theme', theme);
+      }
+    } catch (_) {}
+    updateBtn(theme);
+  }
+
+  function updateBtn(theme: string): void {
+    if (!toggleBtn) return;
+    toggleBtn.setAttribute('data-current-theme', theme);
+    toggleBtn.setAttribute('aria-label', `Color theme: ${theme} (click to switch)`);
+    toggleBtn.setAttribute('title', `Theme: ${theme.toUpperCase()} (click to cycle)`);
+    const labelSpan = toggleBtn.querySelector('.theme-toggle-text');
+    if (labelSpan) {
+      labelSpan.textContent = theme === 'auto' ? 'Auto' : theme === 'light' ? 'Light' : 'Dark';
+    }
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const current = getTheme();
+    const next = current === 'auto' ? 'dark' : current === 'dark' ? 'light' : 'auto';
+    applyTheme(next);
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (getTheme() === 'auto') {
+      updateBtn('auto');
+    }
+  });
+
+  updateBtn(getTheme());
 }
 
 initCalculator();

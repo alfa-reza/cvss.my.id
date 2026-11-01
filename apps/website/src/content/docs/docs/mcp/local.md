@@ -19,7 +19,7 @@ The installer detects your operating system (`linux` or `darwin`) and CPU archit
 
 ### Install from Source with Go
 
-If you have Go 1.22+ installed:
+If you have Go 1.25+ installed:
 
 ```bash
 go install github.com/alfa-reza/cvss-calculator-mcp/cmd/cvss-calculator-mcp@latest

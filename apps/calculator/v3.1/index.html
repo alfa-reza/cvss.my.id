@@ -7,6 +7,18 @@
     <meta name="description" content="Score CVSS v3.1 Base, Temporal, and Environmental metrics according to FIRST v3.1." />
     <link rel="canonical" href="https://calc.cvss.my.id/v3.1" />
     <link rel="stylesheet" href="/src/styles.css" />
+    <script>
+      (function() {
+        try {
+          const t = localStorage.getItem('theme') || localStorage.getItem('starlight-theme');
+          if (t === 'light' || t === 'dark') {
+            document.documentElement.setAttribute('data-theme', t);
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+          }
+        } catch (_) {}
+      })();
+    </script>
   </head>
   <body data-cvss-version="3.1">
     <a href="#calculator-main" class="skip-link">Skip to calculator</a>
@@ -25,13 +37,35 @@
           <span class="brand-sep" aria-hidden="true">/</span>
           <span class="brand-sub">Calculator</span>
         </div>
-        <nav aria-label="Primary navigation" class="site-nav">
-          <a href="/v3.1" aria-current="page">Calculator</a>
-          <a href="https://cvss.my.id/tools/mcp">MCP</a>
-          <a href="https://cvss.my.id/docs/">Docs</a>
-          <a href="https://github.com/alfa-reza/cvss.my.id" rel="noopener noreferrer">Website Repo</a>
-          <a href="https://github.com/alfa-reza/cvss-calculator-mcp" rel="noopener noreferrer">MCP Repo</a>
-        </nav>
+        <div class="header-right">
+          <nav aria-label="Primary navigation" class="site-nav">
+            <a href="/v3.1" aria-current="page">
+              <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
+              <span>Calculator</span>
+            </a>
+            <a href="https://cvss.my.id/tools/mcp">
+              <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              <span>MCP</span>
+            </a>
+            <a href="https://cvss.my.id/docs/">
+              <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              <span>Docs</span>
+            </a>
+            <a href="https://github.com/alfa-reza/cvss.my.id" rel="noopener noreferrer">
+              <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>Website Repo</span>
+            </a>
+            <a href="https://github.com/alfa-reza/cvss-calculator-mcp" rel="noopener noreferrer">
+              <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>MCP Repo</span>
+            </a>
+          </nav>
+          <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle color theme" title="Toggle theme">
+            <svg class="theme-icon theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="theme-icon theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <span class="theme-toggle-text">Auto</span>
+          </button>
+        </div>
       </div>
     </header>
 

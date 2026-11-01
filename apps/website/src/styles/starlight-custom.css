@@ -1,6 +1,5 @@
 :root,
-:root[data-theme="dark"],
-:root[data-theme="light"] {
+:root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #0c0d0f;
   --surface: #15171b;
@@ -36,9 +35,72 @@
   --sl-color-text-accent: #e8eaed;
 }
 
-/* Hide Starlight theme selector in V1 since Pure Monochrome Dark is locked */
-starlight-theme-select {
-  display: none !important;
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #ffffff;
+    --surface: #f6f8fa;
+    --elevated: #eaeef2;
+    --border: #d0d7de;
+    --border-control: #6e7781;
+    --fg: #1f2328;
+    --muted: #656d76;
+    --focus-ring: #0969da;
+
+    --sl-color-bg: #ffffff;
+    --sl-color-bg-nav: #ffffff;
+    --sl-color-bg-sidebar: #f6f8fa;
+    --sl-color-bg-inline-code: #eaeef2;
+    --sl-color-hairline: #d0d7de;
+    --sl-color-hairline-light: #d0d7de;
+    --sl-color-hairline-shade: #d0d7de;
+    --sl-color-white: #1f2328;
+    --sl-color-gray-1: #1f2328;
+    --sl-color-gray-2: #32383f;
+    --sl-color-gray-3: #656d76;
+    --sl-color-gray-4: #8c959f;
+    --sl-color-gray-5: #d0d7de;
+    --sl-color-gray-6: #f6f8fa;
+    --sl-color-black: #ffffff;
+
+    --sl-color-accent-low: #eaeef2;
+    --sl-color-accent: #1f2328;
+    --sl-color-accent-high: #000000;
+    --sl-color-text-accent: #1f2328;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f6f8fa;
+  --elevated: #eaeef2;
+  --border: #d0d7de;
+  --border-control: #6e7781;
+  --fg: #1f2328;
+  --muted: #656d76;
+  --focus-ring: #0969da;
+
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #f6f8fa;
+  --sl-color-bg-inline-code: #eaeef2;
+  --sl-color-hairline: #d0d7de;
+  --sl-color-hairline-light: #d0d7de;
+  --sl-color-hairline-shade: #d0d7de;
+  --sl-color-white: #1f2328;
+  --sl-color-gray-1: #1f2328;
+  --sl-color-gray-2: #32383f;
+  --sl-color-gray-3: #656d76;
+  --sl-color-gray-4: #8c959f;
+  --sl-color-gray-5: #d0d7de;
+  --sl-color-gray-6: #f6f8fa;
+  --sl-color-black: #ffffff;
+
+  --sl-color-accent-low: #eaeef2;
+  --sl-color-accent: #1f2328;
+  --sl-color-accent-high: #000000;
+  --sl-color-text-accent: #1f2328;
 }
 
 a[href],

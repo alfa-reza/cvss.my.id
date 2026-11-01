@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "CVSS.my.id static website, documentation, and full client-side CVSS 2.0/3.0/3.1/4.0 calculator",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "workspaces": [
     "packages/*",
     "apps/*"
