@@ -3,16 +3,16 @@ title: Full Browser Calculator Guide
 description: How to use the CVSS 2.0, 3.0, 3.1, and 4.0 full browser calculator, hybrid controls, inline vector editor, and result export.
 ---
 
-The [CVSS Calculator](https://calc.cvss.my.id/) evaluates vulnerability scores and vectors according to official FIRST specifications across CVSS 4.0, 3.1, 3.0, and 2.0.
+The [CVSS Calculator](https://cvss.my.id/calculator/) evaluates vulnerability scores and vectors according to official FIRST specifications across CVSS 4.0, 3.1, 3.0, and 2.0.
 
 ## Version Routes
 
 Each CVSS version has a dedicated static route:
 
-- [CVSS v4.0 Calculator](https://calc.cvss.my.id/v4.0) (default route)
-- [CVSS v3.1 Calculator](https://calc.cvss.my.id/v3.1)
-- [CVSS v3.0 Calculator](https://calc.cvss.my.id/v3.0)
-- [CVSS v2.0 Calculator](https://calc.cvss.my.id/v2.0)
+- [CVSS v4.0 Calculator](https://cvss.my.id/calculator/v4.0) (default route)
+- [CVSS v3.1 Calculator](https://cvss.my.id/calculator/v3.1)
+- [CVSS v3.0 Calculator](https://cvss.my.id/calculator/v3.0)
+- [CVSS v2.0 Calculator](https://cvss.my.id/calculator/v2.0)
 
 ## Metric Group Tabs
 

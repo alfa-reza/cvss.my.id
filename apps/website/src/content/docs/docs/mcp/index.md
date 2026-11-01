@@ -7,7 +7,7 @@ description: Run the CVSS Calculator MCP server locally over stdio or connect to
 
 > [!IMPORTANT]
 > **Scope Comparison: Base-Only MCP vs Full Browser Calculator**
-> The Go MCP server (`cvss-calculator-mcp`) computes **Base Scores only** via the `calculate_cvss` tool. When you need **Threat, Temporal, Environmental, or Supplemental** metric group scoring, use the [Full Browser Calculator](https://calc.cvss.my.id/).
+> The Go MCP server (`cvss-calculator-mcp`) computes **Base Scores only** via the `calculate_cvss` tool. When you need **Threat, Temporal, Environmental, or Supplemental** metric group scoring, use the [Full Browser Calculator](https://cvss.my.id/calculator/).
 
 ## Two Ways to Connect
 

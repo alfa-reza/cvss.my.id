@@ -20,10 +20,10 @@ CVSS.my.id provides two ways to calculate Common Vulnerability Scoring System (C
 ## Quick Start: Full Browser Calculator
 
 1. Open the calculator for your target CVSS version:
-   - [CVSS v4.0 Calculator](https://calc.cvss.my.id/v4.0)
-   - [CVSS v3.1 Calculator](https://calc.cvss.my.id/v3.1)
-   - [CVSS v3.0 Calculator](https://calc.cvss.my.id/v3.0)
-   - [CVSS v2.0 Calculator](https://calc.cvss.my.id/v2.0)
+   - [CVSS v4.0 Calculator](https://cvss.my.id/calculator/v4.0)
+   - [CVSS v3.1 Calculator](https://cvss.my.id/calculator/v3.1)
+   - [CVSS v3.0 Calculator](https://cvss.my.id/calculator/v3.0)
+   - [CVSS v2.0 Calculator](https://cvss.my.id/calculator/v2.0)
 2. Select all required **Base** metrics. Until every mandatory Base metric is chosen, the score displays `Incomplete` rather than `0.0`.
 3. Optionally switch tabs to add **Threat** (v4.0), **Temporal** (v3.x/v2.0), **Environmental**, or **Supplemental** (v4.0) metrics.
 4. Or paste an existing CVSS vector directly into the **Inline Vector String** input at the top of the calculator to populate the form and compute the score immediately.

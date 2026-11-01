@@ -5,7 +5,7 @@ description: Technical reference for CVSS 2.0, 3.0, 3.1, and 4.0 scoring, vector
 
 Welcome to the **CVSS.my.id** documentation. This documentation covers two static products and one open-source Model Context Protocol (MCP) server:
 
-1. [**CVSS Calculator**](https://calc.cvss.my.id/): Score CVSS 4.0, 3.1, 3.0, and 2.0 vulnerabilities across Base, Threat/Temporal, Environmental, and Supplemental metric groups.
+1. [**CVSS Calculator**](https://cvss.my.id/calculator/): Score CVSS 4.0, 3.1, 3.0, and 2.0 vulnerabilities across Base, Threat/Temporal, Environmental, and Supplemental metric groups.
 2. **Documentation & Product Hub**: Reference guides for CVSS version differences, vector syntax, scoring formulas, and AI agent integrations.
 3. **CVSS Calculator MCP (`cvss-calculator-mcp`)**: Open-source Go MCP server for **Base Score only** across CVSS 2.0, 3.0, 3.1, and 4.0. Runs locally over `stdio` or via the free public Streamable HTTP endpoint.
 

@@ -9,6 +9,14 @@ const WEBSITE_DIST = path.join(ROOT, 'apps', 'website', 'dist');
 const CALC_DIST = path.join(ROOT, 'apps', 'calculator', 'dist');
 
 describe('Static Build & Architecture Gate (AGENTS.md Section 2, 3, 5, 8, 9)', () => {
+  it('keeps calculator navigation on the current origin', () => {
+    for (const route of ['index.html', 'v4.0/index.html', 'v3.1/index.html', 'v3.0/index.html', 'v2.0/index.html']) {
+      const html = fs.readFileSync(path.join(CALC_DIST, route), 'utf8');
+      assert.doesNotMatch(html, /<a\b[^>]*href="https:\/\/cvss\.my\.id\//, `${route} has an absolute internal link`);
+      assert.match(html, /href="\/docs\//);
+      assert.match(html, /href="\/tools\/mcp"/);
+    }
+  });
   it('builds both website and calculator to pure static assets without _worker.js or functions/', () => {
     assert.ok(fs.existsSync(WEBSITE_DIST), 'apps/website/dist must exist');
     assert.ok(fs.existsSync(CALC_DIST), 'apps/calculator/dist must exist');
@@ -19,7 +27,7 @@ describe('Static Build & Architecture Gate (AGENTS.md Section 2, 3, 5, 8, 9)', (
     assert.equal(fs.existsSync(path.join(CALC_DIST, 'functions')), false, 'Calculator must not emit functions/');
   });
 
-  it('generates all required static routes for cvss.my.id and calc.cvss.my.id', () => {
+  it('generates all required static routes for cvss.my.id', () => {
     const websiteRoutes = [
       'index.html',
       'tools/mcp/index.html',
@@ -77,12 +85,13 @@ describe('Static Build & Architecture Gate (AGENTS.md Section 2, 3, 5, 8, 9)', (
       assert.ok(clientIndex.includes(`/docs/mcp/clients/${client}/`), `Client index must link to ${client}`);
     }
 
-    for (const route of calcRoutes) {
+    for (const route of calcRoutes.filter((route) => route !== '_redirects')) {
       assert.ok(
-        fs.existsSync(path.join(CALC_DIST, route)),
-        `Missing calculator static route: ${route}`
+        fs.existsSync(path.join(WEBSITE_DIST, 'calculator', route)),
+        `Missing deployed calculator static route: ${route}`
       );
     }
+    assert.match(fs.readFileSync(path.join(WEBSITE_DIST, '_redirects'), 'utf8'), /\/calculator\/v4\.0/);
   });
 
   it('enforces MCP block order, exact rate limit policy, and repository links on homepage and /tools/mcp', () => {

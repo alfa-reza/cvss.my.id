@@ -101,5 +101,5 @@ Calculates the CVSS Base Score and qualitative severity rating for one vector. S
 
 ## Important Scope Notes
 
-- **Base Score Only**: `calculate_cvss` evaluates the Base metric group. If you need Threat (`E`), Temporal (`E, RL, RC`), Environmental (`CR, IR, AR`, Modified Base), or Supplemental metrics, use the [Full Browser Calculator](https://calc.cvss.my.id/).
+- **Base Score Only**: `calculate_cvss` evaluates the Base metric group. If you need Threat (`E`), Temporal (`E, RL, RC`), Environmental (`CR, IR, AR`, Modified Base), or Supplemental metrics, use the [Full Browser Calculator](https://cvss.my.id/calculator/).
 - **No CVE Database Lookup**: `calculate_cvss` computes mathematical scores from CVSS vector strings. It does not query NVD or external CVE feeds.

@@ -565,7 +565,7 @@ function initCalculator(): void {
     if (state.editorError) {
       const crossVersionBtn =
         state.detectedOtherVersion && state.normalizedOtherVector
-          ? `<a class="btn btn-primary" href="/v${escapeHtml(state.detectedOtherVersion)}?vector=${encodeURIComponent(state.normalizedOtherVector)}">Open in CVSS v${escapeHtml(state.detectedOtherVersion)} Calculator</a>`
+          ? `<a class="btn btn-primary" href="/calculator/v${escapeHtml(state.detectedOtherVersion)}?vector=${encodeURIComponent(state.normalizedOtherVector)}">Open in CVSS v${escapeHtml(state.detectedOtherVersion)} Calculator</a>`
           : '';
       errorBoxHtml = `
         <div class="vector-error-box" id="vector-error-box" role="alert">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CVSS v3.1 Calculator (Base, Temporal, Environmental) | CVSS.my.id</title>
     <meta name="description" content="Score CVSS v3.1 Base, Temporal, and Environmental metrics according to FIRST v3.1." />
-    <link rel="canonical" href="https://calc.cvss.my.id/v3.1" />
+    <link rel="canonical" href="https://cvss.my.id/calculator/v3.1" />
     <link rel="stylesheet" href="/src/styles.css" />
     <script>
       (function() {
@@ -24,7 +24,7 @@
     <a href="#calculator-main" class="skip-link">Skip to calculator</a>
     <header class="site-header">
       <div class="container header-inner">
-          <a href="https://cvss.my.id/" class="brand" aria-label="CVSS.my.id home">
+          <a href="/" class="brand" aria-label="CVSS.my.id home">
             <svg class="brand-logo-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 2v3"></path>
               <path d="M3.34 19a10 10 0 1 1 17.32 0"></path>
@@ -35,15 +35,15 @@
           </a>
         <div class="header-right">
           <nav aria-label="Primary navigation" class="site-nav">
-            <a href="/v3.1" aria-current="page">
+            <a href="/calculator/v3.1" aria-current="page">
               <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
               <span>Calculator</span>
             </a>
-            <a href="https://cvss.my.id/tools/mcp">
+            <a href="/tools/mcp">
               <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
               <span>MCP</span>
             </a>
-            <a href="https://cvss.my.id/docs/">
+            <a href="/docs/">
               <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
               <span>Docs</span>
             </a>
@@ -68,10 +68,10 @@
           <p class="calc-subtitle">Score Base (8), Temporal (3), and Environmental (11) metrics with official v3.1 formulas.</p>
         </div>
         <nav aria-label="CVSS version selector" class="version-switcher">
-          <a href="/v4.0" class="version-link">v4.0</a>
-          <a href="/v3.1" class="version-link is-active" aria-current="page">v3.1</a>
-          <a href="/v3.0" class="version-link">v3.0</a>
-          <a href="/v2.0" class="version-link">v2.0</a>
+          <a href="/calculator/v4.0" class="version-link">v4.0</a>
+          <a href="/calculator/v3.1" class="version-link is-active" aria-current="page">v3.1</a>
+          <a href="/calculator/v3.0" class="version-link">v3.0</a>
+          <a href="/calculator/v2.0" class="version-link">v2.0</a>
         </nav>
       </div>
 
@@ -81,7 +81,7 @@
       <div id="calculator-app" class="calc-workspace" data-state="ready">
         <noscript>
           <div class="alert-banner">
-            JavaScript is required to compute interactive CVSS scores in the browser. Read the static <a href="https://cvss.my.id/docs/cvss/v3.1/">CVSS v3.1 Reference Guide</a> for specification details and vector formulas.
+            JavaScript is required to compute interactive CVSS scores in the browser. Read the static <a href="/docs/cvss/v3.1/">CVSS v3.1 Reference Guide</a> for specification details and vector formulas.
           </div>
         </noscript>
       </div>
@@ -90,9 +90,9 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <div class="footer-links">
-          <a href="https://cvss.my.id/">Home</a>
-          <a href="https://cvss.my.id/docs/cvss/v3.1/">CVSS v3.1 Docs</a>
-          <a href="https://cvss.my.id/tools/mcp">MCP Server</a>
+          <a href="/">Home</a>
+          <a href="/docs/cvss/v3.1/">CVSS v3.1 Docs</a>
+          <a href="/tools/mcp">MCP Server</a>
           <a href="https://github.com/alfa-reza/cvss.my.id" rel="noopener noreferrer">Website &amp; Calculator GitHub</a>
           <a href="https://github.com/alfa-reza/cvss-calculator-mcp" rel="noopener noreferrer">Go MCP GitHub</a>
         </div>

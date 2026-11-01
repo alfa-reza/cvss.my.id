@@ -9,7 +9,7 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "npm run build --workspace=@cvss/core && npm run build --workspace=@cvss/calculator && npm run build --workspace=@cvss/website",
+    "build": "npm run build --workspace=@cvss/core && npm run build --workspace=@cvss/calculator && npm run build --workspace=@cvss/website && node scripts/combine-build.mjs",
     "build:core": "npm run build --workspace=@cvss/core",
     "build:calculator": "npm run build --workspace=@cvss/core && npm run build --workspace=@cvss/calculator",
     "build:website": "npm run build --workspace=@cvss/website",

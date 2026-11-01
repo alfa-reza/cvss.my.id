@@ -3,7 +3,7 @@ title: Vector String Format
 description: Syntax, canonical metric ordering, prefix rules, and validation checks for CVSS v4.0, v3.1, v3.0, and v2.0 vector strings.
 ---
 
-A CVSS vector string is a compact, machine-readable text representation of the metric values selected for a vulnerability. Both the [full browser calculator](https://calc.cvss.my.id/) and the MCP server (`cvss-calculator-mcp`) validate vectors against the official FIRST specifications.
+A CVSS vector string is a compact, machine-readable text representation of the metric values selected for a vulnerability. Both the [full browser calculator](https://cvss.my.id/calculator/) and the MCP server (`cvss-calculator-mcp`) validate vectors against the official FIRST specifications.
 
 ## Structure by Version
 

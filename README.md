@@ -1,6 +1,6 @@
 # CVSS.my.id - Static CVSS Calculator, Documentation & MCP Hub
 
-Monorepo for **`cvss.my.id`** (static homepage, `/tools/mcp`, and `/docs`) and **`calc.cvss.my.id`** (full client-side CVSS 2.0, 3.0, 3.1, and 4.0 browser calculator), built for **Cloudflare Pages Free** with zero application runtime on the Pages side.
+Monorepo for **`cvss.my.id`** (static homepage, `/tools/mcp`, `/docs`, and the full client-side CVSS 2.0, 3.0, 3.1, and 4.0 browser calculator at `/calculator/`), built for **one Cloudflare Pages Free project** with zero application runtime on the Pages side.
 
 ## Repository Architecture
 
@@ -10,7 +10,7 @@ Monorepo for **`cvss.my.id`** (static homepage, `/tools/mcp`, and `/docs`) and *
 │   └── cvss-core/         # Pure TypeScript CVSS 2.0, 3.0, 3.1, and 4.0 scoring engine & vector parser
 ├── apps/
 │   ├── website/           # Astro + Starlight static site for https://cvss.my.id
-│   └── calculator/        # Vite + TypeScript static browser calculator for https://calc.cvss.my.id
+│   └── calculator/        # Vite + TypeScript static browser calculator, deployed under /calculator/
 ├── scripts/
 │   └── lint-check.mjs     # Static verification gate (no SSR/Worker output, no telemetry/CDN fonts, R-02 check)
 └── tests/
@@ -19,7 +19,7 @@ Monorepo for **`cvss.my.id`** (static homepage, `/tools/mcp`, and `/docs`) and *
 
 ### Related Repositories & Endpoints
 
-- **Website & Full Browser Calculator (`cvss.my.id` + `calc.cvss.my.id`)**: [`https://github.com/alfa-reza/cvss.my.id`](https://github.com/alfa-reza/cvss.my.id)
+- **Website & Full Browser Calculator (`cvss.my.id`)**: [`https://github.com/alfa-reza/cvss.my.id`](https://github.com/alfa-reza/cvss.my.id)
 - **Go MCP Server (`cvss-calculator-mcp`, Base Score only)**: [`https://github.com/alfa-reza/cvss-calculator-mcp`](https://github.com/alfa-reza/cvss-calculator-mcp)
 - **Local MCP Installer (HTTP 302)**: `curl -fsSL https://get.cvss.my.id/install.sh | bash`
 - **Remote MCP Endpoint (Streamable HTTP)**: `https://cvss.my.id/mcp` (served by the existing standalone Cloudflare Worker)
@@ -45,24 +45,15 @@ npm run lint
 
 ## Cloudflare Pages Deployment Settings
 
-Deploy two independent **Cloudflare Pages** projects from this repository:
-
-### Project 1: `cvss.my.id` (Website & Documentation)
+Deploy one **Cloudflare Pages** project from this repository. The root build produces both applications and copies the calculator assets under `apps/website/dist/calculator/`:
 
 - **Root directory**: `/` (repository root)
-- **Build command**: `npm run build --workspace=@cvss/core && npm run build --workspace=@cvss/website`
+- **Build command**: `npm run build`
 - **Build output directory**: `apps/website/dist`
 - **Custom domain**: `cvss.my.id`
 
 > **Critical Route Protection for `cvss.my.id/mcp`**:
-> Ensure the existing standalone Cloudflare Worker remains bound to the route `cvss.my.id/mcp*` (or `cvss.my.id/mcp`) in Cloudflare Workers Routes. Because Cloudflare Workers Routes execute before Cloudflare Pages on the same zone, `https://cvss.my.id/mcp` continues serving the Remote MCP protocol while `https://cvss.my.id/`, `/tools/mcp`, and `/docs/*` are served statically by Cloudflare Pages.
-
-### Project 2: `calc.cvss.my.id` (Full Browser Calculator)
-
-- **Root directory**: `/` (repository root)
-- **Build command**: `npm run build --workspace=@cvss/core && npm run build --workspace=@cvss/calculator`
-- **Build output directory**: `apps/calculator/dist`
-- **Custom domain**: `calc.cvss.my.id`
+> Keep the existing standalone Cloudflare Worker bound only to the `/mcp` path on `cvss.my.id`; do not assign it an apex Custom Domain that takes over the entire hostname. Confirm route precedence and the MCP handshake before production cutover. Cloudflare Pages serves the remaining static routes, including `/calculator/` and its version routes.
 
 ## Standards & License Attribution
 

@@ -2,7 +2,7 @@
 import '../styles/site.css';
 import McpStatus from '../components/McpStatus.astro';
 
-const calcBaseUrl = import.meta.env.PUBLIC_CALC_URL || 'https://calc.cvss.my.id';
+const calcBaseUrl = '/calculator';
 const localInstallCmd = 'curl -fsSL https://get.cvss.my.id/install.sh | bash';
 const remoteMcpUrl = 'https://cvss.my.id/mcp';
 ---

@@ -36,8 +36,7 @@ Both public-facing applications MUST generate static deployable assets. **No app
 
 | Host | Responsibilities | Hosting |
 | --- | --- | --- |
-| `cvss.my.id` | Static homepage, `/docs`, `/tools/mcp` | Cloudflare Pages project 1 |
-| `calc.cvss.my.id` | Full browser-based CVSS calculator | Cloudflare Pages project 2 |
+| `cvss.my.id` | Static homepage, `/docs`, `/tools/mcp`, and full browser-based calculator at `/calculator/` | One Cloudflare Pages project |
 | `cvss.my.id/mcp` | Existing public Remote MCP protocol endpoint; **not an HTML page** | Existing, separate Cloudflare Worker |
 | `get.cvss.my.id/install.sh` | Existing installer URL using HTTP 302 | **Already deployed**; do not replace or rehost |
 
@@ -45,7 +44,7 @@ Both public-facing applications MUST generate static deployable assets. **No app
 
 - The website is **Astro static output** with **Starlight** for `/docs`. Use pre-rendered HTML and CSS.
 - The calculator is **client-side TypeScript and CSS** (or equivalently small static JS), with calculations performed **locally in the browser**.
-- Output directories contain deployable `HTML/CSS/JS/assets` only; Pages serves them as static assets.
+- The combined deployment output contains deployable `HTML/CSS/JS/assets` only; Pages serves them as static assets.
 - **Never introduce SSR, server-side rendering at request time, Pages Functions (`functions/`), `_worker.js`, Workers Sites runtime, middleware requiring a server, API routes with runtime behavior, edge scoring, serverless backend, database, KV/D1/Durable Objects, or an API proxy** into the website or calculator.
 - Do **not** add `@astrojs/cloudflare` solely to deploy a static Astro website. A server adapter is unnecessary for static output.
 - Do **not** call `https://cvss.my.id/mcp`, any external scoring API, or any service to compute browser scores. The calculator must also work after the static assets have loaded when offline.
@@ -64,7 +63,7 @@ These URLs are fixed; do not rename them as a refactor:
 - Homepage: `https://cvss.my.id/`
 - Documentation: `https://cvss.my.id/docs/` (includes CVSS **and MCP docs**)
 - MCP introduction: `https://cvss.my.id/tools/mcp`
-- Full calculator: `https://calc.cvss.my.id/` with version routes `/v4.0`, `/v3.1`, `/v3.0`, `/v2.0`
+- Full calculator: `https://cvss.my.id/calculator/` with version routes `/calculator/v4.0`, `/calculator/v3.1`, `/calculator/v3.0`, `/calculator/v2.0`
 - Remote MCP endpoint: `https://cvss.my.id/mcp`
 - Local installer: `curl -fsSL https://get.cvss.my.id/install.sh | bash`
 
@@ -75,7 +74,7 @@ Use the existing website repository for website, full calculator and docs. **Kee
 
 Both repository links MUST be easy to find on the homepage. Do not introduce `mcp.cvss.my.id` for V1.
 
-Deployment is **two independent Cloudflare Pages projects from one website repository**, optionally using simple workspaces/monorepo layout. Do not impose a specific folder layout without first inspecting the actual repository. Prefer the smallest structure that preserves boundaries between static website, calculator UI and pure scoring engines.
+Deployment is **one Cloudflare Pages project from the website repository**, with the calculator's static assets included under `/calculator/` in the deployment output. A simple workspaces/monorepo layout may be used. Do not impose a specific folder layout without first inspecting the actual repository. Prefer the smallest structure that preserves boundaries between static website, calculator UI and pure scoring engines.
 
 **Critical route protection:** the Cloudflare Worker must still receive `cvss.my.id/mcp` after attaching `cvss.my.id` to Pages. Do not assign a Worker Custom Domain that takes over the entire apex hostname. A wildcard route such as `cvss.my.id/mcp*` may also match unrelated prefixes; validate `URL.pathname` in the existing Worker if that route is used. Test actual route precedence, query strings, protocol handshake, and Pages paths before release. Do not change the existing Worker or installer redirect casually.
 
@@ -193,14 +192,14 @@ These are **engineering budgets, not claims of achieved performance**. Correct s
 
 Before saying a feature is complete, run the relevant checks, report actual commands and results, and fix failures:
 
-1. **Static build gate:** both projects build to static assets; inspect output/config for absence of runtime Worker artifacts, Functions and SSR.
+1. **Static build gate:** website and calculator build to a combined static deployment output; inspect output/config for absence of runtime Worker artifacts, Functions and SSR.
 2. **Type/lint gate:** project-provided type checking and linting pass; do not invent or report tests that were not run.
 3. **Scoring gate (release blocker):** fixtures and boundary cases against FIRST official calculators/reference code for all versions, all supported groups, rounding, zero scores, v4 Supplemental behavior, invalid/duplicate vectors, canonical round trips.
 4. **State gate:** valid/invalid inline editing, out-of-sync score, Copy fallback, URL precedence, stale query removal, Reset Group/All, per-version sessionStorage including refresh.
 5. **Browser gate:** desktop/mobile snapshots and interaction checks at representative widths (360, 390, 768, 1024, 1440 px), keyboard-only navigation, focus, color contrast, horizontal overflow.
 6. **Network gate:** inspect live browser requests — **no remote scoring calls or telemetry**, no hidden backend dependency.
 7. **Docs gate:** correct pages, selected client guides, command examples, internal links, search, code copy, external repository links, FIRST attribution.
-8. **Cloudflare routing gate (before production cutover):** `/`, `/docs`, `/tools/mcp` served by Pages; `/mcp` still reaches existing Worker and completes actual MCP handshake; installer still follows existing 302 chain.
+8. **Cloudflare routing gate (before production cutover):** `/`, `/docs`, `/tools/mcp`, and `/calculator/` including version routes served by Pages; `/mcp` still reaches existing Worker and completes actual MCP handshake; installer still follows existing 302 chain.
 9. **Performance gate:** record build asset sizes and Lighthouse results; compare against targets without misrepresenting lab tests as real-user data.
 
 If a check cannot be run, write **“not verified”** and say why. **Never describe a mock, screenshot or placeholder score as production-complete.** Do not mark a client setup example “tested” unless it was executed in that client.
