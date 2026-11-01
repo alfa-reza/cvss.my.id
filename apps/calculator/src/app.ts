@@ -114,8 +114,9 @@ function clearStaleUrlVectorParam(state: AppState): void {
   if (!state.hasUrlVectorOnLoad) return;
   try {
     const url = new URL(window.location.href);
-    if (url.searchParams.has('vector')) {
+    if (url.searchParams.has('vector') || /^#(?:vector=|CVSS:|AV:)/.test(url.hash)) {
       url.searchParams.delete('vector');
+      if (/^#(?:vector=|CVSS:|AV:)/.test(url.hash)) url.hash = '';
       const nextUrl = url.pathname + (url.searchParams.toString() ? `?${url.searchParams.toString()}` : '') + url.hash;
       window.history.replaceState(null, '', nextUrl);
     }
@@ -204,9 +205,9 @@ function initCalculator(): void {
   if (!rawUrlVector && window.location.hash.length > 1) {
     const rawHash = window.location.hash.slice(1);
     if (rawHash.startsWith('vector=')) {
-      rawUrlVector = decodeURIComponent(rawHash.slice(7));
+      try { rawUrlVector = decodeURIComponent(rawHash.slice(7)); } catch { rawUrlVector = rawHash.slice(7); }
     } else if (rawHash.startsWith('CVSS:') || rawHash.startsWith('AV:')) {
-      rawUrlVector = decodeURIComponent(rawHash);
+      try { rawUrlVector = decodeURIComponent(rawHash); } catch { rawUrlVector = rawHash; }
     }
   }
 
@@ -240,7 +241,7 @@ function initCalculator(): void {
       state.metrics = saved.metrics;
       state.activeTab = saved.activeTab;
       state.lastValidVector = serializeVector(version, saved.metrics);
-      if (saved.isEditorDirtyInvalid && saved.rawEditorText) {
+      if (saved.isEditorDirtyInvalid) {
         state.rawEditorText = saved.rawEditorText;
         const validation = parseVector(version, saved.rawEditorText);
         if (!validation.ok) {
@@ -305,6 +306,7 @@ function initCalculator(): void {
             <button
               type="button"
               role="radio"
+              tabindex="${isSelected || (!currentVal && opt === metric.options[0]) ? '0' : '-1'}"
               aria-checked="${isSelected ? 'true' : 'false'}"
               class="seg-btn"
               data-metric-key="${escapeHtml(metric.key)}"
@@ -841,11 +843,20 @@ function initCalculator(): void {
     // Segmented buttons
     const segBtns = root.querySelectorAll<HTMLButtonElement>('.seg-btn');
     segBtns.forEach((btn) => {
+      btn.addEventListener('keydown', (event) => {
+        if (!['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp'].includes(event.key)) return;
+        event.preventDefault();
+        const group = btn.closest('[role="radiogroup"]');
+        const buttons = Array.from(group?.querySelectorAll<HTMLButtonElement>('.seg-btn') ?? []);
+        const delta = event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : -1;
+        buttons[(buttons.indexOf(btn) + delta + buttons.length) % buttons.length]?.click();
+      });
       btn.addEventListener('click', () => {
         const key = btn.getAttribute('data-metric-key');
         const val = btn.getAttribute('data-metric-val');
         if (key && val !== null) {
           handleMetricChange(key, val);
+          root.querySelector<HTMLButtonElement>(`[data-metric-key="${key}"][data-metric-val="${val}"]`)?.focus();
         }
       });
     });
@@ -857,6 +868,7 @@ function initCalculator(): void {
         const key = sel.getAttribute('data-metric-select');
         if (key) {
           handleMetricChange(key, sel.value);
+          root.querySelector<HTMLSelectElement>(`[data-metric-select="${key}"]`)?.focus();
         }
       });
     });
@@ -871,7 +883,7 @@ function initCalculator(): void {
       if (state.editorError === null && state.lastValidVector) {
         state.rawEditorText = state.lastValidVector;
         saveDraftToSession(state);
-        renderAll();
+        vectorInput.value = state.lastValidVector;
       }
     });
 
