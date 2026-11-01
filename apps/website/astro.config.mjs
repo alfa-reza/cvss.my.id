@@ -17,6 +17,7 @@ export default defineConfig({
       },
       components: {
         SiteTitle: './src/components/SiteTitle.astro',
+        ThemeSelect: './src/components/ThemeSelect.astro',
       },
       customCss: ['./src/styles/starlight-custom.css'],
       head: [
@@ -62,13 +63,17 @@ export default defineConfig({
         {
           label: 'MCP Client Setup Guides',
           items: [
-            { label: 'All Supported Clients', link: '/docs/mcp/clients/' },
+            { label: 'Client Setup Guides', link: '/docs/mcp/clients/' },
             { label: 'Codex', link: '/docs/mcp/clients/codex/' },
             { label: 'Claude Code', link: '/docs/mcp/clients/claude-code/' },
-            { label: 'OpenCode', link: '/docs/mcp/clients/opencode/' },
+            { label: 'OpenCode v2', link: '/docs/mcp/clients/opencode/' },
             { label: 'GitHub Copilot', link: '/docs/mcp/clients/github-copilot/' },
             { label: 'Cursor', link: '/docs/mcp/clients/cursor/' },
-            { label: 'Pi', link: '/docs/mcp/clients/pi/' },
+            { label: 'VS Code', link: '/docs/mcp/clients/vscode/' },
+            { label: 'Zed', link: '/docs/mcp/clients/zed/' },
+            { label: 'Gemini CLI', link: '/docs/mcp/clients/gemini-cli/' },
+            { label: 'JetBrains', link: '/docs/mcp/clients/jetbrains/' },
+            { label: 'Claude Desktop', link: '/docs/mcp/clients/claude-desktop/' },
             { label: 'Kilo Code', link: '/docs/mcp/clients/kilo-code/' },
             { label: 'Cline', link: '/docs/mcp/clients/cline/' },
             { label: 'Hermes Agent', link: '/docs/mcp/clients/hermes-agent/' },

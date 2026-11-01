@@ -33,7 +33,7 @@ Welcome to the **CVSS.my.id** documentation. This documentation covers two stati
 - [Remote MCP Setup (HTTP)](/docs/mcp/remote/): Connect to `https://cvss.my.id/mcp` and understand the `5 requests per minute per IP` policy.
 - [MCP Tool Reference](/docs/mcp/tools/): Input schema, output fields, and example calls for `calculate_cvss`.
 - [Security, Privacy & Rate Limits](/docs/mcp/security/): Offline guarantees, transport notes, and source code verification.
-- [Client Setup Guides](/docs/mcp/clients/): Copy-paste configuration for [Codex](/docs/mcp/clients/codex/), [Claude Code](/docs/mcp/clients/claude-code/), [OpenCode](/docs/mcp/clients/opencode/), [GitHub Copilot](/docs/mcp/clients/github-copilot/), [Cursor](/docs/mcp/clients/cursor/), [Pi](/docs/mcp/clients/pi/), [Kilo Code](/docs/mcp/clients/kilo-code/), [Cline](/docs/mcp/clients/cline/), and [Hermes Agent](/docs/mcp/clients/hermes-agent/).
+- [Client Setup Guides](/docs/mcp/clients/): Setup instructions for a selection of MCP clients and editors.
 
 ## Standards Attribution
 

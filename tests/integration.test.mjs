@@ -44,7 +44,11 @@ describe('Static Build & Architecture Gate (AGENTS.md Section 2, 3, 5, 8, 9)', (
       'docs/mcp/clients/opencode/index.html',
       'docs/mcp/clients/github-copilot/index.html',
       'docs/mcp/clients/cursor/index.html',
-      'docs/mcp/clients/pi/index.html',
+      'docs/mcp/clients/vscode/index.html',
+      'docs/mcp/clients/zed/index.html',
+      'docs/mcp/clients/gemini-cli/index.html',
+      'docs/mcp/clients/jetbrains/index.html',
+      'docs/mcp/clients/claude-desktop/index.html',
       'docs/mcp/clients/kilo-code/index.html',
       'docs/mcp/clients/cline/index.html',
       'docs/mcp/clients/hermes-agent/index.html',
@@ -65,6 +69,13 @@ describe('Static Build & Architecture Gate (AGENTS.md Section 2, 3, 5, 8, 9)', (
       'v2.0/index.html',
       '_redirects',
     ];
+
+    assert.equal(fs.existsSync(path.join(WEBSITE_DIST, 'docs/mcp/clients/pi/index.html')), false, 'Removed Pi guide must not be generated');
+    const clientIndex = fs.readFileSync(path.join(WEBSITE_DIST, 'docs/mcp/clients/index.html'), 'utf8');
+    assert.doesNotMatch(clientIndex, /\/docs\/mcp\/clients\/pi\//);
+    for (const client of ['vscode', 'zed', 'gemini-cli', 'jetbrains', 'claude-desktop']) {
+      assert.ok(clientIndex.includes(`/docs/mcp/clients/${client}/`), `Client index must link to ${client}`);
+    }
 
     for (const route of calcRoutes) {
       assert.ok(

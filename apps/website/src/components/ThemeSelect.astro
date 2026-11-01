@@ -1,0 +1,42 @@
+<label class="theme-select">
+  <span class="sr-only">Color theme</span>
+  <select aria-label="Color theme">
+    <option value="dark">Dark</option>
+    <option value="light">Light</option>
+  </select>
+</label>
+
+<script is:inline>
+  (() => {
+    const select = document.currentScript.previousElementSibling.querySelector('select');
+    const media = window.matchMedia('(prefers-color-scheme: light)');
+    let chosen = false;
+    try {
+      const saved = localStorage.getItem('starlight-theme') || localStorage.getItem('theme');
+      chosen = saved === 'light' || saved === 'dark';
+      if (chosen) document.documentElement.dataset.theme = saved;
+      else document.documentElement.dataset.theme = media.matches ? 'light' : 'dark';
+    } catch (_) {
+      document.documentElement.dataset.theme = media.matches ? 'light' : 'dark';
+    }
+    const update = () => { select.value = document.documentElement.dataset.theme; };
+    select.addEventListener('change', () => {
+      chosen = true;
+      document.documentElement.dataset.theme = select.value;
+      try {
+        localStorage.setItem('theme', select.value);
+        localStorage.setItem('starlight-theme', select.value);
+      } catch (_) {}
+      window.dispatchEvent(new Event('cvss-theme-change'));
+    });
+    window.addEventListener('cvss-theme-change', () => { chosen = true; update(); });
+    media.addEventListener('change', () => {
+      if (!chosen) document.documentElement.dataset.theme = media.matches ? 'light' : 'dark';
+      update();
+    });
+    update();
+  })();
+</script>
+<style>
+  select { color: var(--sl-color-text); background: var(--sl-color-bg-nav); border: 1px solid var(--sl-color-gray-5); border-radius: 4px; padding: 0.4rem; }
+</style>

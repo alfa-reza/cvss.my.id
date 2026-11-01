@@ -21,7 +21,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
     <script is:inline>
       (function() {
         try {
-          const t = localStorage.getItem('theme') || localStorage.getItem('starlight-theme');
+          const t = localStorage.getItem('starlight-theme') || localStorage.getItem('theme');
           if (t === 'light' || t === 'dark') {
             document.documentElement.setAttribute('data-theme', t);
           } else {
@@ -67,7 +67,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle color theme" title="Toggle theme">
             <svg class="theme-icon theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             <svg class="theme-icon theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            <span class="theme-toggle-text">Auto</span>
+            <span class="theme-toggle-text"></span>
           </button>
         </div>
       </div>
@@ -325,7 +325,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
               </svg>
               <a href="/docs/mcp/clients/">MCP Client Setup Guides</a>
             </div>
-            <p>Copyable stdio and Streamable HTTP configurations for Codex, Claude Code, OpenCode, Copilot, Cursor, Pi, Kilo Code, Cline, and Hermes Agent.</p>
+            <p>Setup guides for selected MCP agents and editors using stdio or Streamable HTTP. Other compatible clients may also work.</p>
           </li>
           <li class="docs-index-item">
             <div class="docs-item-title-row">
@@ -380,7 +380,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                   </svg>
-                  MIT
+                  Apache-2.0
                 </span>
               </div>
             </div>
@@ -426,7 +426,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                   </svg>
-                  MIT
+                  Apache-2.0
                 </span>
               </div>
             </div>
@@ -487,58 +487,25 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
         var toggleBtn = document.getElementById('theme-toggle');
         if (!toggleBtn) return;
 
-        function getTheme() {
-          try {
-            return localStorage.getItem('theme') || 'auto';
-          } catch (_) {
-            return 'auto';
-          }
+        var media = window.matchMedia('(prefers-color-scheme: light)');
+        function updateBtn() {
+          var theme = document.documentElement.getAttribute('data-theme') || (media.matches ? 'light' : 'dark');
+          toggleBtn.setAttribute('aria-label', 'Color theme: ' + theme + '. Switch to ' + (theme === 'light' ? 'dark' : 'light'));
+          toggleBtn.setAttribute('title', 'Switch to ' + (theme === 'light' ? 'dark' : 'light') + ' theme');
+          toggleBtn.querySelector('.theme-toggle-text').textContent = theme === 'light' ? 'Light' : 'Dark';
         }
-
-        function applyTheme(theme) {
-          if (theme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-          } else if (theme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-          } else {
-            document.documentElement.removeAttribute('data-theme');
-          }
-          try {
-            if (theme === 'auto') {
-              localStorage.removeItem('theme');
-              localStorage.removeItem('starlight-theme');
-            } else {
-              localStorage.setItem('theme', theme);
-              localStorage.setItem('starlight-theme', theme);
-            }
-          } catch (_) {}
-          updateBtn(theme);
-        }
-
-        function updateBtn(theme) {
-          if (!toggleBtn) return;
-          toggleBtn.setAttribute('data-current-theme', theme);
-          toggleBtn.setAttribute('aria-label', 'Color theme: ' + theme + ' (click to switch)');
-          toggleBtn.setAttribute('title', 'Theme: ' + theme.toUpperCase() + ' (click to cycle)');
-          var labelSpan = toggleBtn.querySelector('.theme-toggle-text');
-          if (labelSpan) {
-            labelSpan.textContent = theme === 'auto' ? 'Auto' : theme === 'light' ? 'Light' : 'Dark';
-          }
-        }
-
         toggleBtn.addEventListener('click', function() {
-          var current = getTheme();
-          var next = current === 'auto' ? 'dark' : current === 'dark' ? 'light' : 'auto';
-          applyTheme(next);
+          var current = document.documentElement.getAttribute('data-theme') || (media.matches ? 'light' : 'dark');
+          var next = current === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', next);
+          try {
+            localStorage.setItem('theme', next);
+            localStorage.setItem('starlight-theme', next);
+          } catch (_) {}
+          updateBtn();
         });
-
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-          if (getTheme() === 'auto') {
-            updateBtn('auto');
-          }
-        });
-
-        updateBtn(getTheme());
+        media.addEventListener('change', updateBtn);
+        updateBtn();
       })();
     </script>
   </body>
