@@ -1,6 +1,6 @@
 ---
 title: Remote MCP Setup (HTTP)
-description: Connect MCP clients to https://cvss.my.id/mcp over Streamable HTTP.
+description: Connect MCP clients to the remote endpoint over Streamable HTTP.
 ---
 
 If you are working in a browser-based environment, ephemeral container, or want to test `cvss-calculator-mcp` without installing a local binary, connect your MCP client to our free public endpoint.

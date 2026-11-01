@@ -55,7 +55,7 @@ The **Vector String** input at the top of the workspace is editable at all times
 
 ## Session Persistence & URL Precedence
 
-The calculator stores state per CVSS version in browser `sessionStorage` (`cvss_calc_state_v1_4.0`, `3.1`, `3.0`, `2.0`):
+The calculator stores state per CVSS version in browser `sessionStorage` (`cvss_draft_v1_4.0`, `3.1`, `3.0`, `2.0`):
 
 1. **Shared URL Precedence**: Opening a link containing a valid `?vector=...` query parameter loads that vector immediately and takes precedence over any older `sessionStorage` draft for that version.
 2. **Stale Query Removal**: As soon as you edit any metric or modify the vector after loading a shared URL, the calculator strips the stale `?vector=` query parameter from the browser address bar so refreshing the page will not overwrite your new edits.

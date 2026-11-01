@@ -633,7 +633,7 @@ function initCalculator(): void {
               Reset ${escapeHtml(activeGroup.label)}
             </button>
             <button type="button" class="btn" id="reset-all-btn">
-              Reset All (v${escapeHtml(state.version)})
+              Reset All
             </button>
           </div>
         </div>
