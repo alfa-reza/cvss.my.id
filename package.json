@@ -13,7 +13,7 @@
     "build:core": "npm run build --workspace=@cvss/core",
     "build:calculator": "npm run build --workspace=@cvss/core && npm run build --workspace=@cvss/calculator",
     "build:website": "npm run build --workspace=@cvss/website",
-    "test": "npm run test --workspace=@cvss/core && node --test tests/*.test.mjs",
+    "test": "npm run build && npm run test --workspace=@cvss/core && node --test tests/*.test.mjs",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "node scripts/lint-check.mjs"
   },
