@@ -3,7 +3,7 @@ title: MCP Tool Reference
 description: Input parameters, response format, and example calls for the calculate_cvss MCP tool.
 ---
 
-Both the Local (`stdio`) and Remote (`https://cvss.my.id/mcp`) servers expose the **`calculate_cvss`** tool for computing **Base Scores** across CVSS v4.0, v3.1, v3.0, and v2.0.
+Both the Local (`stdio`) and Remote (Streamable HTTP) servers expose the **`calculate_cvss`** tool for computing **Base Scores** across CVSS v4.0, v3.1, v3.0, and v2.0.
 
 ## Tool Name: `calculate_cvss`
 

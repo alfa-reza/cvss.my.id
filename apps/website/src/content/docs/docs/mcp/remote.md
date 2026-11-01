@@ -14,7 +14,7 @@ If you are working in a browser-based environment, ephemeral container, or want 
 - **Published Usage Policy**: **Rate limit: 5 requests per minute per IP. For higher usage, run Local MCP (stdio).**
 
 > [!NOTE]
-> `https://cvss.my.id/mcp` is served by a standalone Cloudflare Worker speaking the MCP protocol. Opening `https://cvss.my.id/mcp` directly in a web browser address bar will not render a website page; for human documentation and setup instructions, use [`https://cvss.my.id/tools/mcp`](/tools/mcp) or [`https://cvss.my.id/docs/mcp/`](/docs/mcp/).
+> Opening `https://cvss.my.id/mcp` directly in a web browser address bar will not render a website page because it is an automated MCP protocol endpoint. For human documentation and configuration instructions, visit the [MCP Tools Overview](/tools/mcp) or [MCP Documentation](/docs/mcp/).
 
 ## Testing the Remote Endpoint with `curl`
 

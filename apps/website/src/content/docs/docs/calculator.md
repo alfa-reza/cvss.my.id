@@ -3,16 +3,16 @@ title: Full Browser Calculator Guide
 description: How to use the CVSS 2.0, 3.0, 3.1, and 4.0 full browser calculator, inline vector editor, session persistence, and on-demand URL sharing.
 ---
 
-The full browser calculator at `https://calc.cvss.my.id/` is a static client-side application. Every score calculation runs locally in your browser using pure TypeScript implementations of the official FIRST specifications. Changing metrics or editing vectors generates **zero network requests**.
+The [Full Browser Calculator](https://calc.cvss.my.id/) is a static client-side application. Every score calculation runs locally in your browser using pure TypeScript implementations of the official FIRST specifications. Changing metrics or editing vectors generates **zero network requests**.
 
 ## Version Routes
 
 Each CVSS version has a dedicated static route:
 
-- `https://calc.cvss.my.id/v4.0` (default redirect from `/`)
-- `https://calc.cvss.my.id/v3.1`
-- `https://calc.cvss.my.id/v3.0`
-- `https://calc.cvss.my.id/v2.0`
+- [CVSS v4.0 Calculator](https://calc.cvss.my.id/v4.0) (default route)
+- [CVSS v3.1 Calculator](https://calc.cvss.my.id/v3.1)
+- [CVSS v3.0 Calculator](https://calc.cvss.my.id/v3.0)
+- [CVSS v2.0 Calculator](https://calc.cvss.my.id/v2.0)
 
 ## Metric Group Tabs
 

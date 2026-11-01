@@ -7,7 +7,7 @@ description: Run the CVSS Calculator MCP server locally over stdio or connect to
 
 > [!IMPORTANT]
 > **Scope Comparison: Base-Only MCP vs Full Browser Calculator**
-> The Go MCP server (`cvss-calculator-mcp`) computes **Base Scores only** via the `calculate_cvss` tool. When you need **Threat, Temporal, Environmental, or Supplemental** metric group scoring, use the [Full Browser Calculator](https://calc.cvss.my.id/) (`calc.cvss.my.id`).
+> The Go MCP server (`cvss-calculator-mcp`) computes **Base Scores only** via the `calculate_cvss` tool. When you need **Threat, Temporal, Environmental, or Supplemental** metric group scoring, use the [Full Browser Calculator](https://calc.cvss.my.id/).
 
 ## Two Ways to Connect
 
@@ -24,7 +24,7 @@ curl -fsSL https://get.cvss.my.id/install.sh | bash
 - **Rate limit**: None (100% local execution, works offline).
 - **Guide**: [Local MCP Setup (stdio)](/docs/mcp/local/)
 
-### 2. Remote MCP (`https://cvss.my.id/mcp`) - Free Public Endpoint
+### 2. Remote MCP (HTTP) - Free Public Endpoint
 
 Connect any MCP client that supports **Streamable HTTP** directly to the hosted endpoint without installing a local binary:
 
@@ -34,7 +34,7 @@ https://cvss.my.id/mcp
 
 - **Transport**: Streamable HTTP
 - **Rate limit**: **5 requests per minute per IP. For higher usage, run Local MCP (stdio).**
-- **Note**: `https://cvss.my.id/mcp` is a protocol endpoint for MCP clients, not a human HTML page. For the human overview page, visit [`https://cvss.my.id/tools/mcp`](/tools/mcp).
+- **Note**: The endpoint `https://cvss.my.id/mcp` is a protocol endpoint for MCP clients, not a human HTML page. For the human overview page, visit [MCP Tools Overview](/tools/mcp).
 - **Guide**: [Remote MCP Setup (HTTP)](/docs/mcp/remote/)
 
 ## Client Configuration Guides

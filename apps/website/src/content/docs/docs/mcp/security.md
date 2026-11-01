@@ -5,7 +5,7 @@ description: Privacy model, rate limits, offline guarantees, and source verifica
 
 Security engineers working on unreleased vulnerabilities or internal audit findings need clear visibility into where their data goes.
 
-## 1. Full Browser Calculator (`calc.cvss.my.id`)
+## 1. Full Browser Calculator
 
 - **100% Local Execution**: Every CVSS 2.0, 3.0, 3.1, and 4.0 calculation runs in your browser tab using static JavaScript (`@cvss/core`).
 - **Zero Scoring Network Calls**: Editing metrics, pasting vectors, or generating share links never sends your CVSS vector to `cvss.my.id/mcp` or any external server.
@@ -19,7 +19,7 @@ Security engineers working on unreleased vulnerabilities or internal audit findi
 - **Auditable Source**: Inspect the complete Go implementation and release workflow at [`github.com/alfa-reza/cvss-calculator-mcp`](https://github.com/alfa-reza/cvss-calculator-mcp).
 - **Rate Limits**: None.
 
-## 3. Remote MCP Endpoint (`https://cvss.my.id/mcp`)
+## 3. Remote MCP Endpoint (Streamable HTTP)
 
 - **Published Fair-Use Policy**: **Rate limit: 5 requests per minute per IP. For higher usage, run Local MCP (stdio).**
 - **Transport**: HTTPS (`Streamable HTTP`) terminated on Cloudflare Workers.

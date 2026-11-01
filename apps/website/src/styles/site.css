@@ -132,15 +132,7 @@ input:disabled,
   text-decoration: underline;
 }
 
-.brand-mark {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  padding: 2px 6px;
-  border: 1px solid var(--border-control);
-  border-radius: var(--radius-sm);
-  background-color: var(--surface);
-  color: var(--muted);
-}
+
 
 .site-nav {
   display: flex;

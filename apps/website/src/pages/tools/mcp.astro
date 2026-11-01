@@ -24,10 +24,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
 
     <header class="site-header">
       <div class="container header-inner">
-        <a href="/" class="brand">
-          <span>CVSS.my.id</span>
-          <span class="brand-mark">MCP</span>
-        </a>
+        <a href="/" class="brand">CVSS.my.id</a>
         <nav aria-label="Primary navigation" class="site-nav">
           <a href={`${calcBaseUrl}/v4.0`}>Calculator</a>
           <a href="/tools/mcp" aria-current="page">MCP</a>
@@ -60,8 +57,8 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
             <thead>
               <tr>
                 <th>Capability</th>
-                <th>Browser Calculator (<code>calc.cvss.my.id</code>)</th>
-                <th>CVSS Calculator MCP (<code>cvss-calculator-mcp</code>)</th>
+                <th>Browser Calculator</th>
+                <th>CVSS Calculator MCP (Go)</th>
               </tr>
             </thead>
             <tbody>
@@ -200,7 +197,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           </li>
           <li class="docs-index-item">
             <a href={`${calcBaseUrl}/v4.0`}>Need Threat, Temporal, or Environmental Scores?</a>
-            <p>Open the full browser-based CVSS calculator at calc.cvss.my.id.</p>
+            <p>Launch the interactive client-side calculator for complete multi-group evaluation.</p>
           </li>
         </ul>
       </section>

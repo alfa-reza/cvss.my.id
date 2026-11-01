@@ -3,7 +3,7 @@ title: MCP Client Setup Guides
 description: Plain index of MCP client setup guides for Codex, Claude Code, OpenCode, GitHub Copilot, Cursor, Pi, Kilo Code, Cline, and Hermes Agent.
 ---
 
-Select your AI coding agent or editor below for step-by-step configuration instructions. Every guide covers **Local `stdio` setup first (recommended, no rate limit)** followed by **Remote Streamable HTTP (`https://cvss.my.id/mcp`)**.
+Select your AI coding agent or editor below for step-by-step configuration instructions. Every guide covers **Local `stdio` setup first (recommended, no rate limit)** followed by **Remote Streamable HTTP**.
 
 ## Supported MCP Clients
 
