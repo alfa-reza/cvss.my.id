@@ -15,7 +15,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
     <title>CVSS Calculator MCP Server for AI Agents | CVSS.my.id</title>
     <meta
       name="description"
-      content="Deterministic CVSS 2.0, 3.0, 3.1, and 4.0 Base Score calculation for AI coding agents via the open-source Go MCP server (stdio and Streamable HTTP)."
+      content="Calculate CVSS Base Scores from an MCP client. Supports CVSS 2.0, 3.0, 3.1, and 4.0."
     />
     <link rel="canonical" href="https://cvss.my.id/tools/mcp" />
     <meta name="theme-color" content="#0c0d0f" />
@@ -78,7 +78,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
       <section class="hero-section" aria-labelledby="mcp-page-heading">
         <h1 id="mcp-page-heading" class="hero-title">CVSS Calculator MCP Server</h1>
         <p class="hero-lead">
-          Language models frequently miscalculate CVSS scores when estimating weights or MacroVector lookups in text. The open-source <code>cvss-calculator-mcp</code> server gives AI coding agents a deterministic <code>calculate_cvss</code> tool for CVSS 2.0, 3.0, 3.1, and 4.0 Base Scores.
+          Give your AI agent a tool to calculate CVSS Base Scores. Connect an MCP client locally or through the remote endpoint.
         </p>
         <div class="cta-row">
           <a href="/docs/mcp/clients/" class="btn btn-primary">
@@ -87,7 +87,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
               <line x1="8" y1="21" x2="16" y2="21"></line>
               <line x1="12" y1="17" x2="12" y2="21"></line>
             </svg>
-            View Client Setup Guides
+            Client setup guides
           </a>
           <a href="/docs/mcp/tools/" class="btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -97,71 +97,21 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
               <line x1="16" y1="17" x2="8" y2="17"></line>
               <polyline points="10 9 9 9 8 9"></polyline>
             </svg>
-            Read Tool Reference
+            Tool reference
           </a>
           <a href="https://github.com/alfa-reza/cvss-calculator-mcp" class="btn" rel="noopener noreferrer">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
             </svg>
-            Go MCP Repository
+            MCP repository
           </a>
-        </div>
-      </section>
-
-      <section class="section-block" aria-labelledby="scope-heading">
-        <div class="section-header">
-          <h2 id="scope-heading">Choose the right scoring tool</h2>
-          <p>Use the browser for interactive scoring, or connect an MCP client to calculate Base Scores from vectors.</p>
-        </div>
-        <div class="spec-table-wrap">
-          <table class="spec-table">
-            <thead>
-              <tr>
-                <th>Capability</th>
-                <th>Browser Calculator</th>
-                <th>CVSS Calculator MCP (Go)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Supported CVSS Versions</td>
-                <td>4.0, 3.1, 3.0, 2.0</td>
-                <td>4.0, 3.1, 3.0, 2.0</td>
-              </tr>
-              <tr>
-                <td>Metric Group Coverage</td>
-                <td>v4.0: Base, Threat, Environmental, Supplemental; v3.x and v2.0: Base, Temporal, Environmental</td>
-                <td><strong>Base Score only</strong> (rejects non-Base metrics)</td>
-              </tr>
-              <tr>
-                <td>Execution Environment</td>
-                <td>Calculated locally in the browser; works offline after the required assets have loaded</td>
-                <td>Local binary (<code>stdio</code>) or public remote endpoint (Streamable HTTP)</td>
-              </tr>
-              <tr>
-                <td>Supplemental metrics (v4.0)</td>
-                <td>Included for context; do not change the numeric score</td>
-                <td>Not supported</td>
-              </tr>
-              <tr>
-                <td>Use</td>
-                <td>Interactive metrics, vector editing, and result copying</td>
-                <td>Calculate a Base Score from a complete Base vector via an MCP client</td>
-              </tr>
-              <tr>
-                <td>CVE Lookup / Scanning</td>
-                <td>Not included (pure vector/metric calculator)</td>
-                <td>Not included (deterministic vector calculation only)</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </section>
 
       <section class="section-block" aria-labelledby="setup-heading">
         <div class="section-header">
-          <h2 id="setup-heading">Installation &amp; Connection Options</h2>
-          <p>Use Local MCP over stdio for unrestricted local usage, or connect to the free Remote Streamable HTTP endpoint.</p>
+          <h2 id="setup-heading">Connect to the server</h2>
+          <p>Run the server locally or connect to the public endpoint.</p>
         </div>
 
         <div class="mcp-stack">
@@ -178,7 +128,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
               </div>
             </div>
             <p class="mcp-desc">
-              Run the open-source MCP server locally using stdio. No public endpoint rate limits.
+              Run the server on your machine. The public endpoint rate limit does not apply.
             </p>
             <div class="command-row">
               <pre class="command-code"><code id="mcp-local-cmd">{localInstallCmd}</code></pre>
@@ -192,7 +142,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
               </button>
             </div>
             <div class="mcp-footer-row">
-              <a href="/docs/mcp/local/" class="text-link">Local installation, Windows binaries &amp; checksum verification</a>
+              <a href="/docs/mcp/local/" class="text-link">Local installation guide</a>
               <span id="mcp-local-status" class="copy-status" role="status" aria-live="polite"></span>
             </div>
           </div>
@@ -210,7 +160,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
               </div>
             </div>
             <p class="mcp-desc">
-              Connect with Streamable HTTP. No local installation or API key required. Note: <code>https://cvss.my.id/mcp</code> is an MCP protocol endpoint for clients, not a web page.
+              Connect your MCP client without installing the server. The endpoint is not a web page.
             </p>
             <div class="command-row">
               <pre class="command-code"><code id="mcp-remote-url">{remoteMcpUrl}</code></pre>
@@ -228,7 +178,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
             </p>
             <McpStatus />
             <div class="mcp-footer-row">
-              <a href="/docs/mcp/remote/" class="text-link">Remote endpoint configuration &amp; rate policy details</a>
+              <a href="/docs/mcp/remote/" class="text-link">Remote connection guide</a>
               <span id="mcp-remote-status" class="copy-status" role="status" aria-live="polite"></span>
             </div>
           </div>
@@ -237,8 +187,8 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
 
       <section class="section-block" aria-labelledby="contract-heading">
         <div class="section-header">
-          <h2 id="contract-heading">Tool Contract: <code>calculate_cvss</code></h2>
-          <p>The MCP server exposes a single deterministic tool that validates a complete Base vector and returns the score and qualitative severity.</p>
+          <h2 id="contract-heading">Calculate a score</h2>
+          <p>The <code>calculate_cvss</code> tool accepts a complete Base vector and returns its score and severity.</p>
         </div>
         <div class="contract-grid">
           <div class="contract-card">
@@ -249,11 +199,11 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                     <polyline points="16 18 22 12 16 6"></polyline>
                     <polyline points="8 6 2 12 8 18"></polyline>
                   </svg>
-                  <h3>Input Arguments</h3>
+                  <h3>Input</h3>
                 </div>
                 <span class="mono-badge">JSON</span>
               </div>
-              <p class="contract-card-desc">Requires <code>version</code> (<code>"2.0"</code>, <code>"3.0"</code>, <code>"3.1"</code>, or <code>"4.0"</code>) and a complete, case-sensitive Base-only <code>vector</code> string.</p>
+              <p class="contract-card-desc">Provide a CVSS version and a complete Base vector. Vector values are case-sensitive.</p>
             </div>
             <div class="payload-box">
               <pre class="code-payload-block"><code id="mcp-input-payload">{`{
@@ -285,11 +235,11 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                     <line x1="16" y1="17" x2="8" y2="17"></line>
                     <polyline points="10 9 9 9 8 9"></polyline>
                   </svg>
-                  <h3>Output Payload</h3>
+                  <h3>Output</h3>
                 </div>
-                <span class="mono-badge">JSON Response</span>
+                <span class="mono-badge">JSON</span>
               </div>
-              <p class="contract-card-desc">Returns JSON text content with the validated <code>version</code>, canonical <code>vector</code>, numeric <code>score</code>, and qualitative <code>severity</code>.</p>
+              <p class="contract-card-desc">The response includes the version, vector, score, and severity.</p>
             </div>
             <div class="payload-box">
               <pre class="code-payload-block"><code id="mcp-output-payload">{`{
@@ -317,8 +267,8 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
 
       <section class="section-block" aria-labelledby="next-steps-heading">
         <div class="section-header">
-          <h2 id="next-steps-heading">Client Guides &amp; Documentation</h2>
-          <p>Configure your preferred AI coding assistant using our static step-by-step guides.</p>
+          <h2 id="next-steps-heading">Documentation</h2>
+          <p>Set up a client or learn more about the server.</p>
         </div>
         <ul class="docs-index-list">
           <li class="docs-index-item">
@@ -328,9 +278,9 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                 <line x1="8" y1="21" x2="16" y2="21"></line>
                 <line x1="12" y1="17" x2="12" y2="21"></line>
               </svg>
-              <a href="/docs/mcp/clients/">Client Configuration Index</a>
+              <a href="/docs/mcp/clients/">Client setup guides</a>
             </div>
-            <p>Setup guides for selected MCP agents and editors. Other compatible clients may also work.</p>
+            <p>Connect an MCP client to the server.</p>
           </li>
           <li class="docs-index-item">
             <div class="docs-item-title-row">
@@ -340,9 +290,9 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                 <line x1="16" y1="13" x2="8" y2="13"></line>
                 <line x1="16" y1="17" x2="8" y2="17"></line>
               </svg>
-              <a href="/docs/mcp/tools/">Detailed Tool Reference</a>
+              <a href="/docs/mcp/tools/">Tool reference</a>
             </div>
-            <p>Input validation rules, error responses, and Base-only constraints for <code>calculate_cvss</code>.</p>
+            <p>See input formats and errors for <code>calculate_cvss</code>.</p>
           </li>
           <li class="docs-index-item">
             <div class="docs-item-title-row">
@@ -350,19 +300,9 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
-              <a href="/docs/mcp/security/">Security &amp; Privacy Considerations</a>
+              <a href="/docs/mcp/security/">Security and privacy</a>
             </div>
-            <p>Binary checksum verification, network exposure, and vector data handling.</p>
-          </li>
-          <li class="docs-index-item">
-            <div class="docs-item-title-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="4" y="2" width="16" height="20" rx="2"></rect>
-                <line x1="8" y1="6" x2="16" y2="6"></line>
-              </svg>
-              <a href={`${calcBaseUrl}/v4.0`}>Need Threat, Temporal, or Environmental Scores?</a>
-            </div>
-            <p>Launch the interactive calculator for complete multi-group evaluation.</p>
+            <p>Learn about checksums, network access, and data handling.</p>
           </li>
         </ul>
       </section>
@@ -376,7 +316,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           <a href="/docs/mcp/">MCP Docs</a>
           <a href="/docs/mcp/clients/">Client Setup Guides</a>
           <a href="https://github.com/alfa-reza/cvss.my.id" rel="noopener noreferrer">Website &amp; Calculator GitHub</a>
-          <a href="https://github.com/alfa-reza/cvss-calculator-mcp" rel="noopener noreferrer">CVSS Calculator MCP (Go) GitHub</a>
+          <a href="https://github.com/alfa-reza/cvss-calculator-mcp" rel="noopener noreferrer">MCP server on GitHub</a>
         </div>
         <p class="footer-attribution">
           CVSS.my.id is an independent open-source project and is not affiliated with FIRST. CVSS is maintained by <a href="https://www.first.org/cvss/" rel="noopener noreferrer">FIRST.org, Inc.</a>
