@@ -2,16 +2,15 @@
 
 > **Applies to:** the root of [`alfa-reza/cvss.my.id`](https://github.com/alfa-reza/cvss.my.id) and all its subdirectories.
 > **Purpose:** binding engineering and design guardrails for AI coding agents working on this website.
-> **Product specification:** [`PRD-CVSS-my-id-v1.0.md`](./PRD-CVSS-my-id-v1.0.md). Read it before changing product behavior. If that file is not present locally, obtain it from the project owner; do not silently replace agreed requirements with guesses.
 
 ## 0. Non-negotiable mission
 
-Build **a correct, fast, accessible, modern, fully static CVSS website** deployable on **Cloudflare Pages Free**. Ship a visible, usable vertical slice early, then iterate. Optimize for long-term simplicity, not for code quantity, novelty, or a fashionable technology stack.
+Build **a correct, fast, accessible, modern, fully static CVSS website** deployable on **Cloudflare Pages Free**. Maintain the existing website and calculator through focused, reviewable changes. Optimize for long-term simplicity, not for code quantity, novelty, or a fashionable technology stack.
 
 **Hierarchy of constraints:**
 1. Safety, accuracy, standards compliance, and explicit owner requirements.
 2. These non-negotiable infrastructure and quality rules.
-3. Product behavior and scope in the approved PRD.
+3. Product behavior and scope agreed with the owner.
 4. Existing working repository conventions, where they do not conflict with the above.
 
 If implementation and specifications conflict, do not quietly violate either. Report the conflict and take the smallest reversible path that preserves safety and already-agreed behavior.
@@ -107,7 +106,7 @@ The site is a **practical security developer tool**, not an AI-generated SaaS la
 - Prefer native form controls unless a custom control materially improves metric selection and is tested for accessibility.
 - A modern interface is achieved through **typography, spacing, alignment, clarity, interaction quality, and restraint** — not visual effects.
 
-**Explicitly forbidden unless the owner specifically changes the PRD:**
+**Explicitly forbidden unless the owner specifically approves:**
 
 - Gradient/glowing hero backgrounds; glassmorphism; blurred blobs; neon hacker/cyberpunk themes; particle grids; fake terminal rain.
 - Decorative dashboards, donut/gauge charts, animated counters, pseudo-3D, carousel slides, gratuitous floating cards or large empty hero sections.
@@ -130,7 +129,7 @@ The public remote limit is a published usage policy; **do not claim the website 
 
 **Documentation:** Astro Starlight, static Markdown/MDX, English first (future Indonesian without changing English URLs), first-party navigation/TOC/static search/code-copy wherever possible. `/docs` must explain CVSS 2.0, 3.0, 3.1, 4.0, vector formats, examples, calculator usage, and **MCP installation and tool use**.
 
-`/docs/mcp/clients/` is a **plain index of links**, with one independent Markdown page per client: **Codex, Claude Code, OpenCode, GitHub Copilot, Cursor, Pi, Kilo Code, Cline, Hermes Agent**. Each page: **Local stdio first**, then **Remote HTTP**, verify, short troubleshooting, official reference. **No custom client selector, JavaScript tabs or runtime configuration generator.** Verify client commands against current official documentation; never invent CLI options or assert testing that did not happen.
+`/docs/mcp/clients/` is a **plain index of links**, with one independent Markdown page per client: **Codex, Claude Code, OpenCode v2, GitHub Copilot, Cursor, VS Code, Zed, Gemini CLI, JetBrains, Claude Desktop, Kilo Code, Cline, Hermes Agent**. Each page: **Local stdio first**, then **Remote HTTP**, verify, short troubleshooting, official reference. **No custom client selector, JavaScript tabs or runtime configuration generator.** Verify client commands against current official documentation; never invent CLI options or assert testing that did not happen.
 
 Provide accurate FIRST attribution, link original standards, respect source licenses, and do not lift third-party articles wholesale.
 
@@ -152,8 +151,7 @@ Support **full metric groups** for CVSS **2.0, 3.0, 3.1, 4.0**, not Base-only. D
 - On desktop, a sticky Score Panel beside the form; on mobile, a normal, compact result panel (no blocking overlay).
 - **Inline editable vector field** always visible. While typing invalid text, keep last valid calculation *clearly marked out of sync*, show actionable error and do not overwrite the user's input.
 - Valid pasted vectors update metrics and score; metric changes update vector. Follow per-version parser/serializer rules.
-- **Copy Vector**, **Copy Result**, **Share URL**, **Reset Group**, **Reset All**. Disable misleading copy/share while invalid or incomplete.
-- **Share on Demand**: generate and copy a URL with encoded canonical vector only when the Share control is activated; **no continuous URL synchronization**.
+- **Copy Vector**, **Copy Result**, **Reset Group**, **Reset All**. Disable misleading copy actions while invalid or incomplete.
 - **sessionStorage**, separated by CVSS version, saves raw draft (including invalid draft) and last valid metric state. Refresh restores drafts; Reset All clears only the active version. An explicitly supplied valid shared URL takes precedence over session data.
 - Handle stale shared-URL parameters safely after edits, corrupt storage, unavailable clipboard, invalid URL input, unsupported version, and malformed vectors.
 - All calculation state stays on the browser; no database, login, historical tracking, or backend.
@@ -164,7 +162,7 @@ Support **full metric groups** for CVSS **2.0, 3.0, 3.1, 4.0**, not Base-only. D
 
 - **Inspect before editing:** list files, check `package.json`/workspace/build configuration, current routes, tests and project license. Preserve useful existing code.
 - Prefer **Astro static + Starlight** for homepage/docs, **TypeScript + platform DOM/CSS** for calculator, **pure TS functions** for scoring.
-- Use native `fetch` only when genuinely needed for non-scoring functionality; the initial V1 has no need for runtime data fetching.
+- Use native `fetch` only when genuinely needed for non-scoring functionality. The owner-approved MCP status check is manual and reports availability from the visitor’s connection.
 - No framework hydration on the homepage; avoid large frontend frameworks in the calculator unless measured evidence proves necessity and owner approves the trade-off.
 - Avoid `any`, swallowed exceptions, global mutable scoring state, hand-written cryptic one-liners, enormous components and CSS duplication.
 - Split modules at **real functional seams**, not arbitrary line-count limits; avoid 20 tiny utility files for a simple feature.
@@ -198,10 +196,10 @@ Before saying a feature is complete, run the relevant checks, report actual comm
 1. **Static build gate:** both projects build to static assets; inspect output/config for absence of runtime Worker artifacts, Functions and SSR.
 2. **Type/lint gate:** project-provided type checking and linting pass; do not invent or report tests that were not run.
 3. **Scoring gate (release blocker):** fixtures and boundary cases against FIRST official calculators/reference code for all versions, all supported groups, rounding, zero scores, v4 Supplemental behavior, invalid/duplicate vectors, canonical round trips.
-4. **State gate:** valid/invalid inline editing, out-of-sync score, Copy/Share fallback, URL precedence, stale query removal, Reset Group/All, per-version sessionStorage including refresh.
+4. **State gate:** valid/invalid inline editing, out-of-sync score, Copy fallback, URL precedence, stale query removal, Reset Group/All, per-version sessionStorage including refresh.
 5. **Browser gate:** desktop/mobile snapshots and interaction checks at representative widths (360, 390, 768, 1024, 1440 px), keyboard-only navigation, focus, color contrast, horizontal overflow.
 6. **Network gate:** inspect live browser requests — **no remote scoring calls or telemetry**, no hidden backend dependency.
-7. **Docs gate:** correct pages, nine client guides, command examples, internal links, search, code copy, external repository links, FIRST attribution.
+7. **Docs gate:** correct pages, selected client guides, command examples, internal links, search, code copy, external repository links, FIRST attribution.
 8. **Cloudflare routing gate (before production cutover):** `/`, `/docs`, `/tools/mcp` served by Pages; `/mcp` still reaches existing Worker and completes actual MCP handshake; installer still follows existing 302 chain.
 9. **Performance gate:** record build asset sizes and Lighthouse results; compare against targets without misrepresenting lab tests as real-user data.
 
@@ -209,9 +207,9 @@ If a check cannot be run, write **“not verified”** and say why. **Never desc
 
 ## 10. Autonomous agent working protocol
 
-- Start by reading **this file, the PRD, repository structure, current code and existing tests**. If PRD is unavailable, do not fabricate missing product requirements.
+- Start by reading **this file, repository structure, current code and existing tests**. Do not fabricate missing product requirements.
 - Make a brief, explicit implementation plan organized into **small, reviewable slices**, not a massive all-at-once rewrite.
-- **Show a working preview early**: homepage, calculator shell and docs navigation should be visually inspectable before all scoring engines are finished. Label unfinished behavior accurately.
+- Use a local preview to verify user-facing changes when appropriate; label unfinished behavior accurately.
 - Implement minimal complete paths, verify them, and then iterate on UI based on observed problems, not speculative polish.
 - Prefer small scoped diffs; add tests next to behavior; keep documentation consistent with actual implementation.
 - Use official upstream documentation for framework/Cloudflare/client syntax and FIRST for CVSS. If anything is ambiguous, use the safest narrow interpretation, note the assumption, and proceed where reversible; request owner input only for genuinely blocking or irreversible decisions.
@@ -225,7 +223,6 @@ No SSR/server/API backend, Pages Functions, database, authentication, user dashb
 
 ## 12. Authoritative references
 
-- PRD: `PRD-CVSS-my-id-v1.0.md` (project root)
 - [FIRST CVSS v4.0 Specification](https://www.first.org/cvss/v4.0/specification-document)
 - [FIRST CVSS v3.1 Specification](https://www.first.org/cvss/v3-1/specification-document)
 - [FIRST CVSS v3.0 Specification](https://www.first.org/cvss/v3.0/specification-document)
