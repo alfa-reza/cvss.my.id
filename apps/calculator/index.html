@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CVSS Calculator | CVSS.my.id</title>
-    <meta name="description" content="Full browser-based CVSS 4.0, 3.1, 3.0, and 2.0 calculator. All calculations run locally in your browser." />
+    <meta name="description" content="Score vulnerabilities across CVSS 4.0, 3.1, 3.0, and 2.0 with instant metric evaluation." />
     <meta http-equiv="refresh" content="0; url=/v4.0" />
     <link rel="canonical" href="https://calc.cvss.my.id/v4.0" />
     <link rel="stylesheet" href="/src/styles.css" />
@@ -15,7 +15,15 @@
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a href="https://cvss.my.id/" class="brand">CVSS.my.id</a>
+        <a href="https://cvss.my.id/" class="brand" aria-label="CVSS.my.id home">
+          <svg class="brand-logo-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v3"></path>
+            <path d="M3.34 19a10 10 0 1 1 17.32 0"></path>
+            <path d="m12 14 4.5-4.5"></path>
+            <circle cx="12" cy="14" r="1.5" fill="currentColor"></circle>
+          </svg>
+          <span class="brand-text"><span class="brand-name">CVSS</span><span class="brand-tld">.my.id</span></span>
+        </a>
         <nav aria-label="Primary navigation" class="site-nav">
           <a href="/v4.0" aria-current="page">Calculator</a>
           <a href="https://cvss.my.id/tools/mcp">MCP</a>

@@ -200,7 +200,15 @@ function initCalculator(): void {
 
   // 1. Check URL ?vector=... parameter first (URL takes precedence over sessionStorage)
   const urlParams = new URLSearchParams(window.location.search);
-  const rawUrlVector = urlParams.get('vector');
+  let rawUrlVector = urlParams.get('vector');
+  if (!rawUrlVector && window.location.hash.length > 1) {
+    const rawHash = window.location.hash.slice(1);
+    if (rawHash.startsWith('vector=')) {
+      rawUrlVector = decodeURIComponent(rawHash.slice(7));
+    } else if (rawHash.startsWith('CVSS:') || rawHash.startsWith('AV:')) {
+      rawUrlVector = decodeURIComponent(rawHash);
+    }
+  }
 
   if (rawUrlVector !== null) {
     state.hasUrlVectorOnLoad = true;

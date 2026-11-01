@@ -15,6 +15,9 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/alfa-reza/cvss.my.id/edit/main/apps/website/',
       },
+      components: {
+        SiteTitle: './src/components/SiteTitle.astro',
+      },
       customCss: ['./src/styles/starlight-custom.css'],
       head: [
         {

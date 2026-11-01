@@ -1,0 +1,64 @@
+---
+const { siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title brand-link" translate="no">
+  <svg class="brand-logo-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 2v3"></path>
+    <path d="M3.34 19a10 10 0 1 1 17.32 0"></path>
+    <path d="m12 14 4.5-4.5"></path>
+    <circle cx="12" cy="14" r="1.5" fill="currentColor"></circle>
+  </svg>
+  <span class="brand-text">
+    <span class="brand-name">CVSS</span><span class="brand-tld">.my.id</span>
+  </span>
+</a>
+
+<style>
+  .site-title.brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 1.125rem;
+    color: var(--sl-color-white);
+  }
+
+  .site-title.brand-link:hover {
+    text-decoration: none;
+  }
+
+  .brand-logo-icon {
+    color: var(--sl-color-white);
+    flex-shrink: 0;
+  }
+
+  .brand-text {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .brand-name {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    color: var(--sl-color-white);
+    text-transform: uppercase;
+  }
+
+  .brand-tld {
+    font-family: var(--sl-font-mono);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+    color: var(--sl-color-gray-3);
+    background-color: var(--sl-color-accent-low);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin-left: 4px;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1.3;
+  }
+</style>

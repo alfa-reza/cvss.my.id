@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CVSS v2.0 Calculator (Base, Temporal, Environmental) | CVSS.my.id</title>
-    <meta name="description" content="Full client-side CVSS v2.0 calculator supporting Base, Temporal, and Environmental metric groups according to the official FIRST v2.0 guide." />
+    <meta name="description" content="Score CVSS v2.0 Base, Temporal, and Environmental metrics according to FIRST v2.0." />
     <link rel="canonical" href="https://calc.cvss.my.id/v2.0" />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
@@ -13,7 +13,15 @@
     <header class="site-header">
       <div class="container header-inner">
         <div class="brand-group">
-          <a href="https://cvss.my.id/" class="brand">CVSS.my.id</a>
+          <a href="https://cvss.my.id/" class="brand" aria-label="CVSS.my.id home">
+            <svg class="brand-logo-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2v3"></path>
+              <path d="M3.34 19a10 10 0 1 1 17.32 0"></path>
+              <path d="m12 14 4.5-4.5"></path>
+              <circle cx="12" cy="14" r="1.5" fill="currentColor"></circle>
+            </svg>
+            <span class="brand-text"><span class="brand-name">CVSS</span><span class="brand-tld">.my.id</span></span>
+          </a>
           <span class="brand-sep" aria-hidden="true">/</span>
           <span class="brand-sub">Calculator</span>
         </div>
@@ -31,7 +39,7 @@
       <div class="calc-top-bar">
         <div class="calc-title-block">
           <h1>CVSS v2.0 Calculator</h1>
-          <p class="calc-subtitle">Full client-side evaluation across Base (6), Temporal (3), and Environmental (5) metrics using the CVSS v2.0 Low/Medium/High scale.</p>
+          <p class="calc-subtitle">Score Base (6), Temporal (3), and Environmental (5) metrics on the official v2.0 scale.</p>
         </div>
         <nav aria-label="CVSS version selector" class="version-switcher">
           <a href="/v4.0" class="version-link">v4.0</a>
@@ -63,7 +71,7 @@
           <a href="https://github.com/alfa-reza/cvss-calculator-mcp" rel="noopener noreferrer">Go MCP GitHub</a>
         </div>
         <p class="footer-attribution">
-          Independent open-source project. CVSS is maintained by <a href="https://www.first.org/cvss/v2/guide" rel="noopener noreferrer">FIRST.org, Inc.</a> All calculations run locally in your browser with zero network requests.
+          Independent open-source project. CVSS is maintained by <a href="https://www.first.org/cvss/v2/guide" rel="noopener noreferrer">FIRST.org, Inc.</a>
         </p>
       </div>
     </footer>

@@ -3,7 +3,7 @@ title: Full Browser Calculator Guide
 description: How to use the CVSS 2.0, 3.0, 3.1, and 4.0 full browser calculator, inline vector editor, session persistence, and on-demand URL sharing.
 ---
 
-The [Full Browser Calculator](https://calc.cvss.my.id/) is a static client-side application. Every score calculation runs locally in your browser using pure TypeScript implementations of the official FIRST specifications. Changing metrics or editing vectors generates **zero network requests**.
+The [CVSS Calculator](https://calc.cvss.my.id/) evaluates vulnerability scores and vectors according to official FIRST specifications across CVSS 4.0, 3.1, 3.0, and 2.0.
 
 ## Version Routes
 
