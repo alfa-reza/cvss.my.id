@@ -8,10 +8,9 @@ Security engineers working on unreleased vulnerabilities or internal audit findi
 ## 1. Full Browser Calculator
 
 - **100% Local Execution**: Every CVSS 2.0, 3.0, 3.1, and 4.0 calculation runs in your browser tab using static JavaScript (`@cvss/core`).
-- **Zero Scoring Network Calls**: Editing metrics, pasting vectors, or generating share links never sends your CVSS vector to `cvss.my.id/mcp` or any external server.
+- **Zero Scoring Network Calls**: Editing metrics, pasting vectors, or copying results never sends your CVSS vector to `cvss.my.id/mcp` or any external server.
 - **No Analytics or Telemetry**: Neither `cvss.my.id` nor `calc.cvss.my.id` embeds third-party analytics, tracking pixels, session replay scripts, or CDN fonts.
-- **Ephemeral Storage**: Draft vectors and selected metrics are stored only in browser `sessionStorage` so refreshing the page does not lose your work. Closing the browser tab clears `sessionStorage`.
-- **Share on Demand**: A shareable URL (`?vector=...`) is generated only when you explicitly click **Share URL**.
+- **Ephemeral Storage**: Draft vectors and selected metrics are stored only in browser session storage so refreshing the page preserves in-progress work. Closing the browser tab clears session data.
 
 ## 2. Local MCP Server (`cvss-calculator-mcp` via `stdio`)
 

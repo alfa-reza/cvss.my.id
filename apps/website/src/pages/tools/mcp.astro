@@ -49,9 +49,30 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           Language models frequently miscalculate CVSS scores when estimating weights or MacroVector lookups in text. The open-source <code>cvss-calculator-mcp</code> server gives AI coding agents a deterministic <code>calculate_cvss</code> tool for CVSS 2.0, 3.0, 3.1, and 4.0 Base Scores.
         </p>
         <div class="cta-row">
-          <a href="/docs/mcp/clients/" class="btn btn-primary">View Client Setup Guides</a>
-          <a href="/docs/mcp/tools/" class="btn">Read Tool Reference</a>
-          <a href="https://github.com/alfa-reza/cvss-calculator-mcp" class="btn" rel="noopener noreferrer">Go MCP Repository</a>
+          <a href="/docs/mcp/clients/" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            View Client Setup Guides
+          </a>
+          <a href="/docs/mcp/tools/" class="btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Read Tool Reference
+          </a>
+          <a href="https://github.com/alfa-reza/cvss-calculator-mcp" class="btn" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            Go MCP Repository
+          </a>
         </div>
       </section>
 
@@ -105,6 +126,10 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           <div class="mcp-panel is-recommended">
             <div class="mcp-panel-header">
               <div class="mcp-title-row">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="4 17 10 11 4 5"></polyline>
+                  <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
                 <h3>1. Local MCP (Recommended)</h3>
                 <span class="mono-tag">stdio</span>
                 <span class="mono-tag">Linux / macOS</span>
@@ -133,6 +158,11 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           <div class="mcp-panel">
             <div class="mcp-panel-header">
               <div class="mcp-title-row">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
                 <h3>2. Remote MCP (Free)</h3>
                 <span class="mono-tag">Streamable HTTP</span>
               </div>
@@ -167,20 +197,77 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           <h2 id="contract-heading">Tool Contract: <code>calculate_cvss</code></h2>
           <p>The MCP server exposes a single deterministic tool that validates a complete Base vector and returns the score and qualitative severity.</p>
         </div>
-        <div class="repo-grid">
-          <div class="repo-box">
+        <div class="contract-grid">
+          <div class="contract-card">
             <div>
-              <h3>Input Arguments</h3>
-              <p>Requires <code>version</code> (<code>"2.0"</code>, <code>"3.0"</code>, <code>"3.1"</code>, or <code>"4.0"</code>) and a complete, case-sensitive Base-only <code>vector</code> string.</p>
+              <div class="contract-card-header">
+                <div class="contract-card-title-row">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                  <h3>Input Arguments</h3>
+                </div>
+                <span class="mono-badge">JSON</span>
+              </div>
+              <p class="contract-card-desc">Requires <code>version</code> (<code>"2.0"</code>, <code>"3.0"</code>, <code>"3.1"</code>, or <code>"4.0"</code>) and a complete, case-sensitive Base-only <code>vector</code> string.</p>
             </div>
-            <pre class="command-code"><code>{`{"version":"3.1","vector":"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"}`}</code></pre>
+            <div class="payload-box">
+              <pre class="code-payload-block"><code id="mcp-input-payload">{`{
+  "version": "3.1",
+  "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+}`}</code></pre>
+              <div class="payload-action-row">
+                <button
+                  type="button"
+                  class="btn copy-cmd-btn"
+                  data-copy-target="mcp-input-payload"
+                  data-status-target="mcp-input-status"
+                  aria-label="Copy input arguments JSON"
+                >
+                  Copy JSON
+                </button>
+                <span id="mcp-input-status" class="copy-status" role="status" aria-live="polite"></span>
+              </div>
+            </div>
           </div>
-          <div class="repo-box">
+          <div class="contract-card">
             <div>
-              <h3>Output Payload</h3>
-              <p>Returns JSON text content with the validated <code>version</code>, canonical <code>vector</code>, numeric <code>score</code>, and qualitative <code>severity</code>.</p>
+              <div class="contract-card-header">
+                <div class="contract-card-title-row">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                  <h3>Output Payload</h3>
+                </div>
+                <span class="mono-badge">JSON Response</span>
+              </div>
+              <p class="contract-card-desc">Returns JSON text content with the validated <code>version</code>, canonical <code>vector</code>, numeric <code>score</code>, and qualitative <code>severity</code>.</p>
             </div>
-            <pre class="command-code"><code>{`{"version":"3.1","vector":"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H","score":9.8,"severity":"Critical"}`}</code></pre>
+            <div class="payload-box">
+              <pre class="code-payload-block"><code id="mcp-output-payload">{`{
+  "version": "3.1",
+  "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+  "score": 9.8,
+  "severity": "Critical"
+}`}</code></pre>
+              <div class="payload-action-row">
+                <button
+                  type="button"
+                  class="btn copy-cmd-btn"
+                  data-copy-target="mcp-output-payload"
+                  data-status-target="mcp-output-status"
+                  aria-label="Copy output payload JSON"
+                >
+                  Copy JSON
+                </button>
+                <span id="mcp-output-status" class="copy-status" role="status" aria-live="polite"></span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -192,19 +279,46 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
         </div>
         <ul class="docs-index-list">
           <li class="docs-index-item">
-            <a href="/docs/mcp/clients/">Client Configuration Index</a>
+            <div class="docs-item-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              <a href="/docs/mcp/clients/">Client Configuration Index</a>
+            </div>
             <p>Setup guides for Codex, Claude Code, OpenCode, GitHub Copilot, Cursor, Pi, Kilo Code, Cline, and Hermes Agent.</p>
           </li>
           <li class="docs-index-item">
-            <a href="/docs/mcp/tools/">Detailed Tool Reference</a>
+            <div class="docs-item-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <a href="/docs/mcp/tools/">Detailed Tool Reference</a>
+            </div>
             <p>Input validation rules, error responses, and Base-only constraints for <code>calculate_cvss</code>.</p>
           </li>
           <li class="docs-index-item">
-            <a href="/docs/mcp/security/">Security &amp; Privacy Considerations</a>
+            <div class="docs-item-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <a href="/docs/mcp/security/">Security &amp; Privacy Considerations</a>
+            </div>
             <p>Binary checksum verification, network exposure, and vector data handling.</p>
           </li>
           <li class="docs-index-item">
-            <a href={`${calcBaseUrl}/v4.0`}>Need Threat, Temporal, or Environmental Scores?</a>
+            <div class="docs-item-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+                <line x1="8" y1="6" x2="16" y2="6"></line>
+              </svg>
+              <a href={`${calcBaseUrl}/v4.0`}>Need Threat, Temporal, or Environmental Scores?</a>
+            </div>
             <p>Launch the interactive calculator for complete multi-group evaluation.</p>
           </li>
         </ul>

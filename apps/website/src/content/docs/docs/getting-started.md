@@ -13,7 +13,7 @@ CVSS.my.id provides two ways to calculate Common Vulnerability Scoring System (C
 | Requirement | Recommended Tool | Supported Metric Groups |
 | --- | --- | --- |
 | Interactive vulnerability triage with Threat, Temporal, Environmental, or Supplemental metrics | [Full Browser Calculator](/docs/calculator/) | Base, Threat, Temporal, Environmental, Supplemental (v4.0, v3.1, v3.0, v2.0) |
-| Sharing a canonical vector URL with a security team or advisory draft | [Full Browser Calculator](/docs/calculator/) | Full vector serialization across all metric groups |
+| Exporting canonical vector strings or formatted score summaries | [Full Browser Calculator](/docs/calculator/) | Full vector serialization across all metric groups |
 | Automated Base Score calculation inside Codex, Claude Code, Cursor, or OpenCode | [Local MCP (`stdio`)](/docs/mcp/local/) | Base Score only (v4.0, v3.1, v3.0, v2.0) |
 | Zero-install MCP testing from a cloud workspace or browser-hosted agent | [Remote MCP (HTTP)](/docs/mcp/remote/) | Base Score only (5 requests/min/IP limit) |
 
@@ -27,7 +27,7 @@ CVSS.my.id provides two ways to calculate Common Vulnerability Scoring System (C
 2. Select all required **Base** metrics. Until every mandatory Base metric is chosen, the score displays `Incomplete` rather than `0.0`.
 3. Optionally switch tabs to add **Threat** (v4.0), **Temporal** (v3.x/v2.0), **Environmental**, or **Supplemental** (v4.0) metrics.
 4. Or paste an existing CVSS vector directly into the **Inline Vector String** input at the top of the calculator to populate the form and compute the score immediately.
-5. Use **Copy Vector**, **Copy Result**, or **Share URL** once all required Base metrics are valid.
+5. Use **Copy Vector** or **Copy Result** once all required Base metrics are valid.
 
 ## Quick Start: Local MCP Server (Recommended for Agents)
 

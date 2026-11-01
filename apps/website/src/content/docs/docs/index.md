@@ -14,7 +14,7 @@ Welcome to the **CVSS.my.id** documentation. This documentation covers two stati
 ### Getting Started & Calculator
 
 - [Getting Started](/docs/getting-started/): Choose the right CVSS version and tool for your workflow.
-- [Full Browser Calculator Guide](/docs/calculator/): Metric group tabs, inline vector editing, keyboard navigation, `sessionStorage` drafts, and on-demand URL sharing.
+- [Full Browser Calculator Guide](/docs/calculator/): Metric group tabs, inline vector editing, keyboard navigation, and built-in reference panes.
 
 ### CVSS Reference
 

@@ -50,9 +50,65 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           Score vulnerabilities across CVSS 4.0, 3.1, 3.0, and 2.0. Export canonical vector strings and query Base scores via local or remote MCP.
         </p>
         <div class="cta-row">
-          <a href={`${calcBaseUrl}/v4.0`} class="btn btn-primary">Open Calculator</a>
-          <a href="/tools/mcp" class="btn">Configure MCP Server</a>
-          <a href="#quick-lookup" class="btn btn-subtle">Quick Vector Inspector</a>
+          <a href={`${calcBaseUrl}/v4.0`} class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+              <line x1="8" y1="6" x2="16" y2="6"></line>
+              <line x1="16" y1="14" x2="16" y2="18"></line>
+              <path d="M16 10h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 18h.01"></path>
+              <path d="M8 18h.01"></path>
+            </svg>
+            Open Calculator
+          </a>
+          <a href="/tools/mcp" class="btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            Configure MCP Server
+          </a>
+          <a href="/docs/" class="btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            Documentation
+          </a>
+        </div>
+
+        <div class="hero-badges-row">
+          <span class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            FIRST Specifications
+          </span>
+          <span class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            100% Client-Side Static
+          </span>
+          <span class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Zero Scoring Telemetry
+          </span>
+          <span class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+            Local &amp; Remote MCP
+          </span>
         </div>
       </section>
 
@@ -70,8 +126,18 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                 <span class="version-tag">Current</span>
               </div>
               <p class="version-meta">11 Base, 1 Threat, 14 Environmental, and 6 Supplemental metrics with MacroVector lookup.</p>
+              <div class="version-card-meta-tags">
+                <span class="version-subtag">32 Metrics</span>
+                <span class="version-subtag">MacroVector</span>
+              </div>
             </div>
-            <span class="version-action">Open Calculator &rarr;</span>
+            <span class="version-action">
+              <span>Open Calculator</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
           </a>
 
           <a href={`${calcBaseUrl}/v3.1`} class="version-card">
@@ -81,8 +147,18 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                 <span class="version-tag">Standard</span>
               </div>
               <p class="version-meta">8 Base, 3 Temporal, and 11 Environmental metrics with official v3.1 formulas.</p>
+              <div class="version-card-meta-tags">
+                <span class="version-subtag">22 Metrics</span>
+                <span class="version-subtag">Scope (U/C)</span>
+              </div>
             </div>
-            <span class="version-action">Open Calculator &rarr;</span>
+            <span class="version-action">
+              <span>Open Calculator</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
           </a>
 
           <a href={`${calcBaseUrl}/v3.0`} class="version-card">
@@ -92,8 +168,18 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                 <span class="version-tag">Legacy v3</span>
               </div>
               <p class="version-meta">8 Base, 3 Temporal, and 11 Environmental metrics preserving legacy v3.0 Environmental equations.</p>
+              <div class="version-card-meta-tags">
+                <span class="version-subtag">22 Metrics</span>
+                <span class="version-subtag">Legacy Equ</span>
+              </div>
             </div>
-            <span class="version-action">Open Calculator &rarr;</span>
+            <span class="version-action">
+              <span>Open Calculator</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
           </a>
 
           <a href={`${calcBaseUrl}/v2.0`} class="version-card">
@@ -103,181 +189,19 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
                 <span class="version-tag">Historical</span>
               </div>
               <p class="version-meta">6 Base, 3 Temporal, and 5 Environmental metrics on the official Low / Medium / High scale.</p>
+              <div class="version-card-meta-tags">
+                <span class="version-subtag">14 Metrics</span>
+                <span class="version-subtag">Low/Med/High</span>
+              </div>
             </div>
-            <span class="version-action">Open Calculator &rarr;</span>
+            <span class="version-action">
+              <span>Open Calculator</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
           </a>
-        </div>
-      </section>
-
-      <!-- Section: Quick Vector Inspector -->
-      <section id="quick-lookup" class="section-block" aria-labelledby="inspector-heading">
-        <div class="section-header">
-          <h2 id="inspector-heading">Quick Vector Inspector</h2>
-          <p>Paste a vector string to detect specification version, verify metric prefixes, and launch the calculator.</p>
-        </div>
-        <div class="inspector-card">
-          <div class="inspector-input-row">
-            <div class="inspector-field-wrap">
-              <input
-                type="text"
-                id="inspector-input"
-                class="inspector-input"
-                placeholder="Paste vector (e.g. CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N)"
-                spellcheck="false"
-                autocomplete="off"
-                aria-label="CVSS Vector String"
-              />
-              <button type="button" id="inspector-clear-btn" class="inspector-clear-btn" aria-label="Clear vector input" hidden>
-                &times;
-              </button>
-            </div>
-            <div class="inspector-actions">
-              <button type="button" id="inspector-copy-btn" class="btn btn-secondary inspector-copy-btn" aria-label="Copy input vector">
-                <span id="inspector-copy-label">Copy</span>
-              </button>
-              <a id="inspector-calc-link" href={`${calcBaseUrl}/v4.0`} class="btn btn-primary inspector-action-btn">
-                Score in v4.0 &rarr;
-              </a>
-            </div>
-          </div>
-
-          <div class="inspector-meta-row">
-            <div class="inspector-tags">
-              <span class="inspector-label">Detected:</span>
-              <span id="detected-version" class="mono-badge">CVSS v4.0</span>
-              <span id="detected-status" class="mono-badge">Ready</span>
-              <span class="inspector-shortcut-hint"><kbd class="kbd-hint">Enter</kbd> to score</span>
-              <span class="inspector-shortcut-hint"><kbd class="kbd-hint">Esc</kbd> to clear</span>
-            </div>
-            <div class="preset-pills">
-              <span class="inspector-label">Sample Benchmarks:</span>
-              <button type="button" class="preset-pill" data-preset="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H">v4.0 Network RCE</button>
-              <button type="button" class="preset-pill" data-preset="CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H">v3.1 Log4Shell</button>
-              <button type="button" class="preset-pill" data-preset="CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N">v3.1 Heartbleed</button>
-              <button type="button" class="preset-pill" data-preset="CVSS:2.0/AV:N/AC:L/Au:N/C:C/I:C/A:C">v2.0 Historical</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section: Qualitative Severity Reference -->
-      <section class="section-block" aria-labelledby="severity-heading">
-        <div class="section-header">
-          <h2 id="severity-heading">Qualitative Severity Scale &amp; Ranges</h2>
-          <p>Standard CVSS rating thresholds and triage priority guidance across specifications.</p>
-        </div>
-        <div class="severity-matrix-grid">
-          <div class="severity-card">
-            <div class="sev-card-header">
-              <span class="sev-pill sev-pill-none">None</span>
-              <span class="sev-score-range">0.0</span>
-            </div>
-            <p class="sev-desc">No security impact on target system under tested prerequisites.</p>
-          </div>
-          <div class="severity-card">
-            <div class="sev-card-header">
-              <span class="sev-pill sev-pill-low">Low</span>
-              <span class="sev-score-range">0.1 - 3.9</span>
-            </div>
-            <p class="sev-desc">Minimal impact, high privileges or local physical access required.</p>
-          </div>
-          <div class="severity-card">
-            <div class="sev-card-header">
-              <span class="sev-pill sev-pill-medium">Medium</span>
-              <span class="sev-score-range">4.0 - 6.9</span>
-            </div>
-            <p class="sev-desc">Moderate impact, user interaction or specific conditions needed.</p>
-          </div>
-          <div class="severity-card">
-            <div class="sev-card-header">
-              <span class="sev-pill sev-pill-high">High</span>
-              <span class="sev-score-range">7.0 - 8.9</span>
-            </div>
-            <p class="sev-desc">Substantial confidentiality, integrity, or availability compromise.</p>
-          </div>
-          <div class="severity-card">
-            <div class="sev-card-header">
-              <span class="sev-pill sev-pill-critical">Critical</span>
-              <span class="sev-score-range">9.0 - 10.0</span>
-            </div>
-            <p class="sev-desc">Remote unauthenticated compromise without user interaction.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section: Base Metric Keys Reference -->
-      <section class="section-block" aria-labelledby="metrics-ref-heading">
-        <div class="section-header">
-          <h2 id="metrics-ref-heading">Base Metric Keys Reference</h2>
-          <p>Quick lookup of core metric shorthand identifiers across CVSS specifications.</p>
-        </div>
-        <div class="metric-ref-grid">
-          <div class="metric-ref-card">
-            <div class="metric-ref-top">
-              <span class="mono-badge">AV</span>
-              <span class="metric-ref-title">Attack Vector</span>
-            </div>
-            <div class="metric-chip-list">
-              <span class="metric-chip"><code>N</code> Network</span>
-              <span class="metric-chip"><code>A</code> Adjacent</span>
-              <span class="metric-chip"><code>L</code> Local</span>
-              <span class="metric-chip"><code>P</code> Physical</span>
-            </div>
-          </div>
-          <div class="metric-ref-card">
-            <div class="metric-ref-top">
-              <span class="mono-badge">AC</span>
-              <span class="metric-ref-title">Attack Complexity</span>
-            </div>
-            <div class="metric-chip-list">
-              <span class="metric-chip"><code>L</code> Low</span>
-              <span class="metric-chip"><code>H</code> High</span>
-            </div>
-          </div>
-          <div class="metric-ref-card">
-            <div class="metric-ref-top">
-              <span class="mono-badge">AT</span>
-              <span class="metric-ref-title">Attack Req (v4.0)</span>
-            </div>
-            <div class="metric-chip-list">
-              <span class="metric-chip"><code>N</code> None</span>
-              <span class="metric-chip"><code>P</code> Present</span>
-            </div>
-          </div>
-          <div class="metric-ref-card">
-            <div class="metric-ref-top">
-              <span class="mono-badge">PR</span>
-              <span class="metric-ref-title">Privileges Required</span>
-            </div>
-            <div class="metric-chip-list">
-              <span class="metric-chip"><code>N</code> None</span>
-              <span class="metric-chip"><code>L</code> Low</span>
-              <span class="metric-chip"><code>H</code> High</span>
-            </div>
-          </div>
-          <div class="metric-ref-card">
-            <div class="metric-ref-top">
-              <span class="mono-badge">UI</span>
-              <span class="metric-ref-title">User Interaction</span>
-            </div>
-            <div class="metric-chip-list">
-              <span class="metric-chip"><code>N</code> None</span>
-              <span class="metric-chip"><code>P</code> Passive (v4)</span>
-              <span class="metric-chip"><code>A</code> Active (v4)</span>
-              <span class="metric-chip"><code>R</code> Required (v3)</span>
-            </div>
-          </div>
-          <div class="metric-ref-card">
-            <div class="metric-ref-top">
-              <span class="mono-badge">Impact</span>
-              <span class="metric-ref-title">VC/VI/VA &amp; SC/SI/SA</span>
-            </div>
-            <div class="metric-chip-list">
-              <span class="metric-chip"><code>H</code> High</span>
-              <span class="metric-chip"><code>L</code> Low</span>
-              <span class="metric-chip"><code>N</code> None</span>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -295,6 +219,10 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           <div class="mcp-panel is-recommended">
             <div class="mcp-panel-header">
               <div class="mcp-title-row">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="4 17 10 11 4 5"></polyline>
+                  <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
                 <h3>1. Local MCP (Recommended)</h3>
                 <span class="mono-tag">stdio</span>
                 <span class="mono-tag">Linux / macOS</span>
@@ -325,6 +253,11 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           <div class="mcp-panel">
             <div class="mcp-panel-header">
               <div class="mcp-title-row">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
                 <h3>2. Remote MCP (Free)</h3>
                 <span class="mono-tag">Streamable HTTP</span>
               </div>
@@ -363,20 +296,44 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
         </div>
         <ul class="docs-index-list">
           <li class="docs-index-item">
-            <a href="/docs/cvss/overview/">CVSS Reference Guides</a>
+            <div class="docs-item-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+              </svg>
+              <a href="/docs/cvss/overview/">CVSS Reference Guides</a>
+            </div>
             <p>Metric definitions, allowed values, scoring equations, and qualitative severity scales.</p>
           </li>
           <li class="docs-index-item">
-            <a href="/docs/cvss/vectors/">Vector String Syntax &amp; Ordering Rules</a>
+            <div class="docs-item-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              <a href="/docs/cvss/vectors/">Vector String Syntax &amp; Ordering Rules</a>
+            </div>
             <p>Mandatory Base metrics, strict v4.0 ordering, flexible v3.x parsing, and v2.0 notation.</p>
           </li>
           <li class="docs-index-item">
-            <a href="/docs/mcp/clients/">MCP Client Setup Guides</a>
+            <div class="docs-item-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              <a href="/docs/mcp/clients/">MCP Client Setup Guides</a>
+            </div>
             <p>Copyable stdio and Streamable HTTP configurations for Codex, Claude Code, OpenCode, Copilot, Cursor, Pi, Kilo Code, Cline, and Hermes Agent.</p>
           </li>
           <li class="docs-index-item">
-            <a href="/docs/calculator/">Using the Browser Calculator</a>
-            <p>How inline vector editing, Share-on-Demand URLs, and per-version session drafts work.</p>
+            <div class="docs-item-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+                <line x1="8" y1="6" x2="16" y2="6"></line>
+              </svg>
+              <a href="/docs/calculator/">Using the Browser Calculator</a>
+            </div>
+            <p>How inline vector editing, hybrid form controls, and score export work.</p>
           </li>
         </ul>
       </section>
@@ -390,20 +347,93 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
         <div class="repo-grid">
           <div class="repo-box">
             <div>
-              <h3>Website, Calculator &amp; Docs</h3>
-              <p>Astro static website, Starlight documentation, and CVSS 2.0 / 3.0 / 3.1 / 4.0 calculator.</p>
+              <div class="repo-header-top">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <h3>Website, Calculator &amp; Docs</h3>
+              </div>
+              <p>Astro static website, Starlight documentation, and CVSS 2.0, 3.0, 3.1, and 4.0 client-side calculator.</p>
+              <div class="repo-tag-list">
+                <span class="repo-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="6" y1="3" x2="6" y2="15"></line>
+                    <circle cx="18" cy="6" r="3"></circle>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <path d="M18 9a9 9 0 0 1-9 9"></path>
+                  </svg>
+                  main
+                </span>
+                <span class="repo-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                  TypeScript
+                </span>
+                <span class="repo-tag">Astro 5</span>
+                <span class="repo-tag">Starlight</span>
+                <span class="repo-tag">Cloudflare Pages</span>
+                <span class="repo-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  MIT
+                </span>
+              </div>
             </div>
             <a href="https://github.com/alfa-reza/cvss.my.id" class="repo-url" rel="noopener noreferrer" aria-label="View cvss.my.id repository on GitHub">
-              View Repository &rarr;
+              <span>View Repository</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
             </a>
           </div>
+
           <div class="repo-box">
             <div>
-              <h3>CVSS Calculator MCP (Go)</h3>
+              <div class="repo-header-top">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <h3>CVSS Calculator MCP (Go)</h3>
+              </div>
               <p>Standalone Go MCP server implementing deterministic Base Score calculation over stdio and Streamable HTTP.</p>
+              <div class="repo-tag-list">
+                <span class="repo-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="6" y1="3" x2="6" y2="15"></line>
+                    <circle cx="18" cy="6" r="3"></circle>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <path d="M18 9a9 9 0 0 1-9 9"></path>
+                  </svg>
+                  main
+                </span>
+                <span class="repo-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                  Go 1.22+
+                </span>
+                <span class="repo-tag">MCP Protocol</span>
+                <span class="repo-tag">stdio</span>
+                <span class="repo-tag">Streamable HTTP</span>
+                <span class="repo-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  MIT
+                </span>
+              </div>
             </div>
             <a href="https://github.com/alfa-reza/cvss-calculator-mcp" class="repo-url" rel="noopener noreferrer" aria-label="View cvss-calculator-mcp repository on GitHub">
-              View Repository &rarr;
+              <span>View Repository</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
             </a>
           </div>
         </div>
@@ -427,7 +457,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
       </div>
     </footer>
 
-    <script is:inline define:vars={{ calcBaseUrl }}>
+    <script is:inline>
       document.querySelectorAll('.copy-cmd-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var targetId = btn.getAttribute('data-copy-target');
@@ -450,111 +480,6 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
           }
         });
       });
-
-      // Quick Vector Inspector handler
-      (function () {
-        var inputEl = document.getElementById('inspector-input');
-        var clearBtn = document.getElementById('inspector-clear-btn');
-        var copyBtn = document.getElementById('inspector-copy-btn');
-        var copyLabel = document.getElementById('inspector-copy-label');
-        var calcLink = document.getElementById('inspector-calc-link');
-        var versionBadge = document.getElementById('detected-version');
-        var statusBadge = document.getElementById('detected-status');
-        if (!inputEl || !calcLink || !versionBadge || !statusBadge) return;
-
-        function updateInspector() {
-          var val = inputEl.value.trim();
-          if (clearBtn) clearBtn.hidden = val.length === 0;
-
-          var ver = '4.0';
-          var verLabel = 'CVSS v4.0';
-          var statusText = 'Ready';
-
-          if (val.startsWith('CVSS:4.0/')) {
-            ver = '4.0';
-            verLabel = 'CVSS v4.0';
-            statusText = 'v4.0 Detected';
-          } else if (val.startsWith('CVSS:3.1/')) {
-            ver = '3.1';
-            verLabel = 'CVSS v3.1';
-            statusText = 'v3.1 Detected';
-          } else if (val.startsWith('CVSS:3.0/')) {
-            ver = '3.0';
-            verLabel = 'CVSS v3.0';
-            statusText = 'v3.0 Detected';
-          } else if (val.startsWith('CVSS:2.0/') || val.startsWith('AV:') || val.startsWith('(AV:')) {
-            ver = '2.0';
-            verLabel = 'CVSS v2.0';
-            statusText = 'v2.0 Detected';
-          } else if (val.length > 0) {
-            statusText = 'Unknown Prefix';
-          }
-
-          versionBadge.textContent = verLabel;
-          statusBadge.textContent = statusText;
-
-          var href = calcBaseUrl + '/v' + ver;
-          if (val.length > 0) {
-            href += '?vector=' + encodeURIComponent(val);
-          }
-          calcLink.href = href;
-          calcLink.innerHTML = 'Score in v' + ver + ' &rarr;';
-        }
-
-        inputEl.addEventListener('input', updateInspector);
-
-        inputEl.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            calcLink.click();
-          } else if (e.key === 'Escape') {
-            e.preventDefault();
-            inputEl.value = '';
-            updateInspector();
-          }
-        });
-
-        if (copyBtn && copyLabel) {
-          copyBtn.addEventListener('click', function () {
-            var val = inputEl.value.trim();
-            if (!val) return;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              navigator.clipboard.writeText(val).then(
-                function () {
-                  copyLabel.textContent = 'Copied!';
-                  setTimeout(function () {
-                    copyLabel.textContent = 'Copy';
-                  }, 1500);
-                },
-                function () {
-                  copyLabel.textContent = 'Failed';
-                  setTimeout(function () {
-                    copyLabel.textContent = 'Copy';
-                  }, 1500);
-                }
-              );
-            }
-          });
-        }
-
-        if (clearBtn) {
-          clearBtn.addEventListener('click', function () {
-            inputEl.value = '';
-            inputEl.focus();
-            updateInspector();
-          });
-        }
-
-        document.querySelectorAll('.preset-pill').forEach(function (pill) {
-          pill.addEventListener('click', function () {
-            var preset = pill.getAttribute('data-preset');
-            if (preset) {
-              inputEl.value = preset;
-              updateInspector();
-            }
-          });
-        });
-      })();
     </script>
   </body>
 </html>

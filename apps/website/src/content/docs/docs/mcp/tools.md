@@ -11,33 +11,57 @@ Calculates the CVSS Base Score and qualitative severity rating for one or more C
 
 ### Input Schema
 
-You can pass either a single `vector` string or an array of `vectors` for batch Base Score calculation:
+`calculate_cvss` requires two fields: the CVSS specification `version` and a complete, case-sensitive **Base-only** `vector` string:
 
 ```json
 {
   "type": "object",
   "properties": {
+    "version": {
+      "type": "string",
+      "enum": ["2.0", "3.0", "3.1", "4.0"],
+      "description": "CVSS specification version (2.0, 3.0, 3.1, or 4.0)."
+    },
     "vector": {
       "type": "string",
-      "description": "A single CVSS vector string (v2.0, v3.0, v3.1, or v4.0). Use this for single calculations."
-    },
-    "vectors": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "A list of CVSS vector strings for batch processing."
+      "description": "A complete, case-sensitive CVSS Base vector string."
     }
-  }
+  },
+  "required": ["version", "vector"]
 }
 ```
 
-### Example Single Vector Call
+### Example Call
 
 **Tool Arguments:**
 
 ```json
 {
+  "version": "3.1",
+  "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+}
+```
+
+**Tool Response:**
+
+```json
+{
+  "version": "3.1",
+  "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+  "score": 9.8,
+  "severity": "Critical"
+}
+```
+
+### Example Across CVSS Versions
+
+#### CVSS v4.0
+
+**Tool Arguments:**
+
+```json
+{
+  "version": "4.0",
   "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
 }
 ```
@@ -45,60 +69,34 @@ You can pass either a single `vector` string or an array of `vectors` for batch 
 **Tool Response:**
 
 ```json
-[
-  {
-    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
-    "version": "4.0",
-    "score": 9.3,
-    "severity": "CRITICAL"
-  }
-]
+{
+  "version": "4.0",
+  "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+  "score": 9.3,
+  "severity": "Critical"
+}
 ```
 
-### Example Batch Call Across Versions
+#### CVSS v2.0
 
 **Tool Arguments:**
 
 ```json
 {
-  "vectors": [
-    "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
-    "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
-    "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
-    "AV:N/AC:L/Au:N/C:P/I:P/A:P"
-  ]
+  "version": "2.0",
+  "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
 }
 ```
 
 **Tool Response:**
 
 ```json
-[
-  {
-    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
-    "version": "4.0",
-    "score": 9.3,
-    "severity": "CRITICAL"
-  },
-  {
-    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
-    "version": "3.1",
-    "score": 5.4,
-    "severity": "MEDIUM"
-  },
-  {
-    "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
-    "version": "3.0",
-    "score": 10.0,
-    "severity": "CRITICAL"
-  },
-  {
-    "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
-    "version": "2.0",
-    "score": 7.5,
-    "severity": "HIGH"
-  }
-]
+{
+  "version": "2.0",
+  "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+  "score": 7.5,
+  "severity": "High"
+}
 ```
 
 ## Important Scope Notes

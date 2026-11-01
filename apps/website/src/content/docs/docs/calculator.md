@@ -1,6 +1,6 @@
 ---
 title: Full Browser Calculator Guide
-description: How to use the CVSS 2.0, 3.0, 3.1, and 4.0 full browser calculator, inline vector editor, session persistence, and on-demand URL sharing.
+description: How to use the CVSS 2.0, 3.0, 3.1, and 4.0 full browser calculator, hybrid controls, inline vector editor, and result export.
 ---
 
 The [CVSS Calculator](https://calc.cvss.my.id/) evaluates vulnerability scores and vectors according to official FIRST specifications across CVSS 4.0, 3.1, 3.0, and 2.0.
@@ -43,20 +43,18 @@ The **Vector String** input at the top of the workspace is editable at all times
    - Never overwrites or deletes the text you are typing.
    - Displays a specific validation message below the field explaining the exact token or missing metric error.
    - Marks the Score Panel as **Out of Sync (Showing Last Valid Score)** and offers a **Revert Vector Input** button.
-   - Disables **Copy Vector**, **Copy Result**, and **Share URL** so you cannot accidentally copy or share an invalid or out-of-sync score.
+   - Disables **Copy Vector** and **Copy Result** so you cannot accidentally copy an invalid or out-of-sync score.
 
 ## Action Buttons
 
 - **Copy Vector**: Copies the canonical CVSS vector string to your clipboard.
 - **Copy Result**: Copies a formatted plain-text summary (for example, `CVSS v4.0 Score: 9.3 (Critical) [CVSS-B] - CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N`).
-- **Share URL**: Generates a canonical URL with `?vector=<encoded-vector>`, updates the address bar via `history.replaceState`, and copies the link to your clipboard. If the Clipboard API is restricted by browser permissions, a selectable fallback input appears automatically.
 - **Reset Group**: Resets only the currently open tab (`Threat`, `Temporal`, `Environmental`, or `Supplemental`) back to `Not Defined` (`X` / `ND`), or clears `Base` selections when on the `Base` tab.
-- **Reset All**: Clears all metrics and `sessionStorage` draft state for the active CVSS version only.
+- **Reset All**: Clears all metrics and restores the default state for the active CVSS version.
 
-## Session Persistence & URL Precedence
+## Built-in Reference Panes
 
-The calculator stores state per CVSS version in browser `sessionStorage` (`cvss_draft_v1_4.0`, `3.1`, `3.0`, `2.0`):
+Each calculator route includes dedicated reference panes located directly beneath the scoring workspace:
 
-1. **Shared URL Precedence**: Opening a link containing a valid `?vector=...` query parameter loads that vector immediately and takes precedence over any older `sessionStorage` draft for that version.
-2. **Stale Query Removal**: As soon as you edit any metric or modify the vector after loading a shared URL, the calculator strips the stale `?vector=` query parameter from the browser address bar so refreshing the page will not overwrite your new edits.
-3. **Draft Preservation**: Refreshing the tab restores both your last valid metric selections and any in-progress raw vector draft. Closing the browser tab clears `sessionStorage`.
+- **Qualitative Severity Scale & Ranges**: Outlines score threshold bands for the active specification (None, Low, Medium, High, and Critical for CVSS v3/v4; Low, Medium, and High for CVSS v2.0).
+- **Base Metric Keys Reference**: Lists the key shorthand, metric name, and allowed values for every mandatory Base metric in the selected version.

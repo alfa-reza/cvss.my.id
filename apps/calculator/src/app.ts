@@ -623,13 +623,21 @@ function initCalculator(): void {
 
           <div class="action-grid">
             <button type="button" class="btn btn-primary" id="copy-vector-btn" ${!isActionable ? 'disabled' : ''}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
               Copy Vector
             </button>
             <button type="button" class="btn" id="copy-result-btn" ${!isActionable ? 'disabled' : ''}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
               Copy Result
-            </button>
-            <button type="button" class="btn btn-full" id="share-url-btn" ${!isActionable ? 'disabled' : ''}>
-              Share URL (Copy Reproducible Link)
             </button>
           </div>
 
@@ -638,9 +646,18 @@ function initCalculator(): void {
 
           <div class="reset-row">
             <button type="button" class="btn" id="score-reset-group-btn" ${isOutOfSync ? 'disabled' : ''}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
               Reset ${escapeHtml(activeGroup.label)}
             </button>
             <button type="button" class="btn" id="reset-all-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+              </svg>
               Reset All
             </button>
           </div>
@@ -875,7 +892,7 @@ function initCalculator(): void {
       renderAll();
     });
 
-    // Copy / Share / Reset buttons
+    // Copy / Reset buttons
     const copyVectorBtn = document.getElementById('copy-vector-btn');
     copyVectorBtn?.addEventListener('click', () => {
       if (scoreResult.isComplete && state.editorError === null) {
@@ -891,15 +908,6 @@ function initCalculator(): void {
       }
     });
 
-    const shareUrlBtn = document.getElementById('share-url-btn');
-    shareUrlBtn?.addEventListener('click', () => {
-      if (scoreResult.isComplete && state.editorError === null) {
-        // Share on Demand: construct reproducible URL without mutating window.location
-        const shareUrl = `${window.location.origin}/v${state.version}?vector=${encodeURIComponent(scoreResult.canonicalVector)}`;
-        void copyTextWithFallback(shareUrl, 'Copied reproducible Share URL to clipboard.');
-      }
-    });
-
     const resetGroupBtn = document.getElementById('reset-group-btn');
     const scoreResetGroupBtn = document.getElementById('score-reset-group-btn');
     resetGroupBtn?.addEventListener('click', handleResetGroup);
@@ -907,6 +915,130 @@ function initCalculator(): void {
 
     const resetAllBtn = document.getElementById('reset-all-btn');
     resetAllBtn?.addEventListener('click', handleResetAll);
+  }
+
+  function renderReferenceSection(version: CvssVersion, schema: VersionSchema): string {
+    const baseGroup = schema.groups.find((g) => g.id === 'base');
+    const baseMetrics = baseGroup ? baseGroup.metrics : [];
+
+    let severityCardsHtml = '';
+    if (version === '2.0') {
+      severityCardsHtml = `
+        <div class="severity-card">
+          <div class="sev-card-header">
+            <span class="sev-pill sev-pill-low">Low</span>
+            <span class="sev-score-range">0.0 - 3.9</span>
+          </div>
+          <p class="sev-desc">Minimal impact. Unauthorized information disclosure or local denial of service.</p>
+        </div>
+        <div class="severity-card">
+          <div class="sev-card-header">
+            <span class="sev-pill sev-pill-medium">Medium</span>
+            <span class="sev-score-range">4.0 - 6.9</span>
+          </div>
+          <p class="sev-desc">Moderate impact. Partial disclosure, integrity compromise, or disruption of service.</p>
+        </div>
+        <div class="severity-card">
+          <div class="sev-card-header">
+            <span class="sev-pill sev-pill-high">High</span>
+            <span class="sev-score-range">7.0 - 10.0</span>
+          </div>
+          <p class="sev-desc">Complete compromise of system integrity, confidentiality, or availability.</p>
+        </div>
+      `;
+    } else {
+      severityCardsHtml = `
+        <div class="severity-card">
+          <div class="sev-card-header">
+            <span class="sev-pill sev-pill-none">None</span>
+            <span class="sev-score-range">0.0</span>
+          </div>
+          <p class="sev-desc">No security impact on target system under tested prerequisites.</p>
+        </div>
+        <div class="severity-card">
+          <div class="sev-card-header">
+            <span class="sev-pill sev-pill-low">Low</span>
+            <span class="sev-score-range">0.1 - 3.9</span>
+          </div>
+          <p class="sev-desc">Minimal impact, high privileges or local physical access required.</p>
+        </div>
+        <div class="severity-card">
+          <div class="sev-card-header">
+            <span class="sev-pill sev-pill-medium">Medium</span>
+            <span class="sev-score-range">4.0 - 6.9</span>
+          </div>
+          <p class="sev-desc">Moderate impact, user interaction or specific conditions needed.</p>
+        </div>
+        <div class="severity-card">
+          <div class="sev-card-header">
+            <span class="sev-pill sev-pill-high">High</span>
+            <span class="sev-score-range">7.0 - 8.9</span>
+          </div>
+          <p class="sev-desc">Substantial confidentiality, integrity, or availability compromise.</p>
+        </div>
+        <div class="severity-card">
+          <div class="sev-card-header">
+            <span class="sev-pill sev-pill-critical">Critical</span>
+            <span class="sev-score-range">9.0 - 10.0</span>
+          </div>
+          <p class="sev-desc">Remote unauthenticated compromise without user interaction.</p>
+        </div>
+      `;
+    }
+
+    const metricCardsHtml = baseMetrics
+      .map((m) => {
+        const validOptions = m.options.filter((o) => o.value !== 'X' && o.value !== 'ND');
+        const chipsHtml = validOptions
+          .map((o) => {
+            const cleanLabel = o.label.replace(/\s*\([^)]*\)$/, '');
+            return `<span class="metric-chip"><code>${escapeHtml(o.value)}</code> ${escapeHtml(cleanLabel)}</span>`;
+          })
+          .join('');
+
+        return `
+          <div class="metric-ref-card">
+            <div class="metric-ref-top">
+              <span class="mono-badge">${escapeHtml(m.key)}</span>
+              <span class="metric-ref-title">${escapeHtml(m.name)}</span>
+            </div>
+            <div class="metric-chip-list">
+              ${chipsHtml}
+            </div>
+          </div>
+        `;
+      })
+      .join('');
+
+    return `
+      <section class="calc-reference-section" aria-labelledby="ref-heading">
+        <div class="reference-section-header">
+          <div class="reference-title-wrap">
+            <svg class="ref-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+              <path d="M6 6h10"></path>
+              <path d="M6 10h10"></path>
+            </svg>
+            <h2 id="ref-heading" class="reference-main-title">CVSS v${escapeHtml(version)} Reference Panes</h2>
+          </div>
+          <p class="reference-subtitle">Qualitative severity rating thresholds and Base metric key shorthand for CVSS v${escapeHtml(version)}.</p>
+        </div>
+
+        <div class="reference-block">
+          <h3 class="reference-block-title">Qualitative Severity Scale &amp; Ranges</h3>
+          <div class="severity-matrix-grid ${version === '2.0' ? 'severity-grid-v2' : ''}">
+            ${severityCardsHtml}
+          </div>
+        </div>
+
+        <div class="reference-block">
+          <h3 class="reference-block-title">Base Metric Keys Reference</h3>
+          <div class="metric-ref-grid">
+            ${metricCardsHtml}
+          </div>
+        </div>
+      </section>
+    `;
   }
 
   function renderAll(): void {
@@ -918,6 +1050,7 @@ function initCalculator(): void {
         ${renderMetricsColumn()}
         ${renderScorePanel(scoreResult)}
       </div>
+      ${renderReferenceSection(state.version, state.schema)}
     `;
     attachEventListeners(scoreResult);
   }
