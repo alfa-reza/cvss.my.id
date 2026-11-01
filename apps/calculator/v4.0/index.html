@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CVSS v4.0 Calculator (Base, Threat, Environmental, Supplemental) | CVSS.my.id</title>
+    <meta name="description" content="Full client-side CVSS v4.0 calculator supporting Base, Threat, Environmental, and Supplemental metric groups with official MacroVector interpolation." />
+    <link rel="canonical" href="https://calc.cvss.my.id/v4.0" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-cvss-version="4.0">
+    <a href="#calculator-main" class="skip-link">Skip to calculator</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand-group">
+          <a href="https://cvss.my.id/" class="brand">CVSS.my.id</a>
+          <span class="brand-sep" aria-hidden="true">/</span>
+          <span class="brand-sub">Calculator</span>
+        </div>
+        <nav aria-label="Primary navigation" class="site-nav">
+          <a href="/v4.0" aria-current="page">Calculator</a>
+          <a href="https://cvss.my.id/tools/mcp">MCP</a>
+          <a href="https://cvss.my.id/docs/">Docs</a>
+          <a href="https://github.com/alfa-reza/cvss.my.id" rel="noopener noreferrer">Website Repo</a>
+          <a href="https://github.com/alfa-reza/cvss-calculator-mcp" rel="noopener noreferrer">MCP Repo</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="calculator-main" class="container calc-main">
+      <div class="calc-top-bar">
+        <div class="calc-title-block">
+          <h1>CVSS v4.0 Calculator</h1>
+          <p class="calc-subtitle">Full client-side evaluation across Base (11), Threat (1), Environmental (14), and Supplemental (6) metrics.</p>
+        </div>
+        <nav aria-label="CVSS version selector" class="version-switcher">
+          <a href="/v4.0" class="version-link is-active" aria-current="page">v4.0</a>
+          <a href="/v3.1" class="version-link">v3.1</a>
+          <a href="/v3.0" class="version-link">v3.0</a>
+          <a href="/v2.0" class="version-link">v2.0</a>
+        </nav>
+      </div>
+
+      <div id="url-error-banner" class="alert-banner is-hidden" role="alert" aria-live="assertive"></div>
+      <div id="storage-notice" class="notice-banner is-hidden" role="status" aria-live="polite"></div>
+
+      <div id="calculator-app" class="calc-workspace" data-state="ready">
+        <noscript>
+          <div class="alert-banner">
+            JavaScript is required to compute interactive CVSS scores in the browser. Read the static <a href="https://cvss.my.id/docs/cvss/v4/">CVSS v4.0 Reference Guide</a> for specification details and vector formulas.
+          </div>
+        </noscript>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-links">
+          <a href="https://cvss.my.id/">Home</a>
+          <a href="https://cvss.my.id/docs/cvss/v4/">CVSS v4.0 Docs</a>
+          <a href="https://cvss.my.id/tools/mcp">MCP Server</a>
+          <a href="https://github.com/alfa-reza/cvss.my.id" rel="noopener noreferrer">Website &amp; Calculator GitHub</a>
+          <a href="https://github.com/alfa-reza/cvss-calculator-mcp" rel="noopener noreferrer">Go MCP GitHub</a>
+        </div>
+        <p class="footer-attribution">
+          Independent open-source project. CVSS is maintained by <a href="https://www.first.org/cvss/v4.0/specification-document" rel="noopener noreferrer">FIRST.org, Inc.</a> All calculations run locally in your browser with zero network requests.
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/app.ts"></script>
+  </body>
+</html>

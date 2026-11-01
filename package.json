@@ -1,0 +1,23 @@
+{
+  "name": "cvss-my-id",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CVSS.my.id static website, documentation, and full client-side CVSS 2.0/3.0/3.1/4.0 calculator",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=@cvss/core && npm run build --workspace=@cvss/calculator && npm run build --workspace=@cvss/website",
+    "build:core": "npm run build --workspace=@cvss/core",
+    "build:calculator": "npm run build --workspace=@cvss/core && npm run build --workspace=@cvss/calculator",
+    "build:website": "npm run build --workspace=@cvss/website",
+    "test": "npm run test --workspace=@cvss/core && node --test tests/*.test.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "node scripts/lint-check.mjs"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
