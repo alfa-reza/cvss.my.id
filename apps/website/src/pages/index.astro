@@ -1,5 +1,6 @@
 ---
 import '../styles/site.css';
+import McpStatus from '../components/McpStatus.astro';
 
 const calcBaseUrl = import.meta.env.PUBLIC_CALC_URL || 'https://calc.cvss.my.id';
 const localInstallCmd = 'curl -fsSL https://get.cvss.my.id/install.sh | bash';
@@ -282,6 +283,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
             <p class="mcp-limit-note">
               <strong>Published usage policy:</strong> Rate limit: 5 requests per minute per IP. For higher usage, run Local MCP (stdio).
             </p>
+            <McpStatus />
             <div class="mcp-footer-row">
               <a href="/docs/mcp/remote/" class="text-link">Read Remote MCP connection guide</a>
               <span id="remote-copy-status" class="copy-status" role="status" aria-live="polite"></span>
@@ -456,6 +458,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
         <p class="footer-attribution">
           CVSS.my.id is an independent open-source project and is not affiliated with FIRST. CVSS (Common Vulnerability Scoring System) is a standard maintained by <a href="https://www.first.org/cvss/" rel="noopener noreferrer">FIRST.org, Inc.</a>
         </p>
+        <p class="footer-friendship"><a href="https://alfareza.my.id/" aria-label="Build by Friendship - visit Faturahman Alfareza’s portfolio"><svg class="friendship-mark" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 1 13.8 8.8 20 5 16.3 11 23 12 16.3 13 20 19 13.8 15.2 12 23 10.2 15.2 4 19 7.7 13 1 12 7.7 11 4 5 10.2 8.8Z" fill="currentColor"/><circle cx="20.5" cy="3.5" r="1.2" fill="currentColor"/><circle cx="3.5" cy="20.5" r="1" fill="currentColor"/></svg><span>Build by Friendship</span><svg class="friendship-mark" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 1 13.8 8.8 20 5 16.3 11 23 12 16.3 13 20 19 13.8 15.2 12 23 10.2 15.2 4 19 7.7 13 1 12 7.7 11 4 5 10.2 8.8Z" fill="currentColor"/><circle cx="20.5" cy="3.5" r="1.2" fill="currentColor"/><circle cx="3.5" cy="20.5" r="1" fill="currentColor"/></svg></a></p>
       </div>
     </footer>
 

@@ -212,6 +212,7 @@ input:disabled,
 }
 
 .brand-name {
+  font-size: 1.12em;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 850;
   letter-spacing: 0.08em;
@@ -220,19 +221,12 @@ input:disabled,
 }
 
 .brand-tld {
-  font-family: var(--sl-font-mono);
-  font-weight: 600;
+  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
   font-size: 0.8125rem;
-  letter-spacing: 0.01em;
+  font-weight: 400;
+  letter-spacing: 0;
   color: var(--muted);
-  background-color: var(--elevated);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1px 6px;
-  margin-left: 4px;
-  vertical-align: middle;
-  display: inline-block;
-  line-height: 1.3;
+  margin-left: 3px;
 }
 
 .brand-logo-icon {

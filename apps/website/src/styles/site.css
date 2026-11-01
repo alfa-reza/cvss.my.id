@@ -244,6 +244,7 @@ input:disabled,
 }
 
 .brand-name {
+  font-size: 1.12em;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 850;
   letter-spacing: 0.08em;
@@ -252,19 +253,11 @@ input:disabled,
 }
 
 .brand-tld {
-  font-family: var(--font-mono);
-  font-weight: 600;
+  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
   font-size: 0.8125rem;
-  letter-spacing: 0.01em;
+  font-weight: 400;
   color: var(--muted);
-  background-color: var(--elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 1px 6px;
-  margin-left: 4px;
-  vertical-align: middle;
-  display: inline-block;
-  line-height: 1.3;
+  margin-left: 3px;
 }
 
 .brand-logo-icon {
@@ -1081,12 +1074,15 @@ main {
 }
 
 .footer-inner {
+  text-align: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
 .footer-links {
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -1124,3 +1120,28 @@ main {
     animation: none !important;
   }
 }
+
+.footer-friendship {
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: 0.8125rem;
+}
+
+.footer-friendship a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.footer-friendship a:hover {
+  color: var(--fg);
+  text-decoration: underline;
+}
+
+.friendship-mark { color: #ad6eae; flex-shrink: 0; }
+
+.mcp-status-check { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin-top: 16px; font-size: 0.875rem; }
+.mcp-status-check p { flex-basis: 100%; margin: 0; color: var(--muted); font-size: 0.8125rem; }

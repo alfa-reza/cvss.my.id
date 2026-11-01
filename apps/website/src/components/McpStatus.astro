@@ -1,0 +1,67 @@
+<div class="mcp-status-check">
+  <button class="btn" type="button" data-mcp-check>Check MCP status</button>
+  <span data-mcp-status role="status" aria-live="polite">Not checked</span>
+  <p>Checks from your connection and counts as a request.</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.mcp-status-check').forEach((container) => {
+    const button = container.querySelector<HTMLButtonElement>('[data-mcp-check]');
+    const status = container.querySelector<HTMLElement>('[data-mcp-status]');
+    if (!button || !status) return;
+
+    button.addEventListener('click', async () => {
+      button.disabled = true;
+      status.textContent = 'Checking...';
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 10000);
+      try {
+        const response = await fetch('/mcp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json, text/event-stream' },
+          body: JSON.stringify({
+            jsonrpc: '2.0', id: 1, method: 'initialize',
+            params: { protocolVersion: '2024-11-05', capabilities: {}, clientInfo: { name: 'cvss-website-status', version: '1.0.0' } },
+          }),
+          cache: 'no-store', signal: controller.signal,
+        });
+        let message = 'Unable to check from your connection.';
+        if (response.status === 429) {
+          message = 'Rate limited from your connection. Try again later.';
+        } else if (response.ok && response.body) {
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = '';
+          let valid = false;
+          const isInitializeResponse = (text: string): boolean => {
+            try {
+              const data: unknown = JSON.parse(text);
+              if (!data || typeof data !== 'object') return false;
+              const result = data as { jsonrpc?: unknown; id?: unknown; result?: { protocolVersion?: unknown; serverInfo?: { name?: unknown } } };
+              return result.jsonrpc === '2.0' && result.id === 1 && typeof result.result?.protocolVersion === 'string' && typeof result.result?.serverInfo?.name === 'string';
+            } catch { return false; }
+          };
+          while (buffer.length < 65536) {
+            const { value, done } = await reader.read();
+            buffer += decoder.decode(value, { stream: !done });
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType.includes('text/event-stream')) {
+              valid = buffer.split(/\r?\n/).some((line) => line.startsWith('data:') && isInitializeResponse(line.slice(5).trim()));
+            } else if (contentType.includes('application/json')) {
+              valid = isInitializeResponse(buffer);
+            }
+            if (valid || done) break;
+          }
+          void reader.cancel().catch(() => {});
+          if (valid) message = 'Available from your connection.';
+        }
+        status.textContent = `${message} Checked at ${new Date().toLocaleTimeString()}`;
+      } catch {
+        status.textContent = `Unable to check from your connection. Checked at ${new Date().toLocaleTimeString()}`;
+      } finally {
+        window.clearTimeout(timeout);
+        button.disabled = false;
+      }
+    });
+  });
+</script>
