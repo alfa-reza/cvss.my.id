@@ -11,7 +11,7 @@ A network-reachable service allows unauthenticated remote code execution (`AV:N/
 
 - **Vector**: `CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P`
 - **Base Score (`CVSS-B`)**: `9.3 (Critical)`
-- **Base + Threat Score (`CVSS-BT`)**: `8.1 (High)`
+- **Base + Threat Score (`CVSS-BT`)**: `8.9 (High)`
 - **Open in Calculator**: [Inspect in v4.0 Calculator](https://calc.cvss.my.id/v4.0?vector=CVSS%3A4.0%2FAV%3AN%2FAC%3AL%2FAT%3AN%2FPR%3AN%2FUI%3AN%2FVC%3AH%2FVI%3AH%2FVA%3AH%2FSC%3AN%2FSI%3AN%2FSA%3AN%2FE%3AP)
 
 ## 2. Container Escape Affecting Host System (CVSS v4.0 + Supplemental)

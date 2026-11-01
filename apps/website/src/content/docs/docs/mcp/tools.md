@@ -7,7 +7,7 @@ Both the Local (`stdio`) and Remote (Streamable HTTP) servers expose the **`calc
 
 ## Tool Name: `calculate_cvss`
 
-Calculates the CVSS Base Score and qualitative severity rating for one or more CVSS vector strings. Automatically detects CVSS v2.0, v3.0, v3.1, and v4.0 formats.
+Calculates the CVSS Base Score and qualitative severity rating for one vector. Specify its CVSS version explicitly.
 
 ### Input Schema
 

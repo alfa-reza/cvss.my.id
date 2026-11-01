@@ -24,7 +24,7 @@ Instead of rendering dozens of controls in a single vertical wall, each version 
 
 ### Hybrid Controls
 
-- **Segmented radio buttons**: Used when a metric has 2 to 4 concise options (such as Attack Vector, Attack Complexity, or Scope). Fully accessible with keyboard arrow keys and visible `:focus-visible` outlines.
+- **Segmented radio buttons**: Used when a metric has 2 to 4 concise options (such as Attack Vector, Attack Complexity, or Scope). Supports keyboard selection and visible `:focus-visible` outlines.
 - **Native `<select>` dropdowns**: Used when a metric has 5 or more options or verbose labels (such as CVSS v2.0 Target Distribution or Temporal/Environmental overrides with `Not Defined`).
 
 ## Incomplete State vs Numeric Score
@@ -38,7 +38,7 @@ A score is never shown as `0.0` merely because metrics have not been selected ye
 
 The **Vector String** input at the top of the workspace is editable at all times:
 
-1. **Valid vector input**: Typing or pasting a valid CVSS vector automatically switches to the matching CVSS version (if needed), updates every metric control across all tabs, and recalculates the score.
+1. **Valid vector input**: Typing or pasting a valid vector for the current version updates metric controls across all tabs and recalculates the score. For a vector from another version, follow the link shown to open its calculator.
 2. **Invalid vector draft**: If you mistype a metric code or paste a malformed string, the calculator:
    - Never overwrites or deletes the text you are typing.
    - Displays a specific validation message below the field explaining the exact token or missing metric error.
