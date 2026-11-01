@@ -66,5 +66,7 @@ Deploy two independent **Cloudflare Pages** projects from this repository:
 
 ## Standards & License Attribution
 
-- CVSS specifications, formulas, and CVSS v4.0 MacroVector lookup tables are copyright **FIRST.Org, Inc.** (`BSD-2-Clause`). See [FIRST CVSS Specifications](https://www.first.org/cvss/).
-- The CVSS.my.id website source code, calculator implementation, and documentation are licensed under the [MIT License](LICENSE).
+Copyright 2026 Faturahman Alfareza.
+
+- CVSS specifications, formulas, and CVSS v4.0 MacroVector lookup tables are copyright **FIRST.Org, Inc.** (`BSD-2-Clause`). See [FIRST CVSS Specifications](https://www.first.org/cvss/) and [third-party notices](THIRD_PARTY_NOTICES).
+- The CVSS.my.id website source code, calculator implementation, and documentation are licensed under the [Apache License 2.0](LICENSE).
