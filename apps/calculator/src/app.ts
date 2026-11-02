@@ -176,11 +176,53 @@ function mGroupSummary(groupId: string, defined: number, total: number): string 
   return defined > 0 ? `+${defined}` : '0';
 }
 
+function shouldShowIndonesianNotice(): boolean {
+  try {
+    const override = new URLSearchParams(window.location.search).get('lang');
+    if (override === 'en') return false;
+    if (override === 'id') return true;
+  } catch {
+    // Ignore malformed URLs and fall back to the saved or browser preference.
+  }
+
+  let stored: string | null = null;
+  try {
+    stored = localStorage.getItem('cvss-lang');
+  } catch {
+    // Storage can be unavailable in strict privacy modes.
+  }
+  if (stored === 'en') return false;
+  if (stored === 'id') return true;
+
+  const languages = navigator.languages && navigator.languages.length
+    ? navigator.languages
+    : [navigator.language || ''];
+  return languages.some((value) => {
+    const tag = String(value).toLowerCase();
+    return tag === 'id' || tag.indexOf('id-') === 0;
+  });
+}
+
+function renderLanguageNotice(): void {
+  if (!shouldShowIndonesianNotice()) return;
+  const app = document.getElementById('calculator-app');
+  if (!app || document.querySelector('.calc-lang-note')) return;
+  const note = document.createElement('p');
+  note.className = 'calc-lang-note';
+  note.lang = 'id';
+  note.innerHTML =
+    'Kalkulator ini memakai istilah CVSS standar dalam bahasa Inggris. ' +
+    '<a href="/id/docs/calculator/">Baca panduan kalkulator berbahasa Indonesia</a>.';
+  app.parentElement?.insertBefore(note, app);
+}
+
 function initCalculator(): void {
   const root = document.getElementById('calculator-app');
   const urlBanner = document.getElementById('url-error-banner');
   const bodyVersion = document.body.getAttribute('data-cvss-version') as CvssVersion | null;
   if (!root || !bodyVersion) return;
+
+  renderLanguageNotice();
 
   const version: CvssVersion = ['4.0', '3.1', '3.0', '2.0'].includes(bodyVersion) ? bodyVersion : '4.0';
   const schema = getVersionSchema(version);

@@ -464,6 +464,20 @@ input:disabled,
   font-size: 0.9375rem;
 }
 
+.calc-lang-note {
+  margin: 0 0 16px;
+  padding: 2px 0 2px 12px;
+  border-left: 2px solid var(--border-control);
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.calc-lang-note a {
+  color: var(--fg);
+  text-underline-offset: 3px;
+}
+
 .version-switcher {
   display: inline-flex;
   flex-wrap: wrap;
