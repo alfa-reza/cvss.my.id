@@ -18,6 +18,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
       content="Calculate CVSS Base Scores from an MCP client. Supports CVSS 2.0, 3.0, 3.1, and 4.0."
     />
     <link rel="canonical" href="https://cvss.my.id/tools/mcp" />
+    <link rel="preload" href="/fonts/ibm-plex-sans-600.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="theme-color" content="#0c0d0f" />
     <script is:inline>
       (function() {
@@ -104,6 +105,15 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
             </svg>
             MCP repository
+          </a>
+          <a href="https://registry.modelcontextprotocol.io/?q=CVSS&all=1" class="btn" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+              <line x1="6" y1="6" x2="6.01" y2="6"></line>
+              <line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+            Official MCP Registry
           </a>
         </div>
       </section>
@@ -326,6 +336,19 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
     </footer>
 
     <script is:inline>
+      function flashCopied(btn) {
+        if (!btn || btn.dataset.copying === 'true') return;
+        var original = btn.innerHTML;
+        btn.dataset.copying = 'true';
+        btn.classList.add('is-copied');
+        btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Copied';
+        window.setTimeout(function () {
+          btn.classList.remove('is-copied');
+          btn.innerHTML = original;
+          delete btn.dataset.copying;
+        }, 1200);
+      }
+
       document.querySelectorAll('.copy-cmd-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var targetId = btn.getAttribute('data-copy-target');
@@ -338,6 +361,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
             navigator.clipboard.writeText(text).then(
               function () {
                 if (statusEl) statusEl.textContent = 'Copied to clipboard.';
+                flashCopied(btn);
               },
               function () {
                 if (statusEl) statusEl.textContent = 'Clipboard blocked; select and copy the text above.';
