@@ -39,6 +39,8 @@ interface AppState {
   urlError: string | null;
   feedbackMessage: string;
   fallbackCopyValue: string | null;
+  showExplanations: boolean;
+  lastGaugeValue: number;
 }
 
 function getStorageKey(version: CvssVersion): string {
@@ -197,6 +199,8 @@ function initCalculator(): void {
     urlError: null,
     feedbackMessage: '',
     fallbackCopyValue: null,
+    showExplanations: true,
+    lastGaugeValue: 0,
   };
 
   // 1. Check URL ?vector=... parameter first (URL takes precedence over sessionStorage)
@@ -428,6 +432,12 @@ function initCalculator(): void {
 
     return `
       <div class="metrics-column">
+        <div class="metrics-toolbar">
+          <label class="explain-toggle" for="explain-toggle">
+            <input type="checkbox" id="explain-toggle" ${state.showExplanations ? 'checked' : ''} />
+            <span>Show explanations</span>
+          </label>
+        </div>
         <div class="tabs-bar" role="tablist" aria-label="CVSS v${escapeHtml(state.version)} Metric Groups">
           ${tabsHtml}
         </div>
@@ -438,7 +448,10 @@ function initCalculator(): void {
         >
           <div class="group-header">
             <div class="group-header-text">
-              <h2>${escapeHtml(activeGroup.label)} Metrics</h2>
+              <div class="group-header-top">
+                <h2>${escapeHtml(activeGroup.label)} Metrics</h2>
+                <span class="group-badge">${activeGroup.id === 'base' ? 'Required' : 'Optional'}</span>
+              </div>
               <p>${escapeHtml(activeGroup.description)}</p>
             </div>
           </div>
@@ -458,47 +471,82 @@ function initCalculator(): void {
     if (isOutOfSync) {
       syncBadgeHtml = `<span class="sync-badge is-warning">Out of sync (invalid vector draft)</span>`;
     } else if (!scoreResult.isComplete) {
-      syncBadgeHtml = `<span class="sync-badge">Awaiting Base metrics</span>`;
+      syncBadgeHtml = `<span class="sync-badge">Incomplete</span>`;
     }
 
-    let readoutHtml = '';
-    let breakdownHtml = '';
+    const sevClass = scoreResult.isComplete ? getSeverityClass(scoreResult.primarySeverity) : 'sev-none';
+    const scoreColor = `var(--${sevClass})`;
+    const targetScore = scoreResult.isComplete ? scoreResult.primaryScore : 0;
+    const displayScoreText = scoreResult.isComplete ? scoreResult.primaryScore.toFixed(1) : '--';
+    const severityText = scoreResult.isComplete ? scoreResult.primarySeverity : 'Incomplete';
+    const scoreLabel = scoreResult.isComplete
+      ? (!scoreResult.hasTemporalOrThreat && !scoreResult.hasEnvironmental ? 'Base' : 'Overall')
+      : 'Score';
+    const startScore = Math.max(0, Math.min(10, state.lastGaugeValue));
+    const startFilled = (254.47 * (startScore / 10)).toFixed(2);
+    const startPct = Math.max(0, Math.min(100, startScore * 10));
 
-    if (!scoreResult.isComplete) {
-      const missingList = scoreResult.missingBaseMetrics.map((k) => `<code>${escapeHtml(k)}</code>`).join(', ');
-      readoutHtml = `
-        <div class="score-readout" aria-live="polite">
-          <div>
-            <div class="score-primary-value is-incomplete" id="score-value-display">Incomplete</div>
-            <p class="missing-hint">Select required Base metrics: ${missingList}</p>
+    let autoNote = 'Updates automatically as you select metrics.';
+    if (isOutOfSync) {
+      autoNote = 'Showing the last valid score. Fix the vector input to resume.';
+    } else if (!scoreResult.isComplete) {
+      autoNote = 'Awaiting required Base metrics.';
+    }
+
+    const subcard = (label: string, value: number | undefined): string => {
+      const pct = value === undefined ? 0 : Math.max(0, Math.min(100, value * 10));
+      const text = value === undefined ? '--' : value.toFixed(1);
+      return `
+        <div class="score-subcard">
+          <div class="score-subcard-top">
+            <span>${label}</span>
+            <span class="score-subcard-value">${text}</span>
           </div>
-          <span class="severity-pill sev-none">Incomplete</span>
+          <div class="score-subbar" aria-hidden="true">
+            <div class="score-subbar-fill" style="width:${pct}%"></div>
+          </div>
+        </div>
+      `;
+    };
+
+    let subscoreCardsHtml = '';
+    if (scoreResult.isComplete && scoreResult.impactScore !== undefined && scoreResult.exploitabilityScore !== undefined) {
+      subscoreCardsHtml = `
+        <div class="score-subgrid">
+          ${subcard('Impact', scoreResult.impactScore)}
+          ${subcard('Exploitability', scoreResult.exploitabilityScore)}
+        </div>
+      `;
+    } else if (scoreResult.isComplete && scoreResult.version === '4.0') {
+      subscoreCardsHtml = `
+        <div class="score-subgrid">
+          ${subcard('Base', scoreResult.baseScore)}
+          <div class="score-subcard is-text">
+            <div class="score-subcard-top">
+              <span>Nomenclature</span>
+              <span class="score-subcard-value">${escapeHtml(scoreResult.nomenclature ?? 'CVSS-B')}</span>
+            </div>
+          </div>
         </div>
       `;
     } else {
-      const sevClass = getSeverityClass(scoreResult.primarySeverity);
-      const nomenclatureLabel =
-        scoreResult.version === '4.0' && scoreResult.nomenclature
-          ? ` (${scoreResult.nomenclature})`
-          : '';
-      readoutHtml = `
-        <div class="score-readout" aria-live="polite">
-          <div>
-            <span class="subscore-label">Overall Score${escapeHtml(nomenclatureLabel)}${isOutOfSync ? ' [Last Valid]' : ''}</span>
-            <div class="score-primary-value" id="score-value-display">${scoreResult.primaryScore.toFixed(1)}</div>
+      subscoreCardsHtml = `
+        <div class="score-subgrid">
+          ${subcard(state.version === '4.0' ? 'Base' : 'Impact', undefined)}
+          <div class="score-subcard is-text">
+            <div class="score-subcard-top">
+              <span>${state.version === '4.0' ? 'Nomenclature' : 'Exploitability'}</span>
+              <span class="score-subcard-value">--</span>
+            </div>
           </div>
-          <span class="severity-pill ${sevClass}" id="score-severity-display">${escapeHtml(scoreResult.primarySeverity)}</span>
         </div>
       `;
+    }
 
+    let breakdownHtml = '';
+    if (scoreResult.isComplete) {
       if (scoreResult.version === '4.0') {
         const items: string[] = [];
-        items.push(`
-          <div class="subscore-item">
-            <span class="subscore-label">Nomenclature</span>
-            <span class="subscore-val">${escapeHtml(scoreResult.nomenclature ?? 'CVSS-B')}</span>
-          </div>
-        `);
         if (scoreResult.hasTemporalOrThreat || scoreResult.hasEnvironmental) {
           items.push(`
             <div class="subscore-item">
@@ -515,15 +563,17 @@ function initCalculator(): void {
             </div>
           `);
         }
-        breakdownHtml = `<div class="score-breakdown">${items.join('')}</div>`;
+        breakdownHtml = items.length ? `<div class="score-breakdown">${items.join('')}</div>` : '';
       } else {
         const items: string[] = [];
-        items.push(`
-          <div class="subscore-item">
-            <span class="subscore-label">Base Score</span>
-            <span class="subscore-val">${scoreResult.baseScore.toFixed(1)} (${escapeHtml(scoreResult.baseSeverity)})</span>
-          </div>
-        `);
+        if (scoreResult.hasTemporalOrThreat || scoreResult.hasEnvironmental) {
+          items.push(`
+            <div class="subscore-item">
+              <span class="subscore-label">Base Score</span>
+              <span class="subscore-val">${scoreResult.baseScore.toFixed(1)} (${escapeHtml(scoreResult.baseSeverity)})</span>
+            </div>
+          `);
+        }
         if (scoreResult.hasTemporalOrThreat && scoreResult.temporalScore !== undefined && scoreResult.temporalSeverity) {
           items.push(`
             <div class="subscore-item">
@@ -540,9 +590,13 @@ function initCalculator(): void {
             </div>
           `);
         }
-        breakdownHtml = `<div class="score-breakdown">${items.join('')}</div>`;
+        breakdownHtml = items.length ? `<div class="score-breakdown">${items.join('')}</div>` : '';
       }
     }
+
+    const missingHtml = !scoreResult.isComplete
+      ? `<p class="missing-hint">Select required Base metrics: ${scoreResult.missingBaseMetrics.map((k) => `<code>${escapeHtml(k)}</code>`).join(', ')}</p>`
+      : '';
 
     let vectorStatusText = 'Awaiting complete Base metrics';
     let vectorStatusClass = '';
@@ -589,19 +643,49 @@ function initCalculator(): void {
 
     return `
       <aside class="score-column" aria-label="CVSS Score and Vector Panel">
-        <div class="score-panel ${isOutOfSync ? 'is-out-of-sync' : ''}">
+        <div class="score-panel ${isOutOfSync ? 'is-out-of-sync' : ''}" style="--score-color: ${scoreColor};">
           <div class="score-header">
             <h2 class="score-header-title">CVSS v${escapeHtml(state.version)} Result</h2>
             ${syncBadgeHtml}
           </div>
 
-          ${readoutHtml}
+          <div class="score-hero" aria-live="polite">
+            <div class="score-gauge">
+              <svg viewBox="0 0 128 128" aria-hidden="true">
+                <circle class="score-gauge-track" cx="64" cy="64" r="54" transform="rotate(135 64 64)"></circle>
+                <circle class="score-gauge-arc" cx="64" cy="64" r="54" transform="rotate(135 64 64)" data-gauge-target="${targetScore}" style="stroke-dasharray:${startFilled} 339.29;"></circle>
+              </svg>
+              <div class="score-gauge-center">
+                <div class="score-gauge-value ${scoreResult.isComplete ? '' : 'is-incomplete'}" id="score-value-display">${displayScoreText}</div>
+                <div class="score-gauge-label">${scoreLabel}</div>
+              </div>
+            </div>
+            <span class="severity-pill ${sevClass}" id="score-severity-display">${escapeHtml(severityText)}</span>
+          </div>
+
+          <div class="score-scale" aria-hidden="true">
+            <div class="score-scale-track">
+              <div class="score-scale-fill" style="width:${startPct}%"></div>
+            </div>
+            <div class="score-scale-labels"><span>0</span><span>2.5</span><span>5</span><span>7.5</span><span>10</span></div>
+          </div>
+
+          ${subscoreCardsHtml}
           ${breakdownHtml}
+
+          <p class="score-auto-note ${isOutOfSync ? 'is-warning' : ''}">
+            <span class="score-auto-dot" aria-hidden="true"></span>
+            ${escapeHtml(autoNote)}
+          </p>
+          ${missingHtml}
 
           <div class="vector-editor-block">
             <div class="vector-label-row">
-              <label for="inline-vector-input" class="vector-label">Vector String (Inline Editor)</label>
-              <span class="vector-status ${vectorStatusClass}" id="vector-status-label">${escapeHtml(vectorStatusText)}</span>
+              <label for="inline-vector-input" class="vector-label">Vector String</label>
+              <div class="vector-label-actions">
+                <span class="vector-status ${vectorStatusClass}" id="vector-status-label">${escapeHtml(vectorStatusText)}</span>
+                <button type="button" class="vector-share-btn" id="share-vector-btn" ${!isActionable ? 'disabled' : ''}>Share</button>
+              </div>
             </div>
             <input
               id="inline-vector-input"
@@ -663,13 +747,14 @@ function initCalculator(): void {
     `;
   }
 
-  async function copyTextWithFallback(text: string, successLabel: string): Promise<void> {
+  async function copyTextWithFallback(text: string, successLabel: string, buttonId?: string): Promise<void> {
     state.fallbackCopyValue = null;
     try {
       if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
         await navigator.clipboard.writeText(text);
         state.feedbackMessage = successLabel;
         renderAll();
+        flashCopiedButton(buttonId);
         return;
       }
       throw new Error('Clipboard API unavailable');
@@ -677,10 +762,25 @@ function initCalculator(): void {
       state.feedbackMessage = 'Clipboard blocked by browser. Select and copy the text below.';
       state.fallbackCopyValue = text;
       renderAll();
+      flashCopiedButton(buttonId);
       const fallbackInput = document.getElementById('fallback-copy-input') as HTMLInputElement | null;
       fallbackInput?.focus();
       fallbackInput?.select();
     }
+  }
+
+  function flashCopiedButton(id: string | undefined): void {
+    if (!id) return;
+    const button = document.getElementById(id);
+    if (!button) return;
+    const original = button.innerHTML;
+    button.classList.add('is-copied');
+    button.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Copied`;
+    window.setTimeout(() => {
+      if (!button.isConnected) return;
+      button.classList.remove('is-copied');
+      button.innerHTML = original;
+    }, 1200);
   }
 
   function handleMetricChange(key: string, val: string): void {
@@ -903,7 +1003,7 @@ function initCalculator(): void {
     const copyVectorBtn = document.getElementById('copy-vector-btn');
     copyVectorBtn?.addEventListener('click', () => {
       if (scoreResult.isComplete && state.editorError === null) {
-        void copyTextWithFallback(scoreResult.canonicalVector, 'Copied canonical vector to clipboard.');
+        void copyTextWithFallback(scoreResult.canonicalVector, 'Copied canonical vector to clipboard.', 'copy-vector-btn');
       }
     });
 
@@ -911,7 +1011,7 @@ function initCalculator(): void {
     copyResultBtn?.addEventListener('click', () => {
       if (scoreResult.isComplete && state.editorError === null) {
         const summary = formatResultSummary(scoreResult);
-        void copyTextWithFallback(summary, 'Copied score result to clipboard.');
+        void copyTextWithFallback(summary, 'Copied score result to clipboard.', 'copy-result-btn');
       }
     });
 
@@ -920,127 +1020,76 @@ function initCalculator(): void {
 
     const resetAllBtn = document.getElementById('reset-all-btn');
     resetAllBtn?.addEventListener('click', handleResetAll);
+
+    const shareVectorBtn = document.getElementById('share-vector-btn');
+    shareVectorBtn?.addEventListener('click', () => {
+      if (!scoreResult.isComplete || state.editorError !== null) return;
+      const url = new URL(window.location.href);
+      url.search = '';
+      url.hash = '';
+      url.searchParams.set('vector', scoreResult.canonicalVector);
+      void copyTextWithFallback(url.toString(), 'Shareable link copied to clipboard.', 'share-vector-btn');
+    });
+
+    const explainToggle = document.getElementById('explain-toggle') as HTMLInputElement | null;
+    explainToggle?.addEventListener('change', () => {
+      state.showExplanations = explainToggle.checked;
+      root?.classList.toggle('hide-explanations', !state.showExplanations);
+    });
   }
 
-  function renderReferenceSection(version: CvssVersion, schema: VersionSchema): string {
-    const baseGroup = schema.groups.find((g) => g.id === 'base');
-    const baseMetrics = baseGroup ? baseGroup.metrics : [];
+  function animateScoreGauge(): void {
+    const arc = document.querySelector<SVGCircleElement>('.score-gauge-arc');
+    if (!arc) return;
+    const target = Math.max(0, Math.min(10, Number(arc.dataset.gaugeTarget ?? '0')));
+    const filled = (254.47 * (target / 10)).toFixed(2);
+    const pct = Math.max(0, Math.min(100, target * 10));
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        arc.style.strokeDasharray = `${filled} 339.29`;
+        const fill = document.querySelector<HTMLElement>('.score-scale-fill');
+        if (fill) fill.style.width = `${pct}%`;
+      });
+    });
+    state.lastGaugeValue = target;
+  }
 
-    let severityCardsHtml = '';
-    if (version === '2.0') {
-      severityCardsHtml = `
-        <div class="severity-card">
-          <div class="sev-card-header">
-            <span class="sev-pill sev-pill-low">Low</span>
-            <span class="sev-score-range">0.0 - 3.9</span>
-          </div>
-          <p class="sev-desc">Minimal impact. Unauthorized information disclosure or local denial of service.</p>
-        </div>
-        <div class="severity-card">
-          <div class="sev-card-header">
-            <span class="sev-pill sev-pill-medium">Medium</span>
-            <span class="sev-score-range">4.0 - 6.9</span>
-          </div>
-          <p class="sev-desc">Moderate impact. Partial disclosure, integrity compromise, or disruption of service.</p>
-        </div>
-        <div class="severity-card">
-          <div class="sev-card-header">
-            <span class="sev-pill sev-pill-high">High</span>
-            <span class="sev-score-range">7.0 - 10.0</span>
-          </div>
-          <p class="sev-desc">Complete compromise of system integrity, confidentiality, or availability.</p>
-        </div>
-      `;
-    } else {
-      severityCardsHtml = `
-        <div class="severity-card">
-          <div class="sev-card-header">
-            <span class="sev-pill sev-pill-none">None</span>
-            <span class="sev-score-range">0.0</span>
-          </div>
-          <p class="sev-desc">No security impact on target system under tested prerequisites.</p>
-        </div>
-        <div class="severity-card">
-          <div class="sev-card-header">
-            <span class="sev-pill sev-pill-low">Low</span>
-            <span class="sev-score-range">0.1 - 3.9</span>
-          </div>
-          <p class="sev-desc">Minimal impact, high privileges or local physical access required.</p>
-        </div>
-        <div class="severity-card">
-          <div class="sev-card-header">
-            <span class="sev-pill sev-pill-medium">Medium</span>
-            <span class="sev-score-range">4.0 - 6.9</span>
-          </div>
-          <p class="sev-desc">Moderate impact, user interaction or specific conditions needed.</p>
-        </div>
-        <div class="severity-card">
-          <div class="sev-card-header">
-            <span class="sev-pill sev-pill-high">High</span>
-            <span class="sev-score-range">7.0 - 8.9</span>
-          </div>
-          <p class="sev-desc">Substantial confidentiality, integrity, or availability compromise.</p>
-        </div>
-        <div class="severity-card">
-          <div class="sev-card-header">
-            <span class="sev-pill sev-pill-critical">Critical</span>
-            <span class="sev-score-range">9.0 - 10.0</span>
-          </div>
-          <p class="sev-desc">Remote unauthenticated compromise without user interaction.</p>
-        </div>
-      `;
-    }
+  function renderSeverityLevels(version: CvssVersion): string {
+    const ranges: Array<{ sev: SeverityLevel; range: string; desc: string }> =
+      version === '2.0'
+        ? [
+            { sev: 'Low', range: '0.0 - 3.9', desc: 'Minimal impact. Unauthorized information disclosure or local denial of service.' },
+            { sev: 'Medium', range: '4.0 - 6.9', desc: 'Moderate impact. Partial disclosure, integrity compromise, or disruption of service.' },
+            { sev: 'High', range: '7.0 - 10.0', desc: 'Complete compromise of system integrity, confidentiality, or availability.' },
+          ]
+        : [
+            { sev: 'None', range: '0.0', desc: 'No security impact on the target system under the tested prerequisites.' },
+            { sev: 'Low', range: '0.1 - 3.9', desc: 'Minimal impact, high privileges, or local physical access required.' },
+            { sev: 'Medium', range: '4.0 - 6.9', desc: 'Moderate impact, user interaction, or specific conditions needed.' },
+            { sev: 'High', range: '7.0 - 8.9', desc: 'Substantial confidentiality, integrity, or availability compromise.' },
+            { sev: 'Critical', range: '9.0 - 10.0', desc: 'Remote unauthenticated compromise without user interaction.' },
+          ];
 
-    const metricCardsHtml = baseMetrics
-      .map((m) => {
-        const validOptions = m.options.filter((o) => o.value !== 'X' && o.value !== 'ND');
-        const chipsHtml = validOptions
-          .map((o) => {
-            const cleanLabel = o.label.replace(/\s*\([^)]*\)$/, '');
-            return `<span class="metric-chip"><code>${escapeHtml(o.value)}</code> ${escapeHtml(cleanLabel)}</span>`;
-          })
-          .join('');
-
-        return `
-          <div class="metric-ref-card">
-            <div class="metric-ref-top">
-              <span class="mono-badge">${escapeHtml(m.key)}</span>
-              <span class="metric-ref-title">${escapeHtml(m.name)}</span>
-            </div>
-            <div class="metric-chip-list">
-              ${chipsHtml}
-            </div>
+    const cards = ranges
+      .map(({ sev, range, desc }) => `
+        <div class="severity-card">
+          <div class="severity-card-top">
+            <span class="severity-pill ${getSeverityClass(sev)}">${escapeHtml(sev)}</span>
+            <span class="severity-range">${escapeHtml(range)}</span>
           </div>
-        `;
-      })
+          <p>${escapeHtml(desc)}</p>
+        </div>
+      `)
       .join('');
 
     return `
-      <section class="calc-reference-section" aria-labelledby="ref-heading">
-        <div class="reference-section-header">
-          <div class="reference-title-wrap">
-            <svg class="ref-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
-              <path d="M6 6h10"></path>
-              <path d="M6 10h10"></path>
-            </svg>
-            <h2 id="ref-heading" class="reference-main-title">CVSS v${escapeHtml(version)} Reference Panes</h2>
-          </div>
-          <p class="reference-subtitle">Qualitative severity rating thresholds and Base metric key shorthand for CVSS v${escapeHtml(version)}.</p>
+      <section class="severity-reference-section" aria-labelledby="severity-heading">
+        <div class="severity-reference-header">
+          <h2 id="severity-heading">CVSS Severity Levels</h2>
+          <p>Qualitative rating ranges for CVSS v${escapeHtml(version)}.</p>
         </div>
-
-        <div class="reference-block">
-          <h3 class="reference-block-title">Qualitative Severity Scale &amp; Ranges</h3>
-          <div class="severity-matrix-grid ${version === '2.0' ? 'severity-grid-v2' : ''}">
-            ${severityCardsHtml}
-          </div>
-        </div>
-
-        <div class="reference-block">
-          <h3 class="reference-block-title">Base Metric Keys Reference</h3>
-          <div class="metric-ref-grid">
-            ${metricCardsHtml}
-          </div>
+        <div class="severity-grid ${version === '2.0' ? 'is-v2' : ''}">
+          ${cards}
         </div>
       </section>
     `;
@@ -1048,6 +1097,7 @@ function initCalculator(): void {
 
   function renderAll(): void {
     if (!root) return;
+    root.classList.toggle('hide-explanations', !state.showExplanations);
     updateUrlErrorBanner();
     const scoreResult = calculateScore(state.version, state.metrics);
     root.innerHTML = `
@@ -1055,9 +1105,10 @@ function initCalculator(): void {
         ${renderMetricsColumn()}
         ${renderScorePanel(scoreResult)}
       </div>
-      ${renderReferenceSection(state.version, state.schema)}
+      ${renderSeverityLevels(state.version)}
     `;
     attachEventListeners(scoreResult);
+    animateScoreGauge();
   }
 
   renderAll();

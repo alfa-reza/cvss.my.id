@@ -1,6 +1,9 @@
 <div class="mcp-status-check">
   <button class="btn" type="button" data-mcp-check>Check MCP status</button>
-  <span data-mcp-status role="status" aria-live="polite">Not checked</span>
+  <span class="mcp-status-line" data-mcp-status-line>
+    <span class="mcp-status-dot" aria-hidden="true"></span>
+    <span data-mcp-status role="status" aria-live="polite">Not checked</span>
+  </span>
   <p>Checks from your connection and counts as a request.</p>
 </div>
 
@@ -8,11 +11,14 @@
   document.querySelectorAll<HTMLElement>('.mcp-status-check').forEach((container) => {
     const button = container.querySelector<HTMLButtonElement>('[data-mcp-check]');
     const status = container.querySelector<HTMLElement>('[data-mcp-status]');
+    const line = container.querySelector<HTMLElement>('[data-mcp-status-line]');
     if (!button || !status) return;
 
     button.addEventListener('click', async () => {
       button.disabled = true;
       status.textContent = 'Checking...';
+      line?.classList.remove('is-available', 'is-error');
+      line?.classList.add('is-checking');
       const controller = new AbortController();
       const timeout = window.setTimeout(() => controller.abort(), 10000);
       try {
@@ -26,6 +32,7 @@
           cache: 'no-store', signal: controller.signal,
         });
         let message = 'Unable to check from your connection.';
+        let available = false;
         if (response.status === 429) {
           message = 'Rate limited from your connection. Try again later.';
         } else if (response.ok && response.body) {
@@ -53,12 +60,20 @@
             if (valid || done) break;
           }
           void reader.cancel().catch(() => {});
-          if (valid) message = 'Available from your connection.';
+          if (valid) {
+            available = true;
+            message = 'Available from your connection.';
+          }
         }
+        line?.classList.toggle('is-available', available);
+        line?.classList.toggle('is-error', !available);
         status.textContent = `${message} Checked at ${new Date().toLocaleTimeString()}`;
       } catch {
+        line?.classList.remove('is-available');
+        line?.classList.add('is-error');
         status.textContent = `Unable to check from your connection. Checked at ${new Date().toLocaleTimeString()}`;
       } finally {
+        line?.classList.remove('is-checking');
         window.clearTimeout(timeout);
         button.disabled = false;
       }

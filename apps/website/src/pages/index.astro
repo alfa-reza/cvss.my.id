@@ -18,6 +18,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
       content="Calculate CVSS scores in your browser or connect an AI agent to the MCP server."
     />
     <link rel="canonical" href="https://cvss.my.id/" />
+    <link rel="preload" href="/fonts/ibm-plex-sans-600.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="theme-color" content="#0c0d0f" />
     <script is:inline>
       (function() {
@@ -115,81 +116,34 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
         </div>
       </section>
 
-      <!-- Section 2: Choose a calculator -->
+      <!-- Section 2: Calculator -->
       <section class="section-block" aria-labelledby="versions-heading">
         <div class="section-header">
-          <h2 id="versions-heading">Choose a calculator</h2>
-          <p>Select the CVSS version you need.</p>
+          <h2 id="versions-heading">Calculator</h2>
+          <p>Open the full browser calculator. Select the CVSS version inside.</p>
         </div>
-        <div class="version-grid">
-          <a href={`${calcBaseUrl}/v4.0`} class="version-card">
-            <div>
-              <div class="version-card-top">
-                <span class="version-name">CVSS v4.0</span>
-                <span class="version-tag">Current</span>
-              </div>
-              <p class="version-meta">Base, Threat, Environmental, and Supplemental metrics.</p>
+        <a href={`${calcBaseUrl}/v4.0`} class="version-card version-card-primary">
+          <div>
+            <div class="version-card-top">
+              <span class="version-name">CVSS v4.0 Calculator</span>
+              <span class="version-tag">Current</span>
             </div>
-            <span class="version-action">
-              <span>Open Calculator</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </span>
-          </a>
-
-          <a href={`${calcBaseUrl}/v3.1`} class="version-card">
-            <div>
-              <div class="version-card-top">
-                <span class="version-name">CVSS v3.1</span>
-                <span class="version-tag">Standard</span>
-              </div>
-              <p class="version-meta">Base, Temporal, and Environmental metrics.</p>
-            </div>
-            <span class="version-action">
-              <span>Open Calculator</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </span>
-          </a>
-
-          <a href={`${calcBaseUrl}/v3.0`} class="version-card">
-            <div>
-              <div class="version-card-top">
-                <span class="version-name">CVSS v3.0</span>
-                <span class="version-tag">Legacy v3</span>
-              </div>
-              <p class="version-meta">Base, Temporal, and Environmental metrics.</p>
-            </div>
-            <span class="version-action">
-              <span>Open Calculator</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </span>
-          </a>
-
-          <a href={`${calcBaseUrl}/v2.0`} class="version-card">
-            <div>
-              <div class="version-card-top">
-                <span class="version-name">CVSS v2.0</span>
-                <span class="version-tag">Historical</span>
-              </div>
-              <p class="version-meta">Base, Temporal, and Environmental metrics.</p>
-            </div>
-            <span class="version-action">
-              <span>Open Calculator</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </span>
-          </a>
-        </div>
+            <p class="version-meta">Base, Threat, Environmental, and Supplemental metrics.</p>
+          </div>
+          <span class="version-action">
+            <span>Open Calculator</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
+        </a>
+        <p class="version-alt">
+          <span>Other versions:</span>
+          <a href={`${calcBaseUrl}/v3.1`}>v3.1</a>
+          <a href={`${calcBaseUrl}/v3.0`}>v3.0</a>
+          <a href={`${calcBaseUrl}/v2.0`}>v2.0</a>
+        </p>
       </section>
 
       <!-- Section 3: CVSS for AI Agents (Local first, Remote second) -->
@@ -393,6 +347,19 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
     </footer>
 
     <script is:inline>
+      function flashCopied(btn) {
+        if (!btn || btn.dataset.copying === 'true') return;
+        var original = btn.innerHTML;
+        btn.dataset.copying = 'true';
+        btn.classList.add('is-copied');
+        btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Copied';
+        window.setTimeout(function () {
+          btn.classList.remove('is-copied');
+          btn.innerHTML = original;
+          delete btn.dataset.copying;
+        }, 1200);
+      }
+
       document.querySelectorAll('.copy-cmd-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var targetId = btn.getAttribute('data-copy-target');
@@ -405,6 +372,7 @@ const remoteMcpUrl = 'https://cvss.my.id/mcp';
             navigator.clipboard.writeText(text).then(
               function () {
                 if (statusEl) statusEl.textContent = 'Copied to clipboard.';
+                flashCopied(btn);
               },
               function () {
                 if (statusEl) statusEl.textContent = 'Clipboard blocked; select and copy the text above.';

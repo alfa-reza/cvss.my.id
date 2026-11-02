@@ -34,6 +34,14 @@ A score is never shown as `0.0` merely because metrics have not been selected ye
 - While any mandatory Base metric is unselected, the Score Panel displays **`Incomplete`** and lists the exact count of missing Base metrics.
 - Once all required Base metrics are selected, the Score Panel immediately computes the overall numeric score, qualitative severity label, active nomenclature (such as `CVSS-B` or `CVSS-BTE` in v4.0), and sub-score breakdown.
 
+## Score Panel
+
+The score panel appears above the metrics on mobile and beside them on desktop. It shows a score gauge, the qualitative severity rating, a 0-10 scale, and version-appropriate sub-scores: Impact and Exploitability for CVSS v2.0 and v3.x, and Base and Nomenclature for CVSS v4.0. The panel updates automatically as metric values change.
+
+- **Share**: Copies a link containing the current canonical vector.
+- **Show explanations**: Hides or shows the metric descriptions and the help text for the selected value.
+- **Severity Levels**: The section below the calculator lists the qualitative rating bands for the active CVSS version.
+
 ## Inline Vector Editor & Out-of-Sync Protection
 
 The **Vector String** input at the top of the workspace is editable at all times:
@@ -52,9 +60,6 @@ The **Vector String** input at the top of the workspace is editable at all times
 - **Reset Group**: Resets only the currently open tab (`Threat`, `Temporal`, `Environmental`, or `Supplemental`) back to `Not Defined` (`X` / `ND`), or clears `Base` selections when on the `Base` tab.
 - **Reset All**: Clears all metrics and restores the default state for the active CVSS version.
 
-## Built-in Reference Panes
+## Reference Tables
 
-Each calculator route includes dedicated reference panes located directly beneath the scoring workspace:
-
-- **Qualitative Severity Scale & Ranges**: Outlines score threshold bands for the active specification (None, Low, Medium, High, and Critical for CVSS v3/v4; Low, Medium, and High for CVSS v2.0).
-- **Base Metric Keys Reference**: Lists the key shorthand, metric name, and allowed values for every mandatory Base metric in the selected version.
+Qualitative severity ranges and the mandatory Base metric keys for each supported version are documented in [Base Metric Keys & Severity Ranges](/docs/cvss/metric-keys/).

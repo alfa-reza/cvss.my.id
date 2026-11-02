@@ -38,5 +38,27 @@
   })();
 </script>
 <style>
-  select { color: var(--sl-color-text); background: var(--sl-color-bg-nav); border: 1px solid var(--sl-color-gray-5); border-radius: 4px; padding: 0.4rem; }
+  .theme-select {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  select {
+    height: 32px;
+    padding: 0 8px;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: var(--sl-font);
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: color 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+  }
+
+  select:hover {
+    color: var(--fg);
+    background-color: var(--surface);
+    border-color: var(--border-control);
+  }
 </style>

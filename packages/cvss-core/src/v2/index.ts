@@ -483,6 +483,8 @@ export function calculateV2Score(metrics: Record<string, string>): ScoreResult {
     primarySeverity,
     baseScore,
     baseSeverity,
+    impactScore: impact,
+    exploitabilityScore: exploitability,
     temporalScore,
     temporalSeverity,
     environmentalScore,
