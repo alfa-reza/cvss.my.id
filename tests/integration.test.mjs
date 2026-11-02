@@ -87,7 +87,7 @@ describe('Static Build & Architecture Gate (AGENTS.md Section 2, 3, 5, 8, 9)', (
 
     // Cloudflare Pages serves /calculator/v4.0/index.html via a 308 redirect to
     // /calculator/v4.0/, while _redirects sends /calculator/v4.0/ back to
-    // /calculator/v4.0 — an infinite redirect loop. Version pages must instead be
+    // /calculator/v4.0 - an infinite redirect loop. Version pages must instead be
     // emitted as flat files (v4.0.html) so the canonical non-slash URL serves 200 directly.
     for (const version of ['v4.0', 'v3.1', 'v3.0', 'v2.0']) {
       assert.equal(
