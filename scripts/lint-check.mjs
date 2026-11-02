@@ -8,6 +8,7 @@ const SOURCE_DIRS = [
   path.join(ROOT, 'packages'),
   path.join(ROOT, 'apps', 'calculator'),
   path.join(ROOT, 'apps', 'website', 'src'),
+  path.join(ROOT, 'tests'),
   path.join(ROOT, 'DESIGN.md'),
   path.join(ROOT, 'README.md'),
 ];

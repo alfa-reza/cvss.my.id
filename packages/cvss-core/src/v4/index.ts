@@ -996,7 +996,7 @@ export function computeRawV4Score(cvssSelected: Record<string, string>): { score
   if (value < 0) value = 0.0;
   if (value > 10) value = 10.0;
 
-  const rounded = Math.round((value + 1e-9) * 10) / 10;
+  const rounded = Math.round(value * 10) / 10;
   return { score: rounded, macroVector: macro };
 }
 

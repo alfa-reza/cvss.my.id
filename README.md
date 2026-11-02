@@ -14,7 +14,9 @@ Monorepo for **`cvss.my.id`** (static homepage, `/tools/mcp`, `/docs`, and the f
 ├── scripts/
 │   └── lint-check.mjs     # Static verification gate (no SSR/Worker output, no telemetry/CDN fonts, R-02 check)
 └── tests/
-    └── integration.test.mjs # End-to-end build artifact, route, and calculator state verification
+    ├── integration.test.mjs    # Build artifact, route, redirect, and content gates
+    ├── calculator-routes.test.mjs # Dev/preview serving of the four version routes
+    └── first-cvss-corpus.test.mjs # Scoring gate against the official FIRST reference corpus
 ```
 
 ### Related Repositories & Endpoints

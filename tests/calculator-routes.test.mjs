@@ -1,7 +1,9 @@
-import { test } from 'node:test';
+import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'vite';
 import { resolve } from 'node:path';
+
+let testsFailed = false;
 
 test('calculator version URLs serve their own page in Vite', async () => {
   const root = resolve('apps/calculator');
@@ -17,7 +19,18 @@ test('calculator version URLs serve their own page in Vite', async () => {
         assert.match(html, new RegExp(`data-cvss-version="${version.replace('.', '\\.')}"`), `wrong page for v${version}${suffix}`);
       }
     }
+  } catch (error) {
+    testsFailed = true;
+    throw error;
   } finally {
     await server.close();
   }
+});
+
+// Vite spawns an esbuild --service subprocess that can outlive server.close()
+// and keep this test process (and therefore `node --test`) alive indefinitely.
+// Exit explicitly once all tests in this file have finished, preserving the
+// failure exit code, so the suite terminates deterministically on Node 20+.
+after(() => {
+  process.exit(testsFailed ? 1 : 0);
 });
