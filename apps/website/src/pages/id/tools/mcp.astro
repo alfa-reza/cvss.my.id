@@ -1,0 +1,20 @@
+---
+import '../../../styles/site.css';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import McpView from '../../../components/McpView.astro';
+import { ui } from '../../../i18n/ui';
+
+const t = ui.id;
+---
+
+<SiteLayout
+  lang="id"
+  page="mcp"
+  title={t.meta.mcpTitle}
+  description={t.meta.mcpDescription}
+  canonicalPath="/id/tools/mcp"
+  enPath="/tools/mcp"
+  idPath="/id/tools/mcp"
+>
+  <McpView lang="id" />
+</SiteLayout>

@@ -1,0 +1,20 @@
+---
+import '../../styles/site.css';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import HomeView from '../../components/HomeView.astro';
+import { ui } from '../../i18n/ui';
+
+const t = ui.id;
+---
+
+<SiteLayout
+  lang="id"
+  page="home"
+  title={t.meta.homeTitle}
+  description={t.meta.homeDescription}
+  canonicalPath="/id/"
+  enPath="/"
+  idPath="/id/"
+>
+  <HomeView lang="id" />
+</SiteLayout>
