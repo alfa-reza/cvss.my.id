@@ -124,6 +124,8 @@ describe('CVSS v3.1 and v3.0 Scoring, Rounding, and Version Differences', () => 
       if (score.isComplete) {
         assert.equal(score.primaryScore, 9.8);
         assert.equal(score.primarySeverity, 'Critical');
+        assert.ok(score.impactScore !== undefined && Math.abs(score.impactScore - 5.8731) < 0.001);
+        assert.ok(score.exploitabilityScore !== undefined && Math.abs(score.exploitabilityScore - 3.8870) < 0.001);
       }
     }
   });

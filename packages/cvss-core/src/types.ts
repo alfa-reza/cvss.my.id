@@ -66,6 +66,8 @@ export interface CompleteScoreResult {
   primarySeverity: SeverityLevel;
   baseScore: number;
   baseSeverity: SeverityLevel;
+  impactScore?: number;
+  exploitabilityScore?: number;
   temporalScore?: number;
   temporalSeverity?: SeverityLevel;
   environmentalScore?: number;
