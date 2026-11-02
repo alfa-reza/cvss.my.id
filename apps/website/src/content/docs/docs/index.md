@@ -14,7 +14,7 @@ Welcome to the **CVSS.my.id** documentation. This documentation covers two stati
 ### Getting Started & Calculator
 
 - [Getting Started](/docs/getting-started/): Choose the right CVSS version and tool for your workflow.
-- [Full Browser Calculator Guide](/docs/calculator/): Metric group tabs, inline vector editing, keyboard navigation, and built-in reference panes.
+- [Full Browser Calculator Guide](/docs/calculator/): Metric group tabs, inline vector editing, keyboard navigation, and result export.
 
 ### CVSS Reference
 
@@ -23,6 +23,8 @@ Welcome to the **CVSS.my.id** documentation. This documentation covers two stati
 - [CVSS v3.1 Reference](/docs/cvss/v3.1/): Base, Temporal, and Environmental formulas, Scope rules, and `Roundup` behavior.
 - [CVSS v3.0 Reference](/docs/cvss/v3.0/): Historical 3.0 formulas and exact differences from 3.1.
 - [CVSS v2.0 Reference](/docs/cvss/v2/): Access Vector, Authentication (`Au`), Temporal, Environmental, and the 3-tier severity scale (`Low`, `Medium`, `High`).
+- [Base Metric Keys & Severity Ranges](/docs/cvss/metric-keys/): Key shorthand, allowed Base values, and qualitative score bands for each version.
+- [CVSS Metric Glossary](/docs/cvss/metric-glossary/): Definitions and allowed values for every metric key across CVSS 4.0, 3.1, 3.0, and 2.0.
 - [Vector String Format](/docs/cvss/vectors/): Prefix rules, metric ordering, mandatory vs optional metrics, and validation rules.
 - [Worked Examples](/docs/cvss/examples/): Real-world vulnerability vectors across all four CVSS versions.
 

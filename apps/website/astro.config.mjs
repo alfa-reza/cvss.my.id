@@ -46,6 +46,8 @@ export default defineConfig({
             { label: 'CVSS v3.1 Specification Guide', link: '/docs/cvss/v3.1/' },
             { label: 'CVSS v3.0 Specification Guide', link: '/docs/cvss/v3.0/' },
             { label: 'CVSS v2.0 Specification Guide', link: '/docs/cvss/v2/' },
+            { label: 'Base Metric Keys & Severity Ranges', link: '/docs/cvss/metric-keys/' },
+            { label: 'CVSS Metric Glossary', link: '/docs/cvss/metric-glossary/' },
             { label: 'Vector String Format & Rules', link: '/docs/cvss/vectors/' },
             { label: 'Reproducible Examples', link: '/docs/cvss/examples/' },
           ],

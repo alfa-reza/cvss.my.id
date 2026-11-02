@@ -192,45 +192,28 @@ input:disabled,
   margin-top: 1px !important;
 }
 
-/* Brand typography and score logo in docs header */
-.site-title.brand-link {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  text-decoration: none !important;
-  font-size: 1.125rem !important;
-  color: var(--fg) !important;
+/* Keep JSON and CVSS vector strings intact; scroll code blocks instead of wrapping. */
+.expressive-code pre:not(.wrap) .ec-line .code {
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
-.site-title.brand-link:hover {
-  text-decoration: none !important;
+.expressive-code pre {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-control) transparent;
 }
 
-.brand-text {
-  display: inline-flex;
-  align-items: baseline;
+.expressive-code pre::-webkit-scrollbar {
+  height: 6px;
 }
 
-.brand-name {
-  font-size: 1.12em;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  color: var(--fg);
-  text-transform: uppercase;
+.expressive-code pre::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.brand-tld {
-  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
-  font-size: 0.8125rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: var(--muted);
-  margin-left: 3px;
-}
-
-.brand-logo-icon {
-  color: var(--fg);
-  flex-shrink: 0;
+.expressive-code pre::-webkit-scrollbar-thumb {
+  background: var(--border-control);
+  border-radius: 3px;
 }
 
