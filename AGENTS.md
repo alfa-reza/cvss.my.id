@@ -50,6 +50,7 @@ Both public-facing applications MUST generate static deployable assets. **No app
 - Do **not** call `https://cvss.my.id/mcp`, any external scoring API, or any service to compute browser scores. The calculator must also work after the static assets have loaded when offline.
 - Do not introduce analytics, trackers, advertising scripts, third-party runtime fonts, remote feature flags, or client-side telemetry.
 - A static file redirect (`_redirects`), static routing rule or pre-rendered redirect page is allowed where needed; do not turn it into a Function.
+- Language selection is **client-side only**: static `hreflang` links, per-locale URLs, and a small inline preference/detection script. Do not add server-side `Accept-Language` negotiation, server-read locale cookies, Pages Functions, or edge middleware for localization.
 - Avoid build-time remote dependencies when practical; reproducible builds should not rely on unpinned remote assets.
 
 **Release-blocking proof:** inspect generated build artifacts and Cloudflare project settings. There must be **no Pages Functions or Worker runtime generated or invoked** by the website/calculator. Assert in browser network tests that changing metrics makes **zero scoring-network requests**.
@@ -124,13 +125,27 @@ The homepage is a small, static **product hub**, NOT a second calculator. Keep a
 1. **Local MCP — recommended**: show installer command exactly as above, Linux/macOS label, Copy action, guide link, `stdio`, no public endpoint limit.
 2. **Remote MCP — free**: show `https://cvss.my.id/mcp`, Copy action, Streamable HTTP, and text **“Rate limit: 5 requests per minute per IP. For higher usage, run Local MCP (stdio).”**
 
-The public remote limit is a published usage policy; **do not claim the website enforces that limit**. The Go MCP is **Base Score only**, unlike the **full browser calculator**. Do not promise CVE scanning or Threat/Temporal/Environmental MCP scoring.
+The public remote limit is a published usage policy; **do not claim the website enforces that limit**. The English route must show the policy verbatim; the Indonesian route translates the policy while keeping the numeric limit and the `stdio` reference unchanged. The Go MCP is **Base Score only**, unlike the **full browser calculator**. Do not promise CVE scanning or Threat/Temporal/Environmental MCP scoring.
 
-**Documentation:** Astro Starlight, static Markdown/MDX, English first (future Indonesian without changing English URLs), first-party navigation/TOC/static search/code-copy wherever possible. `/docs` must explain CVSS 2.0, 3.0, 3.1, 4.0, vector formats, examples, calculator usage, and **MCP installation and tool use**.
+**Documentation:** Astro Starlight, static Markdown/MDX, **bilingual with English as the default locale at the existing URLs and Indonesian at `/id/...`**. English URLs must never change. First-party navigation/TOC/static search/code-copy wherever possible. `/docs` must explain CVSS 2.0, 3.0, 3.1, 4.0, vector formats, examples, calculator usage, and **MCP installation and tool use**. Both languages must stay structurally equivalent.
 
 `/docs/mcp/clients/` is a **plain index of links**, with one independent Markdown page per client: **Codex, Claude Code, OpenCode v2, GitHub Copilot, Cursor, VS Code, Zed, Gemini CLI, JetBrains, Claude Desktop, Kilo Code, Cline, Hermes Agent**. Each page: **Local stdio first**, then **Remote HTTP**, verify, short troubleshooting, official reference. **No custom client selector, JavaScript tabs or runtime configuration generator.** Verify client commands against current official documentation; never invent CLI options or assert testing that did not happen.
 
 Provide accurate FIRST attribution, link original standards, respect source licenses, and do not lift third-party articles wholesale.
+
+### 5.1 Localization policy (English and Indonesian)
+
+Supported locales are **English (`en`, default, root)** and **Indonesian (`id`, prefix `/id/`)**. No other locale is promised for V1.
+
+- English stays at `/`, `/tools/mcp`, `/docs/...`, and the calculator routes. Indonesian uses `/id/`, `/id/tools/mcp`, `/id/docs/...`. Never move the English URLs to add a locale prefix.
+- Every translatable page exposes a language switcher and reciprocal `hreflang` links (`en`, `id`, and `x-default` pointing to English). Canonical URLs are per locale.
+- English is the default for every visitor. Indonesian is selected automatically only when `navigator.languages` reports `id` or `id-*`, or when the visitor explicitly saved Indonesian.
+- A saved choice (`cvss-lang`) wins over browser detection. Never auto-redirect a visitor away from `/id/...`; localized URLs are stable.
+- Detection is client-side static JavaScript only. No server negotiation, Pages Function, server-read cookie, or edge middleware. Preserve query and hash, avoid redirect loops, and skip paths without a translation.
+- Translate prose, headings, instructions, website and documentation UI chrome, error feedback, and documentation. Calculator chrome follows Section 6. **Keep English** for product and protocol names, metric names and codes, metric values, severity labels, metric group names, vector strings, CLI commands, configuration keys, file paths, URLs, code blocks, `Base Score`, `MacroVector`, `Roundup`, `Proof-of-Concept`, `Streamable HTTP`, `stdio`, `JSON-RPC`, `Official MCP Registry`, `CVSS`, `FIRST`, and `MCP`.
+- Do not translate a literal value and then present it as code. If a published policy must be quoted verbatim, quote the English text; otherwise write the translated policy as prose.
+- English is the source of truth. When behavior or a command changes, update both languages in the same change. Machine translation must be reviewed for terminology and tone.
+- Indonesian copy uses formal “Anda”, imperative steps, “skor”, “kerentanan”, and “tingkat keparahan”, while keeping “browser”, “vector”, “endpoint”, and “token”. Avoid em dashes; the lint gate enforces this.
 
 ## 6. Full calculator: scoring correctness before cosmetics
 
@@ -154,6 +169,12 @@ Support **full metric groups** for CVSS **2.0, 3.0, 3.1, 4.0**, not Base-only. D
 - **sessionStorage**, separated by CVSS version, saves raw draft (including invalid draft) and last valid metric state. Refresh restores drafts; Reset All clears only the active version. An explicitly supplied valid shared URL takes precedence over session data.
 - Handle stale shared-URL parameters safely after edits, corrupt storage, unavailable clipboard, invalid URL input, unsupported version, and malformed vectors.
 - All calculation state stays on the browser; no database, login, historical tracking, or backend.
+
+**Language and terminology:**
+
+- The calculator is a standards tool. Metric names, metric keys, metric values, metric group names, severity labels (`None`, `Low`, `Medium`, `High`, `Critical`), `Base Score`, `MacroVector`, `Roundup`, and canonical vector strings remain in English in every locale.
+- The current release keeps the calculator chrome in English. When the visitor's saved choice or browser language is Indonesian, show one restrained Indonesian notice above the workspace linking to `/id/docs/calculator/`. Do not translate metric names, values, severity labels, or vector tokens.
+- A full calculator chrome localization is a separate, tested slice. If added, use a small dictionary keyed by `cvss-lang` (and an optional `?lang=` override), keep the version routes fixed, and test both languages without changing scoring, parsing, or serialization output.
 
 **Never present a visual preview as a verified calculator.** Early UI previews may show `—` / `Incomplete`; release actual scores only once the applicable FIRST reference tests pass.
 
@@ -199,8 +220,9 @@ Before saying a feature is complete, run the relevant checks, report actual comm
 5. **Browser gate:** desktop/mobile snapshots and interaction checks at representative widths (360, 390, 768, 1024, 1440 px), keyboard-only navigation, focus, color contrast, horizontal overflow.
 6. **Network gate:** inspect live browser requests — **no remote scoring calls or telemetry**, no hidden backend dependency.
 7. **Docs gate:** correct pages, selected client guides, command examples, internal links, search, code copy, external repository links, FIRST attribution.
-8. **Cloudflare routing gate (before production cutover):** `/`, `/docs`, `/tools/mcp`, and `/calculator/` including version routes served by Pages; `/mcp` still reaches existing Worker and completes actual MCP handshake; installer still follows existing 302 chain.
-9. **Performance gate:** record build asset sizes and Lighthouse results; compare against targets without misrepresenting lab tests as real-user data.
+8. **Localization gate:** all English and Indonesian routes build; language switcher and reciprocal `hreflang` links exist; `lang` attributes are correct; detection is client-side only; a saved choice wins; `/id/...` never redirects away; no redirect loop; compare both versions so code blocks, commands, configuration keys, metric names, severity labels, and product names stay identical; no translated literal is presented as code.
+9. **Cloudflare routing gate (before production cutover):** `/`, `/docs`, `/tools/mcp`, and `/calculator/` including version routes served by Pages; `/mcp` still reaches existing Worker and completes actual MCP handshake; installer still follows existing 302 chain.
+10. **Performance gate:** record build asset sizes and Lighthouse results; compare against targets without misrepresenting lab tests as real-user data.
 
 If a check cannot be run, write **“not verified”** and say why. **Never describe a mock, screenshot or placeholder score as production-complete.** Do not mark a client setup example “tested” unless it was executed in that client.
 
@@ -218,7 +240,7 @@ If a check cannot be run, write **“not verified”** and say why. **Never desc
 
 ## 11. Explicitly out of scope for V1
 
-No SSR/server/API backend, Pages Functions, database, authentication, user dashboard, scan/CVE lookup, embedded chatbot/AI agent, analytics, ads, JSON/PDF export, vector comparison, persistent history, animated marketing site, remote scoring for the browser, Docker/VPS self-hosting tutorials, MCP information subdomain, alternate remote MCP URL, modifying the existing Go MCP implementation, or Indonesian translated pages before the future localization milestone.
+No SSR/server/API backend, Pages Functions, database, authentication, user dashboard, scan/CVE lookup, embedded chatbot/AI agent, analytics, ads, JSON/PDF export, vector comparison, persistent history, animated marketing site, remote scoring for the browser, Docker/VPS self-hosting tutorials, MCP information subdomain, alternate remote MCP URL, modifying the existing Go MCP implementation, **additional locales beyond English and Indonesian, and translating standard CVSS metric names, values, or severity labels in the calculator**.
 
 ## 12. Authoritative references
 
@@ -228,7 +250,11 @@ No SSR/server/API backend, Pages Functions, database, authentication, user dashb
 - [FIRST CVSS v2 Guide](https://www.first.org/cvss/v2/guide)
 - [FIRST CVSS v4 reference calculator source](https://github.com/FIRSTdotorg/cvss-v4-calculator)
 - [Astro](https://docs.astro.build/)
+- [Astro i18n routing](https://docs.astro.build/en/guides/internationalization/)
 - [Astro Starlight](https://starlight.astro.build/)
+- [Astro Starlight i18n](https://starlight.astro.build/guides/i18n/)
+- [Microsoft Indonesian localization style guide](https://aka.ms/indonesian-styleguide)
+- [Kubernetes Indonesian localization guide](https://kubernetes.io/docs/contribute/localization_id/)
 - [Cloudflare Pages — Astro](https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/)
 - [Cloudflare Pages — Monorepos](https://developers.cloudflare.com/pages/configuration/monorepos/)
 - [Cloudflare Pages — Functions pricing and static assets](https://developers.cloudflare.com/pages/functions/pricing/)

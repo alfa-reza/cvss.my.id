@@ -1,8 +1,12 @@
+---
+const t = Astro.locals.t;
+---
+
 <label class="theme-select">
-  <span class="sr-only">Color theme</span>
-  <select aria-label="Color theme">
-    <option value="dark">Dark</option>
-    <option value="light">Light</option>
+  <span class="sr-only">{t('themeSelect.accessibleLabel')}</span>
+  <select aria-label={t('themeSelect.accessibleLabel')}>
+    <option value="dark">{t('themeSelect.dark')}</option>
+    <option value="light">{t('themeSelect.light')}</option>
   </select>
 </label>
 

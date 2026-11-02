@@ -1,0 +1,34 @@
+---
+import type { Lang } from '../i18n/ui';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  enHref: string;
+  idHref: string;
+}
+
+const { lang, enHref, idHref } = Astro.props;
+const t = ui[lang].common;
+---
+
+<nav class="lang-switch" aria-label={t.language}>
+  <a
+    href={enHref}
+    hreflang="en"
+    lang="en"
+    aria-label="English"
+    title="English"
+    aria-current={lang === 'en' ? 'true' : undefined}
+    data-set-lang="en"
+  >EN</a>
+  <a
+    href={idHref}
+    hreflang="id"
+    lang="id"
+    aria-label="Bahasa Indonesia"
+    title="Bahasa Indonesia"
+    aria-current={lang === 'id' ? 'true' : undefined}
+    data-set-lang="id"
+  >ID</a>
+</nav>

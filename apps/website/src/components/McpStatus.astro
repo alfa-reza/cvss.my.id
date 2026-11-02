@@ -1,10 +1,29 @@
-<div class="mcp-status-check">
-  <button class="btn" type="button" data-mcp-check>Check MCP status</button>
+---
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].status;
+---
+
+<div
+  class="mcp-status-check"
+  data-locale={lang === 'id' ? 'id-ID' : 'en-US'}
+  data-checking={t.checking}
+  data-available={t.available}
+  data-unavailable={t.unavailable}
+  data-rate-limited={t.rateLimited}
+  data-checked-at={t.checkedAt}
+>
+  <button class="btn" type="button" data-mcp-check>{t.button}</button>
   <span class="mcp-status-line" data-mcp-status-line>
     <span class="mcp-status-dot" aria-hidden="true"></span>
-    <span data-mcp-status role="status" aria-live="polite">Not checked</span>
+    <span data-mcp-status role="status" aria-live="polite">{t.notChecked}</span>
   </span>
-  <p>Checks from your connection and counts as a request.</p>
+  <p>{t.note}</p>
 </div>
 
 <script>
@@ -14,9 +33,18 @@
     const line = container.querySelector<HTMLElement>('[data-mcp-status-line]');
     if (!button || !status) return;
 
+    const locale = container.dataset.locale || 'en-US';
+    const checking = container.dataset.checking || 'Checking...';
+    const available = container.dataset.available || 'Available from your connection.';
+    const unavailable = container.dataset.unavailable || 'Unable to check from your connection.';
+    const rateLimited = container.dataset.rateLimited || 'Rate limited from your connection.';
+    const checkedAt = container.dataset.checkedAt || 'Checked at';
+
+    const time = (): string => new Date().toLocaleTimeString(locale);
+
     button.addEventListener('click', async () => {
       button.disabled = true;
-      status.textContent = 'Checking...';
+      status.textContent = checking;
       line?.classList.remove('is-available', 'is-error');
       line?.classList.add('is-checking');
       const controller = new AbortController();
@@ -31,10 +59,10 @@
           }),
           cache: 'no-store', signal: controller.signal,
         });
-        let message = 'Unable to check from your connection.';
-        let available = false;
+        let message = unavailable;
+        let isAvailable = false;
         if (response.status === 429) {
-          message = 'Rate limited from your connection. Try again later.';
+          message = rateLimited;
         } else if (response.ok && response.body) {
           const reader = response.body.getReader();
           const decoder = new TextDecoder();
@@ -53,7 +81,7 @@
             buffer += decoder.decode(value, { stream: !done });
             const contentType = response.headers.get('content-type') || '';
             if (contentType.includes('text/event-stream')) {
-              valid = buffer.split(/\r?\n/).some((line) => line.startsWith('data:') && isInitializeResponse(line.slice(5).trim()));
+              valid = buffer.split(/\r?\n/).some((entry) => entry.startsWith('data:') && isInitializeResponse(entry.slice(5).trim()));
             } else if (contentType.includes('application/json')) {
               valid = isInitializeResponse(buffer);
             }
@@ -61,17 +89,17 @@
           }
           void reader.cancel().catch(() => {});
           if (valid) {
-            available = true;
-            message = 'Available from your connection.';
+            isAvailable = true;
+            message = available;
           }
         }
-        line?.classList.toggle('is-available', available);
-        line?.classList.toggle('is-error', !available);
-        status.textContent = `${message} Checked at ${new Date().toLocaleTimeString()}`;
+        line?.classList.toggle('is-available', isAvailable);
+        line?.classList.toggle('is-error', !isAvailable);
+        status.textContent = `${message} ${checkedAt} ${time()}`;
       } catch {
         line?.classList.remove('is-available');
         line?.classList.add('is-error');
-        status.textContent = `Unable to check from your connection. Checked at ${new Date().toLocaleTimeString()}`;
+        status.textContent = `${unavailable} ${checkedAt} ${time()}`;
       } finally {
         line?.classList.remove('is-checking');
         window.clearTimeout(timeout);

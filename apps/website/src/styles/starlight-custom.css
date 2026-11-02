@@ -217,3 +217,8 @@ input:disabled,
   border-radius: 3px;
 }
 
+
+/* Keep the full language endonym visible in the docs language picker. */
+starlight-lang-select label {
+  --sl-select-width: 9em !important;
+}
