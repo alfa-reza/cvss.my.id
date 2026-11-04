@@ -21,6 +21,7 @@ export default defineConfig({
     starlight({
       title: 'CVSS.my.id',
       description: 'Practical CVSS 2.0, 3.0, 3.1, and 4.0 reference documentation and MCP server setup guides.',
+      routeMiddleware: './src/routeData.ts',
       defaultLocale: 'root',
       locales: {
         root: { label: 'English', lang: 'en' },
@@ -39,6 +40,21 @@ export default defineConfig({
       },
       customCss: ['./src/styles/starlight-custom.css'],
       head: [
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'icon',
+            href: '/favicon.ico',
+            sizes: 'any',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'apple-touch-icon',
+            href: '/apple-touch-icon.png',
+          },
+        },
         {
           tag: 'meta',
           attrs: {
