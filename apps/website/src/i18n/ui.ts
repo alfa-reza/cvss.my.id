@@ -10,9 +10,9 @@ export const defaultLang: Lang = 'en';
 export const ui = {
   en: {
     meta: {
-      homeTitle: 'CVSS Calculator & MCP Server | CVSS.my.id',
+      homeTitle: 'CVSS Calculator & MCP Server',
       homeDescription: 'Calculate CVSS scores in your browser or connect an AI agent to the MCP server.',
-      mcpTitle: 'CVSS Calculator MCP Server for AI Agents | CVSS.my.id',
+      mcpTitle: 'CVSS Calculator MCP Server for AI Agents',
       mcpDescription: 'Calculate CVSS Base Scores from an MCP client. Supports CVSS 2.0, 3.0, 3.1, and 4.0.',
     },
     common: {
@@ -152,9 +152,9 @@ export const ui = {
   },
   id: {
     meta: {
-      homeTitle: 'Kalkulator CVSS & Server MCP | CVSS.my.id',
+      homeTitle: 'Kalkulator CVSS & Server MCP',
       homeDescription: 'Hitung skor CVSS langsung di browser atau hubungkan agen AI ke server MCP.',
-      mcpTitle: 'Server MCP Kalkulator CVSS untuk Agen AI | CVSS.my.id',
+      mcpTitle: 'Server MCP Kalkulator CVSS untuk Agen AI',
       mcpDescription: 'Hitung Base Score CVSS dari klien MCP. Mendukung CVSS 2.0, 3.0, 3.1, dan 4.0.',
     },
     common: {

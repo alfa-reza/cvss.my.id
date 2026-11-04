@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="CVSS.my.id">
+  <rect x="1" y="1" width="30" height="30" rx="7" fill="#15171b" stroke="#30343b" stroke-width="1.5"/>
+  <g transform="translate(0.4 2.35) scale(1.3)" fill="none" stroke="#e8eaed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2v3"/>
+    <path d="M3.34 19a10 10 0 1 1 17.32 0"/>
+    <path d="m12 14 4.5-4.5"/>
+    <circle cx="12" cy="14" r="1.5" fill="#e8eaed" stroke="none"/>
+  </g>
+</svg>
