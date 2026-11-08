@@ -131,6 +131,14 @@ describe('Static Build & Architecture Gate (AGENTS.md Section 2, 3, 5, 8, 9)', (
     }
   });
 
+  it('includes the assessment skill installation in both MCP pages and docs', () => {
+    const command = 'npx skills add alfa-reza/cvss-calculator-mcp --skill vulnerability-cvss-assessment';
+    for (const page of ['tools/mcp/index.html', 'id/tools/mcp/index.html', 'docs/mcp/index.html', 'id/docs/mcp/index.html']) {
+      const html = fs.readFileSync(path.join(WEBSITE_DIST, page), 'utf8');
+      assert.ok(html.includes(command), `Skill installation command missing in ${page}`);
+    }
+  });
+
   it('verifies calculator JS bundle makes zero network scoring or telemetry requests and meets gzip size budgets', () => {
     const assetsDir = path.join(CALC_DIST, 'assets');
     const files = fs.readdirSync(assetsDir);

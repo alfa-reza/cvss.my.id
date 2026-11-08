@@ -37,6 +37,16 @@ https://cvss.my.id/mcp
 - **Catatan**: Endpoint `https://cvss.my.id/mcp` adalah endpoint protokol untuk klien MCP, bukan halaman HTML untuk manusia. Untuk halaman ikhtisar manusia, kunjungi [Ikhtisar Alat MCP](/id/tools/mcp).
 - **Panduan**: [Penyiapan MCP Jarak Jauh (HTTP)](/id/docs/mcp/remote/)
 
+## Skill Penilaian Kerentanan
+
+Skill opsional ini memandu agen menilai bukti kerentanan, memilih metrik CVSS, dan menghitung Base Score menggunakan server MCP yang terhubung. Instal dengan [Skills CLI](https://github.com/vercel-labs/skills):
+
+```bash
+npx skills add alfa-reza/cvss-calculator-mcp --skill vulnerability-cvss-assessment
+```
+
+Pilih agen Anda saat diminta. Tambahkan `--global` agar skill tersedia di semua proyek. Hubungkan server MCP menggunakan salah satu pilihan di atas. Lihat [instruksi skill](https://github.com/alfa-reza/cvss-calculator-mcp/blob/main/skills/vulnerability-cvss-assessment/SKILL.md) dan [referensi alat](https://github.com/alfa-reza/cvss-calculator-mcp/blob/main/skills/vulnerability-cvss-assessment/references/tool-reference.md).
+
 ## Panduan Konfigurasi Klien
 
 Pilih agen AI atau editor Anda untuk konfigurasi siap tempel:

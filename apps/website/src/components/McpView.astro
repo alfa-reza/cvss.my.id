@@ -11,6 +11,7 @@ const t = ui[lang];
 const calcBaseUrl = '/calculator';
 const localInstallCmd = 'curl -fsSL https://get.cvss.my.id/install.sh | bash';
 const remoteMcpUrl = 'https://cvss.my.id/mcp';
+const skillInstallCmd = 'npx skills add alfa-reza/cvss-calculator-mcp --skill vulnerability-cvss-assessment';
 const docsBase = lang === 'id' ? '/id/docs' : '/docs';
 ---
 
@@ -126,6 +127,19 @@ const docsBase = lang === 'id' ? '/id/docs' : '/docs';
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="section-block" aria-labelledby="skill-heading">
+    <div class="section-header">
+      <h2 id="skill-heading">{t.mcp.skillHeading}</h2>
+      <p>{t.mcp.skillLead}</p>
+    </div>
+    <div class="command-row">
+      <pre class="command-code"><code id="mcp-skill-cmd">{skillInstallCmd}</code></pre>
+      <button type="button" class="btn copy-cmd-btn" data-copy-target="mcp-skill-cmd" data-status-target="mcp-skill-status">{t.mcp.copyCommand}</button>
+    </div>
+    <p>{t.mcp.skillNote} <a href={`${docsBase}/mcp/#${lang === 'id' ? 'skill-penilaian-kerentanan' : 'vulnerability-assessment-skill'}`} class="text-link">{t.mcp.skillGuide}</a></p>
+    <span id="mcp-skill-status" class="copy-status" role="status" aria-live="polite"></span>
   </section>
 
   <section class="section-block" aria-labelledby="contract-heading">

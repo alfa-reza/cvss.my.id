@@ -37,6 +37,16 @@ https://cvss.my.id/mcp
 - **Note**: The endpoint `https://cvss.my.id/mcp` is a protocol endpoint for MCP clients, not a human HTML page. For the human overview page, visit [MCP Tools Overview](/tools/mcp).
 - **Guide**: [Remote MCP Setup (HTTP)](/docs/mcp/remote/)
 
+## Vulnerability Assessment Skill
+
+The optional skill guides an agent through assessing vulnerability evidence, selecting CVSS metrics, and calculating a Base Score using the connected MCP server. Install it with the [Skills CLI](https://github.com/vercel-labs/skills):
+
+```bash
+npx skills add alfa-reza/cvss-calculator-mcp --skill vulnerability-cvss-assessment
+```
+
+Choose your agent when prompted. Add `--global` to make the skill available across projects. Connect the MCP server using one of the options above. Review the [skill instructions](https://github.com/alfa-reza/cvss-calculator-mcp/blob/main/skills/vulnerability-cvss-assessment/SKILL.md) and [tool reference](https://github.com/alfa-reza/cvss-calculator-mcp/blob/main/skills/vulnerability-cvss-assessment/references/tool-reference.md).
+
 ## Client Configuration Guides
 
 Choose your AI agent or editor for copy-paste configuration:
