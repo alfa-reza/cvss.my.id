@@ -12,6 +12,7 @@ const calcBaseUrl = '/calculator';
 const localInstallCmd = 'curl -fsSL https://get.cvss.my.id/install.sh | bash';
 const remoteMcpUrl = 'https://cvss.my.id/mcp';
 const skillInstallCmd = 'npx skills add alfa-reza/cvss-calculator-mcp --skill vulnerability-cvss-assessment';
+const agentSetupPrompt = 'Read https://get.cvss.my.id/LLM.txt and follow its instructions to set up CVSS Calculator MCP and offer to install its vulnerability assessment skill.';
 const docsBase = lang === 'id' ? '/id/docs' : '/docs';
 ---
 
@@ -54,6 +55,18 @@ const docsBase = lang === 'id' ? '/id/docs' : '/docs';
         {t.mcp.registry}
       </a>
     </div>
+  </section>
+
+  <section class="section-block" aria-labelledby="agent-setup-heading">
+    <div class="section-header">
+      <h2 id="agent-setup-heading">{t.mcp.agentSetupHeading}</h2>
+      <p>{t.mcp.agentSetupLead}</p>
+    </div>
+    <div class="command-row">
+      <pre class="command-code"><code id="mcp-agent-prompt">{agentSetupPrompt}</code></pre>
+      <button type="button" class="btn copy-cmd-btn" data-copy-target="mcp-agent-prompt" data-status-target="mcp-agent-status">{t.mcp.copyPrompt}</button>
+    </div>
+    <span id="mcp-agent-status" class="copy-status" role="status" aria-live="polite"></span>
   </section>
 
   <section class="section-block" aria-labelledby="setup-heading">

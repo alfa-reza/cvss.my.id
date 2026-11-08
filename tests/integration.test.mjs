@@ -139,6 +139,14 @@ describe('Static Build & Architecture Gate (AGENTS.md Section 2, 3, 5, 8, 9)', (
     }
   });
 
+  it('includes the agent-guided setup prompt in both MCP pages and docs', () => {
+    const prompt = 'Read https://get.cvss.my.id/LLM.txt and follow its instructions to set up CVSS Calculator MCP and offer to install its vulnerability assessment skill.';
+    for (const page of ['tools/mcp/index.html', 'id/tools/mcp/index.html', 'docs/mcp/index.html', 'id/docs/mcp/index.html']) {
+      const html = fs.readFileSync(path.join(WEBSITE_DIST, page), 'utf8');
+      assert.ok(html.includes(prompt), `Agent setup prompt missing in ${page}`);
+    }
+  });
+
   it('verifies calculator JS bundle makes zero network scoring or telemetry requests and meets gzip size budgets', () => {
     const assetsDir = path.join(CALC_DIST, 'assets');
     const files = fs.readdirSync(assetsDir);

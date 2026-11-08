@@ -9,6 +9,16 @@ description: Run the CVSS Calculator MCP server locally over stdio or connect to
 > **Scope Comparison: Base-Only MCP vs Full Browser Calculator**
 > The Go MCP server (`cvss-calculator-mcp`) computes **Base Scores only** via the `calculate_cvss` tool. When you need **Threat, Temporal, Environmental, or Supplemental** metric group scoring, use the [Full Browser Calculator](https://cvss.my.id/calculator/).
 
+## Set Up with an AI Agent
+
+Copy this prompt to your AI agent:
+
+```text
+Read https://get.cvss.my.id/LLM.txt and follow its instructions to set up CVSS Calculator MCP and offer to install its vulnerability assessment skill.
+```
+
+The agent will ask you to choose and approve local or remote MCP before making changes. It will ask for separate approval before installing the optional skill.
+
 ## Two Ways to Connect
 
 ### 1. Local MCP (`stdio`) - Recommended

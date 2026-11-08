@@ -9,6 +9,16 @@ description: Jalankan server CVSS Calculator MCP secara lokal melalui stdio atau
 > **Perbandingan Cakupan: MCP Khusus Base vs Kalkulator Browser Lengkap**
 > Server MCP Go (`cvss-calculator-mcp`) hanya menghitung **Base Score** melalui alat `calculate_cvss`. Jika Anda memerlukan penilaian kelompok metrik **Threat, Temporal, Environmental, atau Supplemental**, gunakan [Kalkulator Browser Lengkap](https://cvss.my.id/calculator/).
 
+## Penyiapan dengan Agen AI
+
+Salin prompt ini ke agen AI Anda:
+
+```text
+Read https://get.cvss.my.id/LLM.txt and follow its instructions to set up CVSS Calculator MCP and offer to install its vulnerability assessment skill.
+```
+
+Agen akan meminta Anda memilih dan menyetujui MCP lokal atau jarak jauh sebelum membuat perubahan. Agen juga akan meminta persetujuan terpisah sebelum menginstal skill opsional.
+
 ## Dua Cara untuk Terhubung
 
 ### 1. MCP Lokal (`stdio`) - Disarankan
