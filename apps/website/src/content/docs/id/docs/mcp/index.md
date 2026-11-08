@@ -29,7 +29,7 @@ Instal biner tunggal mandiri di komputer Anda dan biarkan klien AI menjalankan `
 curl -fsSL https://get.cvss.my.id/install.sh | bash
 ```
 
-- **OS yang didukung**: Linux dan macOS (`amd64` dan `arm64`), atau platform apa pun melalui `go install`.
+- **OS yang didukung**: Linux, macOS, dan Windows (`amd64` dan `arm64`). Lihat panduan penyiapan lokal untuk installer Windows.
 - **Transportasi**: `stdio`
 - **Batas laju**: Tidak ada (eksekusi 100% lokal, berfungsi offline).
 - **Panduan**: [Penyiapan MCP Lokal (stdio)](/id/docs/mcp/local/)

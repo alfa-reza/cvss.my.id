@@ -29,7 +29,7 @@ Install the standalone single binary onto your workstation and let your AI clien
 curl -fsSL https://get.cvss.my.id/install.sh | bash
 ```
 
-- **Supported OS**: Linux and macOS (`amd64` and `arm64`), or any platform via `go install`.
+- **Supported OS**: Linux, macOS, and Windows (`amd64` and `arm64`). See the local setup guide for the Windows installer.
 - **Transport**: `stdio`
 - **Rate limit**: None (100% local execution, works offline).
 - **Guide**: [Local MCP Setup (stdio)](/docs/mcp/local/)

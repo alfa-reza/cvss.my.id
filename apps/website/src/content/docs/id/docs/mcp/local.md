@@ -1,6 +1,6 @@
 ---
 title: Penyiapan MCP Lokal (stdio)
-description: Instal dan jalankan cvss-calculator-mcp secara lokal melalui stdio di Linux dan macOS tanpa batas laju.
+description: Instal dan jalankan cvss-calculator-mcp secara lokal melalui stdio di Linux, macOS, dan Windows tanpa batas laju.
 ---
 
 Menjalankan `cvss-calculator-mcp` secara lokal melalui `stdio` adalah penyiapan yang **disarankan** untuk pekerjaan rekayasa keamanan harian, tinjauan kode otomatis, dan triase kerentanan batch. Semua perhitungan dijalankan di komputer Anda tanpa latensi jaringan dan tanpa batas laju endpoint publik.
@@ -14,6 +14,16 @@ curl -fsSL https://get.cvss.my.id/install.sh | bash
 ```
 
 Installer mendeteksi sistem operasi Anda (`linux` atau `darwin`) dan arsitektur CPU (`amd64` atau `arm64`), mengunduh arsip rilis yang sesuai dari [`alfa-reza/cvss-calculator-mcp`](https://github.com/alfa-reza/cvss-calculator-mcp/releases), lalu memasang `cvss-calculator-mcp` ke `/usr/local/bin` (atau `~/.local/bin` jika `/usr/local/bin` tidak dapat ditulis tanpa `sudo`).
+
+### Windows (PowerShell, x64 dan ARM64)
+
+Jalankan di PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/alfa-reza/cvss-calculator-mcp/main/install.ps1 | iex
+```
+
+Installer memverifikasi checksum rilis dan memasang biner ke `%LOCALAPPDATA%\Programs\cvss-calculator-mcp` secara default. Tambahkan direktori tersebut ke PATH, atau gunakan path lengkap biner pada klien MCP Anda.
 
 ## 2. Metode Instalasi Alternatif
 

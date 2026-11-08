@@ -1,6 +1,6 @@
 ---
 title: Local MCP Setup (stdio)
-description: Install and run cvss-calculator-mcp locally over stdio on Linux and macOS with zero rate limits.
+description: Install and run cvss-calculator-mcp locally over stdio on Linux, macOS, and Windows with zero rate limits.
 ---
 
 Running `cvss-calculator-mcp` locally over `stdio` is the **recommended** setup for daily security engineering, automated code review, and batch vulnerability triage. All calculations execute on your machine with zero network latency and no public endpoint rate limits.
@@ -14,6 +14,16 @@ curl -fsSL https://get.cvss.my.id/install.sh | bash
 ```
 
 The installer detects your operating system (`linux` or `darwin`) and CPU architecture (`amd64` or `arm64`), downloads the matching release archive from [`alfa-reza/cvss-calculator-mcp`](https://github.com/alfa-reza/cvss-calculator-mcp/releases), and installs `cvss-calculator-mcp` into `/usr/local/bin` (or `~/.local/bin` if `/usr/local/bin` is not writable without `sudo`).
+
+### Windows (PowerShell, x64 and ARM64)
+
+Run in PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/alfa-reza/cvss-calculator-mcp/main/install.ps1 | iex
+```
+
+The installer verifies the release checksum and installs to `%LOCALAPPDATA%\Programs\cvss-calculator-mcp` by default. Add that directory to your PATH, or use the full binary path in your MCP client.
 
 ## 2. Alternative Installation Methods
 
