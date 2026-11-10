@@ -18,6 +18,8 @@ const t = ui[lang].status;
   data-rate-limited={t.rateLimited}
   data-checked-at={t.checkedAt}
 >
+  <div class="mcp-status-heading">{lang === 'id' ? 'Status endpoint' : 'Endpoint status'}</div>
+  <p class="mcp-status-intro">{lang === 'id' ? 'Hanya saat diminta. Tidak ada polling atau permintaan di latar belakang.' : 'On-demand only. No polling or background requests.'}</p>
   <button class="btn" type="button" data-mcp-check>{t.button}</button>
   <span class="mcp-status-line" data-mcp-status-line>
     <span class="mcp-status-dot" aria-hidden="true"></span>

@@ -1423,3 +1423,22 @@ main {
     transform: scale(1);
   }
 }
+
+/* MCP connection cards */
+.mcp-panel { padding: 24px; gap: 12px; }
+.mcp-panel.is-recommended { border-color: var(--border); }
+.mcp-panel-header h3 { font-size: 1.125rem; }
+.mcp-badge, .mcp-command-heading, .mcp-status-heading { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .1em; font-size: .75rem; }
+.mcp-badge { color: var(--muted); }
+.mcp-command-box { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.mcp-command-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 14px; color: var(--muted); border-bottom: 1px solid var(--border); }
+.mcp-command-heading .btn { min-width: 0; }
+.mcp-command-value { margin: 0; padding: 16px; overflow-x: auto; font-size: .875rem; }
+.mcp-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.mcp-actions .text-link { text-decoration: none; }
+.mcp-platform-note { margin: 0; color: var(--muted); font-size: .875rem; overflow-wrap: anywhere; }
+.mcp-status-check { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 0; padding: 16px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg); }
+.mcp-status-heading { color: var(--fg); }
+.mcp-status-check p { flex-basis: auto; }
+.mcp-status-check .mcp-status-intro { font-size: .875rem; }
+@media (max-width: 540px) { .mcp-panel { padding: 16px; } }

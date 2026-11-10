@@ -1646,3 +1646,12 @@ input:disabled,
     animation: none !important;
   }
 }
+
+/* Refined scoring workspace */
+.metric-card { padding: 18px; border-radius: 8px; transition: border-color .15s ease; }
+.metric-card:hover, .metric-card:focus-within { border-color: var(--border-control); }
+.metric-desc { line-height: 1.55; }
+.segmented-group { gap: 6px; }
+.seg-btn { border-radius: 6px; }
+.score-panel { border-radius: 10px; }
+.version-link { border-radius: 6px; }
