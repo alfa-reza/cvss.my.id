@@ -40,6 +40,7 @@ export default defineConfig({
       },
       customCss: ['./src/styles/starlight-custom.css'],
       head: [
+        { tag: 'link', attrs: { rel: 'icon', href: '/favicon-48.png', type: 'image/png', sizes: '48x48' } },
         {
           tag: 'link',
           attrs: {
